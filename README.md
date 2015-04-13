@@ -4,7 +4,7 @@ navit
 [![Build Status](https://img.shields.io/travis/nodeca/navit/master.svg?style=flat)](https://travis-ci.org/nodeca/navit)
 [![NPM version](https://img.shields.io/npm/v/navit.svg?style=flat)](https://www.npmjs.org/package/navit)
 
-> Wrapper for PhantomJS & SlimerJS to simplify browser tests scripting.
+> Wrapper for PhantomJS to simplify browser tests scripting.
 
 
 Examples
@@ -12,7 +12,7 @@ Examples
 
 ```js
 var Navit   = require('navit'),
-    browser = new Navit();
+    browser = new Navit(); // Short call: `browser = require('navit')();`
 
 var stack = [];
 
@@ -72,7 +72,7 @@ Engines options:
 
 Navigation:
 
-- + `.do.goto(url)`
+- + `.do.open(url)`
 - + `.do.post(url, data, options)`
 - + `.do.back()`
 - + `.do.forward()`
@@ -87,7 +87,7 @@ DOM:
 - + `.do.upload(selector, path)`
 - + `.do.fill(selector, obj [, submit])`
 - + `.do.scrollTo(top, left)`
-- + `.do.inject(type, file)`
+- + `.do.inject([type, ] file)`
 
 Waiting:
 

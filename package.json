@@ -1,0 +1,28 @@
+{
+  "name": "navit",
+  "version": "1.0.0",
+  "description": "Wrapper for PhantomJS to simplify browser tests scripting",
+  "keywords": [
+    "phantomjs",
+    "testing",
+    "browser"
+  ],
+  "repository": "nodeca/navit",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^0.9.0",
+    "chai": "^2.2.0",
+    "lodash": "^3.6.0",
+    "node-phantom-simple": "^1.2.0",
+    "phantomjs": "^1.9.16"
+  },
+  "devDependencies": {
+    "eslint": "0.18.0",
+    "eslint-plugin-nodeca": "^1.0.3",
+    "express": "^4.12.3",
+    "mocha": "^2.2.4"
+  },
+  "scripts": {
+    "test": "make test"
+  }
+}
