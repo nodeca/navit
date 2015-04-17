@@ -3,3 +3,5 @@ globals:
   it: false
   before: false
   after: false
+  window: true
+  document: true

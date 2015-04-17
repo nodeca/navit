@@ -125,7 +125,6 @@ Sugar:
 - + `.set.authentication(user, pass)`
 - + `.set.viewport(width, height)`
 - + `.set.zoom(scale)`
-- + `.set.timeout(scale)`
 - + `.set.cookie(obj)`
 - + `.set.cookie(name, value)`
 

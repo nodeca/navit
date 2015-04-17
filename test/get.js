@@ -25,211 +25,313 @@ describe('Navit.get.*', function () {
       }
 
       // Init phantom before execute first test
-      browser.get.cookies(function () {}).run(done);
+      browser.run(done);
     });
   });
 
+  describe('title', function () {
+    it('with function', function (done) {
+      browser
+        .open('http://localhost:17345/test/fixtures/get/title.html')
+        .get.title(function (title) {
+          assert.equal(title, 'test title');
+        })
+        .run(function (err) {
+          done(err);
+        });
+    });
 
-  it('title with function', function (done) {
-    browser
-      .open('http://localhost:17345/test/fixtures/fixtures_test.html')
-      .get.title(function (title) {
-        assert.equal(title, 'test title');
-      })
-      .run(function (err) {
-        done(err);
-      });
-  });
+    it('with async function', function (done) {
+      browser
+        .open('http://localhost:17345/test/fixtures/get/title.html')
+        .get.title(function (title, next) {
+          assert.equal(title, 'test title');
+          next('test-err');
+        })
+        .run(function (err) {
+          assert.equal(err ? err : '', 'test-err');
+          done();
+        });
+    });
 
-  it('title with array', function (done) {
-    var results = [];
+    it('with array', function (done) {
+      var results = [];
 
-    browser
-        .open('http://localhost:17345/test/fixtures/fixtures_test.html')
+      browser
+        .open('http://localhost:17345/test/fixtures/get/title.html')
         .get.title(results)
         .run(function (err) {
 
-      if (err) {
-        done(err);
-        return;
-      }
+          if (err) {
+            done(err);
+            return;
+          }
 
-      assert.equal(results[results.length - 1], 'test title');
-      done();
+          assert.equal(results[results.length - 1], 'test title');
+          done();
+        });
     });
   });
 
-  it('url with function', function (done) {
-    browser
-      .open('http://localhost:17345/test/fixtures/fixtures_test.html')
-      .get.url(function (url) {
-        assert.equal(url, 'http://localhost:17345/test/fixtures/fixtures_test.html');
-      })
-      .run(function (err) {
-        done(err);
-      });
-  });
+  describe('url', function () {
+    it('with function', function (done) {
+      browser
+        .open('http://localhost:17345/test/fixtures/get/url.html')
+        .get.url(function (url) {
+          assert.equal(url, 'http://localhost:17345/test/fixtures/get/url.html');
+        })
+        .run(function (err) {
+          done(err);
+        });
+    });
 
-  it('url with array', function (done) {
-    var results = [];
+    it('with array', function (done) {
+      var results = [];
 
-    browser
-        .open('http://localhost:17345/test/fixtures/fixtures_test.html')
+      browser
+        .open('http://localhost:17345/test/fixtures/get/url.html')
         .get.url(results)
         .run(function (err) {
 
-      if (err) {
-        done(err);
-        return;
-      }
+          if (err) {
+            done(err);
+            return;
+          }
 
-      assert.equal(results[results.length - 1], 'http://localhost:17345/test/fixtures/fixtures_test.html');
-      done();
+          assert.equal(results[results.length - 1], 'http://localhost:17345/test/fixtures/get/url.html');
+          done();
+        });
     });
   });
 
-  it('count with function', function (done) {
-    browser
-      .open('http://localhost:17345/test/fixtures/fixtures_test.html')
-      .get.count('ul:first-child li', function (count) {
-        assert.equal(count, 7);
-      })
-      .run(function (err) {
-        done(err);
-      });
-  });
+  describe('count', function () {
+    it('with function', function (done) {
+      browser
+        .open('http://localhost:17345/test/fixtures/get/count.html')
+        .get.count('ul:first-child li', function (count) {
+          assert.equal(count, 7);
+        })
+        .run(function (err) {
+          done(err);
+        });
+    });
 
-  it('count with array', function (done) {
-    var results = [];
+    it('with array', function (done) {
+      var results = [];
 
-    browser
-        .open('http://localhost:17345/test/fixtures/fixtures_test.html')
+      browser
+        .open('http://localhost:17345/test/fixtures/get/count.html')
         .get.count('ul:first-child li', results)
         .run(function (err) {
 
-      if (err) {
-        done(err);
-        return;
-      }
+          if (err) {
+            done(err);
+            return;
+          }
 
-      assert.equal(results[results.length - 1], 7);
-      done();
+          assert.equal(results[results.length - 1], 7);
+          done();
+        });
+    });
+
+    it('params as functions', function (done) {
+      browser
+        .open('http://localhost:17345/test/fixtures/get/count.html')
+        .get.count(function () {
+          return 'ul:first-child li';
+        }, function (count) {
+          assert.equal(count, 7);
+        })
+        .run(function (err) {
+          done(err);
+        });
     });
   });
 
-  it('text with function', function (done) {
-    browser
-      .open('http://localhost:17345/test/fixtures/fixtures_test.html')
-      .get.text('#test-div', function (val) {
-        assert.equal(val, 'Here is HTML!');
-      })
-      .run(function (err) {
-        done(err);
-      });
-  });
+  describe('text', function () {
+    it('with function', function (done) {
+      browser
+        .open('http://localhost:17345/test/fixtures/get/text.html')
+        .get.text('#test-div', function (val) {
+          assert.equal(val, 'Here is HTML!');
+        })
+        .run(function (err) {
+          done(err);
+        });
+    });
 
-  it('text with array', function (done) {
-    var results = [];
+    it('with array', function (done) {
+      var results = [];
 
-    browser
-        .open('http://localhost:17345/test/fixtures/fixtures_test.html')
+      browser
+        .open('http://localhost:17345/test/fixtures/get/text.html')
         .get.text('#test-div', results)
         .run(function (err) {
 
-      if (err) {
-        done(err);
-        return;
-      }
+          if (err) {
+            done(err);
+            return;
+          }
 
-      assert.equal(results[results.length - 1], 'Here is HTML!');
-      done();
+          assert.equal(results[results.length - 1], 'Here is HTML!');
+          done();
+        });
+    });
+
+    it('params is functions', function (done) {
+      browser
+        .open('http://localhost:17345/test/fixtures/get/text.html')
+        .get.text(function () {
+          return '#test-div';
+        }, function (val) {
+          assert.equal(val, 'Here is HTML!');
+        })
+        .run(function (err) {
+          done(err);
+        });
     });
   });
 
-  it('html with function', function (done) {
-    browser
-      .open('http://localhost:17345/test/fixtures/fixtures_test.html')
-      .get.html('#test-div', function (val) {
-        assert.equal(val, 'Here is <b>HTML</b>!');
-      })
-      .run(function (err) {
-        done(err);
-      });
-  });
-
-  it('html with array', function (done) {
-    var results = [];
-
-    browser
-      .open('http://localhost:17345/test/fixtures/fixtures_test.html')
-      .get.html('#test-div', results)
-      .run(function (err) {
-
-        if (err) {
+  describe('html', function () {
+    it('with function', function (done) {
+      browser
+        .open('http://localhost:17345/test/fixtures/get/html.html')
+        .get.html('#test-div', function (val) {
+          assert.equal(val, 'Here is <b>HTML</b>!');
+        })
+        .run(function (err) {
           done(err);
-          return;
-        }
+        });
+    });
 
-        assert.equal(results[results.length - 1], 'Here is <b>HTML</b>!');
-        done();
-      });
+    it('with array', function (done) {
+      var results = [];
+
+      browser
+        .open('http://localhost:17345/test/fixtures/get/html.html')
+        .get.html('#test-div', results)
+        .run(function (err) {
+
+          if (err) {
+            done(err);
+            return;
+          }
+
+          assert.equal(results[results.length - 1], 'Here is <b>HTML</b>!');
+          done();
+        });
+    });
+
+    it('params is functions', function (done) {
+      browser
+        .open('http://localhost:17345/test/fixtures/get/html.html')
+        .get.html(function () {
+          return '#test-div';
+        }, function (val) {
+          assert.equal(val, 'Here is <b>HTML</b>!');
+        })
+        .run(function (err) {
+          done(err);
+        });
+    });
+
+    it('for whole page', function (done) {
+      var fixture = fs.readFileSync(path.join(__dirname, 'fixtures', 'get', 'html.html'), 'utf-8')
+        .split(/[\n ]/)
+        .join('');
+
+      browser
+        .open('http://localhost:17345/test/fixtures/get/html.html')
+        .get.html(function (html) {
+          assert.equal(html.split(/[\n ]/).join(''), fixture);
+        })
+        .run(done);
+    });
   });
 
-  it('html for whole page', function (done) {
-    var fixture = fs.readFileSync(path.join(__dirname, 'fixtures', 'fixtures_test.html'), 'utf-8')
-      .split(/[\n ]/)
-      .join('');
+  describe('attribute', function () {
+    it('with function', function (done) {
+      browser
+        .open('http://localhost:17345/test/fixtures/get/attribute.html')
+        .get.attribute('#test-div', 'data-test-attr', function (val) {
+          assert.equal(val, 'test attr');
+        })
+        .run(function (err) {
+          done(err);
+        });
+    });
 
-    browser
-      .open('http://localhost:17345/test/fixtures/fixtures_test.html')
-      .get.html(function (html) {
-        assert.equal(html.split(/[\n ]/).join(''), fixture);
-      })
-      .run(done);
-  });
+    it('with array', function (done) {
+      var results = [];
 
-  it('attribute with function', function (done) {
-    browser
-      .open('http://localhost:17345/test/fixtures/fixtures_test.html')
-      .get.attribute('#test-div', 'data-test-attr', function (val) {
-        assert.equal(val, 'test attr');
-      })
-      .run(function (err) {
-        done(err);
-      });
-  });
-
-  it('attribute with array', function (done) {
-    var results = [];
-
-    browser
-        .open('http://localhost:17345/test/fixtures/fixtures_test.html')
+      browser
+        .open('http://localhost:17345/test/fixtures/get/attribute.html')
         .get.attribute('#test-div', 'data-test-attr', results)
         .run(function (err) {
 
-      if (err) {
-        done(err);
-        return;
-      }
+          if (err) {
+            done(err);
+            return;
+          }
 
-      assert.equal(results[results.length - 1], 'test attr');
-      done();
+          assert.equal(results[results.length - 1], 'test attr');
+          done();
+        });
+    });
+
+    it('params as functions', function (done) {
+      var results = [];
+
+      browser
+        .open('http://localhost:17345/test/fixtures/get/attribute.html')
+        .get.attribute(function () {
+          return '#test-div';
+        }, function () {
+          return 'data-test-attr';
+        }, results)
+        .run(function (err) {
+
+          if (err) {
+            done(err);
+            return;
+          }
+
+          assert.equal(results[results.length - 1], 'test attr');
+          done();
+        });
     });
   });
 
   it('cookies with function', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/fixtures_test.html')
-      .set.cookies('a', 'b')
+      .open('http://localhost:17345/test/fixtures/get/cookies.html')
+      .set.cookie('a', 'b')
       .get.cookies(function (val) {
-        assert.deepEqual(val, [ {
-          domain: 'localhost',
-          httponly: false,
-          name: 'a',
-          path: '/test/fixtures/',
-          secure: false,
-          value: 'b'
-        } ]);
+        assert.equal(val[0].value, 'b');
+      })
+      .run(function (err) {
+        done(err);
+      });
+  });
+
+  it('evaluate', function (done) {
+    browser
+      .open('http://localhost:17345/test/fixtures/get/evaluate.html')
+      .get.evaluate(function (a, b, c) {
+        return a + b + c;
+      }, 1, 2, 3, function (result) {
+        assert.equal(result, 6);
+      })
+      .run(function (err) {
+        done(err);
+      });
+  });
+
+  it('status', function (done) {
+    browser
+      .open('http://localhost:17345/test/fixtures/get/status.html')
+      .get.status(function (st) {
+        assert.equal(st, 200);
       })
       .run(function (err) {
         done(err);
