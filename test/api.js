@@ -217,6 +217,19 @@ describe('Navit api', function () {
       });
   });
 
+  it('options.inject', function (done) {
+    var browser = navit({ inject: [
+      path.join(__dirname, 'fixtures', 'api', 'inject.js')
+    ] });
+
+    browser
+      .open('http://localhost:17345/test/fixtures/api/inject.html')
+      .test.text('#html-from-js', 'html from js')
+      .do.reload()
+      .test.text('#html-from-js', 'html from js')
+      .run(done);
+  });
+
   after(function () {
     server.close();
     browser.close();
