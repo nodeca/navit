@@ -17,6 +17,12 @@ describe('Navit.do.*', function () {
 
     server = express()
         .use(express.static(path.join(__dirname, '..')))
+        .get('/test/fixtures/do/open.html', function (req, res) {
+          res.send(JSON.stringify(req.headers));
+        })
+        .post('/test/fixtures/do/post.html', function (req, res) {
+          res.send('post-test');
+        })
         .listen(17345, function (err) {
 
       if (err) {
@@ -235,6 +241,22 @@ describe('Navit.do.*', function () {
 
         done();
       });
+  });
+
+  it('open with headers override', function (done) {
+    browser
+      .set.headers({ 'test-header': 'test-value', 'test-header-2': 'test-value' })
+      .do.open('http://localhost:17345/test/fixtures/do/open.html', { headers: { 'test-header': 'test-open-value' } })
+      .test.body(/test-open-value/)
+      .test.body(/test-value/)
+      .run(done);
+  });
+
+  it('post', function (done) {
+    browser
+      .do.post('http://localhost:17345/test/fixtures/do/post.html')
+      .test.body(/post-test/)
+      .run(done);
   });
 
   after(function () {

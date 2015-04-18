@@ -72,7 +72,7 @@ Engines options:
 
 Navigation:
 
-- + `.do.open(url)`
+- + `.do.open(url [, options])`
 - + `.do.post(url, data, options)`
 - + `.do.back()`
 - + `.do.forward()`
