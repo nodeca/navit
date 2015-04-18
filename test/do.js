@@ -55,6 +55,19 @@ describe('Navit.do.*', function () {
         });
     });
 
+    it('with function and extra params', function (done) {
+      browser
+        .open('http://localhost:17345/test/fixtures/do/wait.html')
+        .do.wait(function (param1, param2) {
+          return param1 === 'abc' && param2 === 'cde';
+        }, function () {
+          return 'abc';
+        }, 'cde')
+        .run(function (err) {
+          done(err);
+        });
+    });
+
     it('with function fail by timeout', function (done) {
       browser
         .open('http://localhost:17345/test/fixtures/do/wait.html')

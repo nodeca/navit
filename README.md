@@ -94,7 +94,7 @@ Waiting:
 - \+ `.do.wait()`
 - \+ `.do.wait(delay)`
 - \+ `.do.wait(selector [, timeout])`
-- \+ `.do.wait(fn [, timeout])`
+- \+ `.do.wait(fn [, params..., timeout])`
 
 
 ## Get data/params: `.get.*()`
