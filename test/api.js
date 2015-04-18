@@ -196,6 +196,27 @@ describe('Navit api', function () {
     assert.equal(browser.use_test(), 'abc');
   });
 
+  it('afterOpen', function (done) {
+    browser.afterOpen = function () {
+      this
+        .set.cookie('ao', 'ao-test-cookies')
+        .do.type('#ao-test', 'ao-test-type');
+    };
+
+    browser
+      .open('http://localhost:17345/test/fixtures/api/after_open.html')
+      .test.evaluate(function () {
+        return document.querySelector('#ao-test').value === 'ao-test-type';
+      })
+      .get.cookies(function (coockies) {
+        assert.equal(coockies[0].value, 'ao-test-cookies');
+      })
+      .run(function (err) {
+        browser.afterOpen = null;
+        done(err);
+      });
+  });
+
   after(function () {
     server.close();
     browser.close();
