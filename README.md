@@ -26,7 +26,7 @@ browser
   .wait(function changed(data) {
     if (location.url !== data[data.length - 1]) { return true; }
   }, stack)
-  .test.exists('forum-topiclines')
+  .test.exists('.forum-topiclines')
   .run(function(err) {
     console.log(err || 'Succeeded');
   });
@@ -99,18 +99,18 @@ Waiting:
 
 ## Get data/params: `.get.*()`
 
-- + `.get.title(fn [, callback])`
-- + `.get.url(fn [, callback])`
-- + `.get.count(selector, fn [, callback])`
-- + `.get.text(selector, fn [, callback])`
-- + `.get.html(selector, fn [, callback])`
-- + `.get.html(fn [, callback])` - full page html.
-- + `.get.attribute(selector, attribute, fn [, callback])`
-- `.get.status(fn [, callback])`
-- `.get.body(fn [, callback])`
-- `.get.headers(fn [, callback])`, assertion pair is .assert.header(...), for single header
-- + `.get.response(fn [, callback])`
-- `.get.cookies(fn [, callback])` (no pair in .assert.*)
+- + `.get.title(fn)`
+- + `.get.url(fn)`
+- + `.get.count(selector, fn)`
+- + `.get.text(selector, fn)`
+- + `.get.html(selector, fn)`
+- + `.get.html(fn)` - full page html.
+- + `.get.attribute(selector, attribute, fn)`
+- `.get.status(fn)`
+- `.get.body(fn)`
+- `.get.headers(fn)`, assertion pair is .test.header(...), for single header
+- + `.get.response(fn)`
+- `.get.cookies(fn)` (no pair in .test.*)
 
 Sugar:
 
@@ -165,7 +165,6 @@ Special sugar (but without custom message)
 // create
 .batch.create('init_page', function() {
   this.
-    .timeout(2000)
     .wait(function () {
       try {
         return window.NodecaLoader.booted;
@@ -174,7 +173,7 @@ Special sugar (but without custom message)
     });
     .viewport(1600, 1200)
     .inject(require.resolve('jquery/dist/jquery'))
-    .here(function (this) {
+    .fn(function () {
       console.log('Batch done.');
     })
 });
