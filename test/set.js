@@ -16,6 +16,9 @@ describe('Navit.set.*', function () {
 
     server = express()
         .use(express.static(path.join(__dirname, '..')))
+        .get('/test/fixtures/set/headers.html', function (req, res) {
+          res.send(JSON.stringify(req.headers));
+        })
         .listen(17345, function (err) {
 
       if (err) {
@@ -88,6 +91,14 @@ describe('Navit.set.*', function () {
       .get.cookies(function (cookies) {
         assert.equal(cookies.length, 0);
       })
+      .run(done);
+  });
+
+  it('headers', function (done) {
+    browser
+      .set.headers({ 'test-header': 'test-value' })
+      .open('http://localhost:17345/test/fixtures/set/headers.html')
+      .test.body(/test-value/)
       .run(done);
   });
 
