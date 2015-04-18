@@ -135,7 +135,7 @@ describe('Navit api', function () {
   });
 
   it('.batch', function (done) {
-    browser.batch('test_batch', function () {
+    browser.batch.create('test_batch', function () {
       this
         .open('http://localhost:17345/test/fixtures/api/batch.html')
         .set.cookie('batch', 'cookies');

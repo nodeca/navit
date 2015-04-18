@@ -163,7 +163,7 @@ Special sugar (but without custom message)
 
 ```js
 // create
-.batch('init_page', function() {
+.batch.create('init_page', function() {
   this.
     .timeout(2000)
     .wait(function () {
