@@ -7,6 +7,17 @@ navit
 > Wrapper for PhantomJS to simplify browser tests scripting.
 
 
+Install
+-------
+
+Note, you need `phantomjs` in your dependencies.
+
+```bash
+npm install navit --save
+npm install phantomjs --save
+```
+
+
 Examples
 --------
 
@@ -99,7 +110,9 @@ DOM:
 
 Waiting:
 
-- \+ `.do.wait()` - wait until page ready.
+- \+ `.do.wait()` - wait until page ready; can be useful after `click`, `back`
+  and `forward` actions (`open` and `reload` track progress for html pages
+  automatically)
 - \+ `.do.wait(delay)` - pause for `delay` milliseconds
 - \+ `.do.wait(selector [, timeout])` - wait until selector available
 - \+ `.do.wait(fn [, params..., timeout])` - evaluate function in cycle, until
@@ -200,3 +213,16 @@ Special sugar (but without custom message):
 // run
 .batch('init_page')
 ```
+
+
+Authors
+-------
+
+- [Kirill Efimov](https://github.com/Kirill89)
+- [Vitaly Puzrin](https://github.com/puzrin)
+
+
+License
+-------
+
+[MIT](https://raw.github.com/nodeca/navit/master/LICENSE)
