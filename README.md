@@ -60,7 +60,6 @@ Navit-specific options:
 - `inject`: Array of scripts (file paths) to inject after every page load
   (`[ require.resolve('jquery/dist/jquery') ]`).
 - `timeout`: Page load and `.wait()` timeout, default `5000ms`.
-- `interval`: Poll interval to check load state, default `50ms`.
 - `port`: mounting port for browser engine (PhantomJS) trabsport, default `12301`.
 
 Engines options:

@@ -13,7 +13,7 @@ describe('Navit.do.*', function () {
   var browser;
 
   before(function (done) {
-    browser = navit({ interval: 1 });
+    browser = navit();
 
     server = express()
         .use(express.static(path.join(__dirname, '..')))
