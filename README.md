@@ -43,6 +43,9 @@ browser
   });
 ```
 
+Also look files in [test folder](https://github.com/nodeca/navit/tree/master/test).
+Those are real examples how to use `navit` with `mocha`.
+
 
 API
 ---
@@ -71,9 +74,9 @@ Navit-specific options:
 - `inject`: Array of scripts (file paths) to inject after every page load
   (`[ require.resolve('jquery/dist/jquery') ]`).
 - `timeout`: Page load and `.wait()` timeout, default `5000ms`.
-- `port`: mounting port for browser engine (PhantomJS) trabsport, default `12301`.
+- `port`: mounting port for browser engine (PhantomJS) transport, default `12301`.
 
-Engines options:
+Browser engine options:
 
 - `loadImages`: loads all inlined images, `true` (default) or `false`.
 - `ignoreSslErrors`: ignores SSL errors (expired/self-signed certificate errors),
@@ -122,8 +125,9 @@ Waiting:
 ## Get data/params: `.get.*()`
 
 All functions, passed to `.get.*`, can be sync (with 1 param) or async (with 2
-params). If function returns not `false` type of result (usually a `Error`),
-chain will be terminated. That can be used to create complex test conditions.
+params). If function returns not `false` type of result (usually a `Error`) or
+throws exception, chain will be terminated. That can be used to create complex
+test conditions.
 
 - \+ `.get.title(fn)`
 - \+ `.get.url(fn)`
@@ -192,6 +196,9 @@ Special sugar (but without custom message):
 
 
 ## Batches
+
+`navit` allows record sequence or commands to run it later with one call as
+many times as you wish.
 
 ```js
 // create
