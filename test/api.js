@@ -13,7 +13,7 @@ describe('Navit api', function () {
   var browser;
 
   before(function (done) {
-    browser = navit();
+    browser = navit({ prefix: 'http://localhost:17345' });
 
     server = express()
       .use(express.static(path.join(__dirname, '..')))
@@ -137,7 +137,7 @@ describe('Navit api', function () {
   it('.batch', function (done) {
     browser.batch.create('test_batch', function () {
       this
-        .open('http://localhost:17345/test/fixtures/api/batch.html')
+        .open('/test/fixtures/api/batch.html')
         .set.cookie('batch', 'cookies');
     });
 
@@ -156,7 +156,7 @@ describe('Navit api', function () {
       var results = [];
 
       browser
-        .open('http://localhost:17345/test/fixtures/api/fn.html')
+        .open('/test/fixtures/api/fn.html')
         .get.text('body', results)
         .fn(function (a, b, c, next) {
           assert.equal(results[0], 'test text');
@@ -173,7 +173,7 @@ describe('Navit api', function () {
       var results = [];
 
       browser
-        .open('http://localhost:17345/test/fixtures/api/fn.html')
+        .open('/test/fixtures/api/fn.html')
         .get.text('body', results)
         .fn(function (a, b, c) {
           assert.equal(results[0], 'test text');
@@ -204,7 +204,7 @@ describe('Navit api', function () {
     };
 
     browser
-      .open('http://localhost:17345/test/fixtures/api/after_open.html')
+      .open('/test/fixtures/api/after_open.html')
       .test.evaluate(function () {
         return document.querySelector('#ao-test').value === 'ao-test-type';
       })

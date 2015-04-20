@@ -12,7 +12,7 @@ describe('Navit.set.*', function () {
   var browser;
 
   before(function (done) {
-    browser = navit();
+    browser = navit({ prefix: 'http://localhost:17345' });
 
     server = express()
         .use(express.static(path.join(__dirname, '..')))
@@ -36,7 +36,7 @@ describe('Navit.set.*', function () {
   it('useragent', function (done) {
     browser
       .set.useragent('test-ua')
-      .open('http://localhost:17345/test/fixtures/set/useragent.html')
+      .open('/test/fixtures/set/useragent.html')
       .test.evaluate(function () {
         return window.navigator.userAgent === 'test-ua';
       })
@@ -47,7 +47,7 @@ describe('Navit.set.*', function () {
 
   it('zoom', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/set/zoom.html')
+      .open('/test/fixtures/set/zoom.html')
       .set.zoom(0.5)
       .test.evaluate(function () {
         return window.screen.width / window.innerWidth <= 0.5;
@@ -60,7 +60,7 @@ describe('Navit.set.*', function () {
 
   it('viewport', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/set/viewport.html')
+      .open('/test/fixtures/set/viewport.html')
       .set.viewport(110, 120)
       .test.evaluate(function () {
         return window.innerWidth === 110 && window.innerHeight === 120;
@@ -72,7 +72,7 @@ describe('Navit.set.*', function () {
 
   it('cookies', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/set/cookies.html')
+      .open('/test/fixtures/set/cookies.html')
       .set.cookie({
         name: 'test',
         value: 'cookie',
@@ -97,7 +97,7 @@ describe('Navit.set.*', function () {
   it('headers', function (done) {
     browser
       .set.headers({ 'test-header': 'test-value' })
-      .open('http://localhost:17345/test/fixtures/set/headers.html')
+      .open('/test/fixtures/set/headers.html')
       .test.body(/test-value/)
       .run(done);
   });

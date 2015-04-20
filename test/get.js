@@ -13,7 +13,7 @@ describe('Navit.get.*', function () {
   var browser;
 
   before(function (done) {
-    browser = navit();
+    browser = navit({ prefix: 'http://localhost:17345' });
 
     server = express()
         .use(express.static(path.join(__dirname, '..')))
@@ -32,7 +32,7 @@ describe('Navit.get.*', function () {
   describe('title', function () {
     it('with function', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/get/title.html')
+        .open('/test/fixtures/get/title.html')
         .get.title(function (title) {
           assert.equal(title, 'test title');
         })
@@ -43,7 +43,7 @@ describe('Navit.get.*', function () {
 
     it('with async function', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/get/title.html')
+        .open('/test/fixtures/get/title.html')
         .get.title(function (title, next) {
           assert.equal(title, 'test title');
           next('test-err');
@@ -58,7 +58,7 @@ describe('Navit.get.*', function () {
       var results = [];
 
       browser
-        .open('http://localhost:17345/test/fixtures/get/title.html')
+        .open('/test/fixtures/get/title.html')
         .get.title(results)
         .run(function (err) {
 
@@ -76,7 +76,7 @@ describe('Navit.get.*', function () {
   describe('url', function () {
     it('with function', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/get/url.html')
+        .open('/test/fixtures/get/url.html')
         .get.url(function (url) {
           assert.equal(url, 'http://localhost:17345/test/fixtures/get/url.html');
         })
@@ -89,7 +89,7 @@ describe('Navit.get.*', function () {
       var results = [];
 
       browser
-        .open('http://localhost:17345/test/fixtures/get/url.html')
+        .open('/test/fixtures/get/url.html')
         .get.url(results)
         .run(function (err) {
 
@@ -107,7 +107,7 @@ describe('Navit.get.*', function () {
   describe('count', function () {
     it('with function', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/get/count.html')
+        .open('/test/fixtures/get/count.html')
         .get.count('ul:first-child li', function (count) {
           assert.equal(count, 7);
         })
@@ -120,7 +120,7 @@ describe('Navit.get.*', function () {
       var results = [];
 
       browser
-        .open('http://localhost:17345/test/fixtures/get/count.html')
+        .open('/test/fixtures/get/count.html')
         .get.count('ul:first-child li', results)
         .run(function (err) {
 
@@ -136,7 +136,7 @@ describe('Navit.get.*', function () {
 
     it('params as functions', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/get/count.html')
+        .open('/test/fixtures/get/count.html')
         .get.count(function () {
           return 'ul:first-child li';
         }, function (count) {
@@ -151,7 +151,7 @@ describe('Navit.get.*', function () {
   describe('text', function () {
     it('with function', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/get/text.html')
+        .open('/test/fixtures/get/text.html')
         .get.text('#test-div', function (val) {
           assert.equal(val, 'Here is HTML!');
         })
@@ -164,7 +164,7 @@ describe('Navit.get.*', function () {
       var results = [];
 
       browser
-        .open('http://localhost:17345/test/fixtures/get/text.html')
+        .open('/test/fixtures/get/text.html')
         .get.text('#test-div', results)
         .run(function (err) {
 
@@ -180,7 +180,7 @@ describe('Navit.get.*', function () {
 
     it('params is functions', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/get/text.html')
+        .open('/test/fixtures/get/text.html')
         .get.text(function () {
           return '#test-div';
         }, function (val) {
@@ -195,7 +195,7 @@ describe('Navit.get.*', function () {
   describe('html', function () {
     it('with function', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/get/html.html')
+        .open('/test/fixtures/get/html.html')
         .get.html('#test-div', function (val) {
           assert.equal(val, 'Here is <b>HTML</b>!');
         })
@@ -208,7 +208,7 @@ describe('Navit.get.*', function () {
       var results = [];
 
       browser
-        .open('http://localhost:17345/test/fixtures/get/html.html')
+        .open('/test/fixtures/get/html.html')
         .get.html('#test-div', results)
         .run(function (err) {
 
@@ -224,7 +224,7 @@ describe('Navit.get.*', function () {
 
     it('params is functions', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/get/html.html')
+        .open('/test/fixtures/get/html.html')
         .get.html(function () {
           return '#test-div';
         }, function (val) {
@@ -241,7 +241,7 @@ describe('Navit.get.*', function () {
         .join('');
 
       browser
-        .open('http://localhost:17345/test/fixtures/get/html.html')
+        .open('/test/fixtures/get/html.html')
         .get.html(function (html) {
           assert.equal(html.split(/[\n ]/).join(''), fixture);
         })
@@ -252,7 +252,7 @@ describe('Navit.get.*', function () {
   describe('attribute', function () {
     it('with function', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/get/attribute.html')
+        .open('/test/fixtures/get/attribute.html')
         .get.attribute('#test-div', 'data-test-attr', function (val) {
           assert.equal(val, 'test attr');
         })
@@ -265,7 +265,7 @@ describe('Navit.get.*', function () {
       var results = [];
 
       browser
-        .open('http://localhost:17345/test/fixtures/get/attribute.html')
+        .open('/test/fixtures/get/attribute.html')
         .get.attribute('#test-div', 'data-test-attr', results)
         .run(function (err) {
 
@@ -283,7 +283,7 @@ describe('Navit.get.*', function () {
       var results = [];
 
       browser
-        .open('http://localhost:17345/test/fixtures/get/attribute.html')
+        .open('/test/fixtures/get/attribute.html')
         .get.attribute(function () {
           return '#test-div';
         }, function () {
@@ -304,7 +304,7 @@ describe('Navit.get.*', function () {
 
   it('cookies with function', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/get/cookies.html')
+      .open('/test/fixtures/get/cookies.html')
       .set.cookie('a', 'b')
       .get.cookies(function (val) {
         assert.equal(val[0].value, 'b');
@@ -316,7 +316,7 @@ describe('Navit.get.*', function () {
 
   it('evaluate', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/get/evaluate.html')
+      .open('/test/fixtures/get/evaluate.html')
       .get.evaluate(function (a, b, c) {
         return a + b + c;
       }, 1, 2, 3, function (result) {
@@ -329,7 +329,7 @@ describe('Navit.get.*', function () {
 
   it('status', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/get/status.html')
+      .open('/test/fixtures/get/status.html')
       .get.status(function (st) {
         assert.equal(st, 200);
       })

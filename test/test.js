@@ -12,7 +12,7 @@ describe('Navit.test.*', function () {
   var browser;
 
   before(function (done) {
-    browser = navit();
+    browser = navit({ prefix: 'http://localhost:17345' });
 
     server = express()
         .use(express.static(path.join(__dirname, '..')))
@@ -31,13 +31,13 @@ describe('Navit.test.*', function () {
   describe('text', function () {
     it('positive', function (done) {
       browser
-          .open('http://localhost:17345/test/fixtures/test/text.html')
+          .open('/test/fixtures/test/text.html')
           .test.text('ul:first-child li:nth-child(2)', 'two', done);
     });
 
     it('negative', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/text.html')
+        .open('/test/fixtures/test/text.html')
         .test.text('ul:first-child li:nth-child(2)', 'five')
         .run(function (err) {
           assert.equal(err ? err.name : '', 'AssertionError');
@@ -47,7 +47,7 @@ describe('Navit.test.*', function () {
 
     it('negative RegExp', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/text.html')
+        .open('/test/fixtures/test/text.html')
         .test.text('ul:first-child li:nth-child(2)', /five/)
         .run(function (err) {
           assert.equal(err ? err.name : '', 'AssertionError');
@@ -57,14 +57,14 @@ describe('Navit.test.*', function () {
 
     it('.not positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/text.html')
+        .open('/test/fixtures/test/text.html')
         .test.text.not('ul:first-child li:nth-child(2)', 'five')
         .run(done);
     });
 
     it('.not negative', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/text.html')
+        .open('/test/fixtures/test/text.html')
         .test.text.not('ul:first-child li:nth-child(2)', 'two')
         .run(function (err) {
           assert.equal(err ? err.name : '', 'AssertionError');
@@ -76,14 +76,14 @@ describe('Navit.test.*', function () {
   describe('count', function () {
     it('positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/count.html')
+        .open('/test/fixtures/test/count.html')
         .test.count('ul:first-child li', 7)
         .run(done);
     });
 
     it('negative', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/count.html')
+        .open('/test/fixtures/test/count.html')
         .test.count('ul:first-child li', 9)
         .run(function (err) {
           assert.equal(err ? err.name : '', 'AssertionError');
@@ -93,14 +93,14 @@ describe('Navit.test.*', function () {
 
     it('.not positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/count.html')
+        .open('/test/fixtures/test/count.html')
         .test.count.not('ul:first-child li', 9)
         .run(done);
     });
 
     it('.not negative', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/count.html')
+        .open('/test/fixtures/test/count.html')
         .test.count.not('ul:first-child li', 7)
         .run(function (err) {
           assert.equal(err ? err.name : '', 'AssertionError');
@@ -110,7 +110,7 @@ describe('Navit.test.*', function () {
 
     it('.not negative with message', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/count.html')
+        .open('/test/fixtures/test/count.html')
         .test.count.not('ul:first-child li', 7, 'li count wrong')
         .run(function (err) {
           assert.equal(err ? err.toString() : '', 'AssertionError: li count wrong: expected 7 to not equal 7');
@@ -122,7 +122,7 @@ describe('Navit.test.*', function () {
   describe('title', function () {
     it('positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/title.html')
+        .open('/test/fixtures/test/title.html')
         .test.title('test title')
         .run(function (err) {
           done(err);
@@ -131,7 +131,7 @@ describe('Navit.test.*', function () {
 
     it('.not positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/title.html')
+        .open('/test/fixtures/test/title.html')
         .test.title.not('something else')
         .run(function (err) {
           done(err);
@@ -142,7 +142,7 @@ describe('Navit.test.*', function () {
   describe('url', function () {
     it('positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/url.html')
+        .open('/test/fixtures/test/url.html')
         .test.url('http://localhost:17345/test/fixtures/test/url.html')
         .run(function (err) {
           done(err);
@@ -151,7 +151,7 @@ describe('Navit.test.*', function () {
 
     it('.not positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/url.html')
+        .open('/test/fixtures/test/url.html')
         .test.url.not('something else')
         .run(function (err) {
           done(err);
@@ -162,7 +162,7 @@ describe('Navit.test.*', function () {
   describe('attribute', function () {
     it('positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/attribute.html')
+        .open('/test/fixtures/test/attribute.html')
         .test.attribute('#test-div', 'data-test-attr', 'test attr')
         .run(function (err) {
           done(err);
@@ -171,7 +171,7 @@ describe('Navit.test.*', function () {
 
     it('.not positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/attribute.html')
+        .open('/test/fixtures/test/attribute.html')
         .test.attribute.not('#test-div', 'data-test-attr', 'something else')
         .run(function (err) {
           done(err);
@@ -182,7 +182,7 @@ describe('Navit.test.*', function () {
   describe('exists', function () {
     it('positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/exists.html')
+        .open('/test/fixtures/test/exists.html')
         .test.exists('#test-div')
         .run(function (err) {
           done(err);
@@ -191,7 +191,7 @@ describe('Navit.test.*', function () {
 
     it('.not positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/exists.html')
+        .open('/test/fixtures/test/exists.html')
         .test.not.exists('#no-existing-test-div')
         .run(function (err) {
           done(err);
@@ -202,7 +202,7 @@ describe('Navit.test.*', function () {
   describe('exists', function () {
     it('positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/exists.html')
+        .open('/test/fixtures/test/exists.html')
         .test.exists('#test-div')
         .run(function (err) {
           done(err);
@@ -211,7 +211,7 @@ describe('Navit.test.*', function () {
 
     it('.not positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/exists.html')
+        .open('/test/fixtures/test/exists.html')
         .test.not.exists('#no-existing-test-div')
         .run(function (err) {
           done(err);
@@ -222,7 +222,7 @@ describe('Navit.test.*', function () {
   describe('visible', function () {
     it('positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/visible.html')
+        .open('/test/fixtures/test/visible.html')
         .test.visible('#visible-div')
         .run(function (err) {
           done(err);
@@ -231,7 +231,7 @@ describe('Navit.test.*', function () {
 
     it('.not positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/visible.html')
+        .open('/test/fixtures/test/visible.html')
         .test.not.visible('#invisible-div')
         .run(function (err) {
           done(err);
@@ -242,7 +242,7 @@ describe('Navit.test.*', function () {
   describe('evaluate', function () {
     it('positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/evaluate.html')
+        .open('/test/fixtures/test/evaluate.html')
         .test.evaluate(function (a, b, c) {
           return a + b + c === 6;
         }, 1, 2, 3)
@@ -253,7 +253,7 @@ describe('Navit.test.*', function () {
 
     it('negative', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/evaluate.html')
+        .open('/test/fixtures/test/evaluate.html')
         .test.evaluate(function (a, b, c) {
           return a + b + c === 7;
         }, 1, 2, 3, 'test msg')
@@ -267,7 +267,7 @@ describe('Navit.test.*', function () {
   describe('status', function () {
     it('positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/status.html')
+        .open('/test/fixtures/test/status.html')
         .test.status(200)
         .run(function (err) {
           done(err);
@@ -276,7 +276,7 @@ describe('Navit.test.*', function () {
 
     it('negative', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/status.html')
+        .open('/test/fixtures/test/status.html')
         .test.status(404)
         .run(function (err) {
           assert.equal(err ? err.toString() : '', 'AssertionError: test.status() failed: expected 200 to equal 404');
@@ -288,7 +288,7 @@ describe('Navit.test.*', function () {
   describe('header', function () {
     it('positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/header.html')
+        .open('/test/fixtures/test/header.html')
         .test.header('Connection', 'keep-alive')
         .run(function (err) {
           done(err);
@@ -297,7 +297,7 @@ describe('Navit.test.*', function () {
 
     it('negative', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/header.html')
+        .open('/test/fixtures/test/header.html')
         .test.header('Connection', 'somthing else')
         .run(function (err) {
           assert.equal(
@@ -312,7 +312,7 @@ describe('Navit.test.*', function () {
   describe('body.not', function () {
     it('positive', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/body.html')
+        .open('/test/fixtures/test/body.html')
         .test.body.not(/bla bla/)
         .run(function (err) {
           done(err);
@@ -321,7 +321,7 @@ describe('Navit.test.*', function () {
 
     it('negative', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/body.html')
+        .open('/test/fixtures/test/body.html')
         .test.body.not(/test text/)
         .run(function (err) {
           assert.equal(err ? err.name : '', 'AssertionError');
@@ -333,7 +333,7 @@ describe('Navit.test.*', function () {
   describe('sugar', function () {
     it('status', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/status.html')
+        .open('/test/fixtures/test/status.html')
         .test(200)
         .run(function (err) {
           done(err);
@@ -342,7 +342,7 @@ describe('Navit.test.*', function () {
 
     it('header', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/header.html')
+        .open('/test/fixtures/test/header.html')
         .test('Connection', 'keep-alive')
         .run(function (err) {
           done(err);
@@ -351,7 +351,7 @@ describe('Navit.test.*', function () {
 
     it('body', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/test/body.html')
+        .open('/test/fixtures/test/body.html')
         .test(/test text/)
         .run(function (err) {
           done(err);

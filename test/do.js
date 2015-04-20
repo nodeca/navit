@@ -13,7 +13,7 @@ describe('Navit.do.*', function () {
   var browser;
 
   before(function (done) {
-    browser = navit();
+    browser = navit({ prefix: 'http://localhost:17345' });
 
     server = express()
         .use(express.static(path.join(__dirname, '..')))
@@ -40,7 +40,7 @@ describe('Navit.do.*', function () {
   describe('wait', function () {
     it('with function', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/do/wait.html')
+        .open('/test/fixtures/do/wait.html')
         .do.wait(function () {
           if (!window.__testTimer__) {
             window.__testTimer__ = setTimeout(function () {
@@ -57,7 +57,7 @@ describe('Navit.do.*', function () {
 
     it('with function and extra params', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/do/wait.html')
+        .open('/test/fixtures/do/wait.html')
         .do.wait(function (param1, param2) {
           return param1 === 'abc' && param2 === 'cde';
         }, function () {
@@ -70,7 +70,7 @@ describe('Navit.do.*', function () {
 
     it('with function fail by timeout', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/do/wait.html')
+        .open('/test/fixtures/do/wait.html')
         .do.wait(function () {
           return false;
         }, 1)
@@ -82,7 +82,7 @@ describe('Navit.do.*', function () {
 
     it('with selector', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/do/wait.html')
+        .open('/test/fixtures/do/wait.html')
         .do.wait('#test-div')
         .run(function (err) {
           done(err);
@@ -91,7 +91,7 @@ describe('Navit.do.*', function () {
 
     it('with selector fail by timeout', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/do/wait.html')
+        .open('/test/fixtures/do/wait.html')
         .do.wait('#unexisting-test-div', 1)
         .run(function (err) {
           assert.equal(err ? err.name : '', 'NavitError');
@@ -102,7 +102,7 @@ describe('Navit.do.*', function () {
 
   it('inject', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/do/inject.html')
+      .open('/test/fixtures/do/inject.html')
       .do.inject(path.join(__dirname, 'fixtures', 'do', 'inject.js'))
       .do.wait('#html-from-js')
       .run(function (err) {
@@ -112,7 +112,7 @@ describe('Navit.do.*', function () {
 
   it('reload', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/do/reload.html')
+      .open('/test/fixtures/do/reload.html')
       .do.inject(path.join(__dirname, 'fixtures', 'do', 'reload.js'))
       .do.wait('#html-from-js')
       .do.reload()
@@ -124,8 +124,8 @@ describe('Navit.do.*', function () {
 
   it('back', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/do/back.html')
-      .open('http://localhost:17345/test/fixtures/do/forward.html')
+      .open('/test/fixtures/do/back.html')
+      .open('/test/fixtures/do/forward.html')
       .get.url(function (url) {
         assert.equal(url, 'http://localhost:17345/test/fixtures/do/forward.html');
       })
@@ -141,8 +141,8 @@ describe('Navit.do.*', function () {
 
   it('forward', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/do/forward.html')
-      .open('http://localhost:17345/test/fixtures/do/back.html')
+      .open('/test/fixtures/do/forward.html')
+      .open('/test/fixtures/do/back.html')
       .do.back()
       .do.wait()
       .get.url(function (url) {
@@ -161,7 +161,7 @@ describe('Navit.do.*', function () {
   describe('click', function () {
     it('with selector', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/do/click.html')
+        .open('/test/fixtures/do/click.html')
         .do.click('#click-test')
         .do.wait()
         .get.url(function (url) {
@@ -174,7 +174,7 @@ describe('Navit.do.*', function () {
 
     it('with function', function (done) {
       browser
-        .open('http://localhost:17345/test/fixtures/do/click.html')
+        .open('/test/fixtures/do/click.html')
         .do.click(function () { return '#click-test'; })
         .do.wait()
         .get.url(function (url) {
@@ -188,7 +188,7 @@ describe('Navit.do.*', function () {
 
   it('select', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/do/select.html')
+      .open('/test/fixtures/do/select.html')
       .do.select('#select-test', 'opt3')
       .test.evaluate(function (selector) {
         return document.getElementById(selector).selectedIndex === 2;
@@ -200,7 +200,7 @@ describe('Navit.do.*', function () {
 
   it('check', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/do/check.html')
+      .open('/test/fixtures/do/check.html')
       .do.check('#checkbox-test')
       .test.evaluate(function () {
         return document.getElementById('checkbox-test').checked;
@@ -212,7 +212,7 @@ describe('Navit.do.*', function () {
 
   it('scrollTo', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/do/scroll_to.html')
+      .open('/test/fixtures/do/scroll_to.html')
       .do.scrollTo(0, 100)
       .test.evaluate(function () {
         return window.pageYOffset === 100;
@@ -224,7 +224,7 @@ describe('Navit.do.*', function () {
 
   it('type', function (done) {
     browser
-      .open('http://localhost:17345/test/fixtures/do/type.html')
+      .open('/test/fixtures/do/type.html')
       .do.type('#type-test', 'test-TEST-test')
       .test.evaluate(function () {
         return document.getElementById('type-test').value === 'test-TEST-test';
@@ -238,7 +238,7 @@ describe('Navit.do.*', function () {
     var screenshotPath = path.join(__dirname, 'fixtures', 'test.png');
 
     browser
-      .open('http://localhost:17345/test/fixtures/do/screenshot.html')
+      .open('/test/fixtures/do/screenshot.html')
       .do.screenshot(screenshotPath)
       .run(function (err) {
         if (err) {
@@ -259,7 +259,7 @@ describe('Navit.do.*', function () {
   it('open with headers override', function (done) {
     browser
       .set.headers({ 'test-header': 'test-value', 'test-header-2': 'test-value' })
-      .do.open('http://localhost:17345/test/fixtures/do/open.html', { headers: { 'test-header': 'test-open-value' } })
+      .do.open('/test/fixtures/do/open.html', { headers: { 'test-header': 'test-open-value' } })
       .test.body(/test-open-value/)
       .test.body(/test-value/)
       .run(done);
@@ -267,7 +267,7 @@ describe('Navit.do.*', function () {
 
   it('post', function (done) {
     browser
-      .do.post('http://localhost:17345/test/fixtures/do/post.html')
+      .do.post('/test/fixtures/do/post.html')
       .test.body(/post-test/)
       .run(done);
   });
