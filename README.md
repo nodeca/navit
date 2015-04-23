@@ -25,7 +25,8 @@ Examples
 var Navit   = require('navit'),
     browser = new Navit(); // Short call: `browser = require('navit')();`
 
-var stack = [];
+var stack = []; // You can use lazy functions to pass data between stages,
+                // but arrays have more compact notation.
 
 browser
   .open('http://dev.nodeca.com')
@@ -95,7 +96,12 @@ Browser engine options:
 Navigation:
 
 - \+ `.do.open(url [, options])`
-- \+ `.do.post(url, data, options)` - shortcut to `.open`, for convenience
+  - options:
+    - `method` - get(default)|post|put|delete|head
+    - `data`
+    - `headers`
+- \+ `.do.post(url, data[, options])` - shortcut to `.open`, for convenience;
+  `method` is set to `post`, and `data` is forwarded to `options.data`.
 - \+ `.do.back()`
 - \+ `.do.forward()`
 - \+ `.do.reload()`
@@ -125,7 +131,7 @@ Waiting:
 ## Get data/params: `.get.*()`
 
 All functions, passed to `.get.*`, can be sync (with 1 param) or async (with 2
-params). If function returns not `false` type of result (usually a `Error`) or
+params). If function returns not falsy type of result (usually a `Error`) or
 throws exception, chain will be terminated. That can be used to create complex
 test conditions.
 
@@ -133,19 +139,19 @@ test conditions.
 - \+ `.get.url(fn)`
 - \+ `.get.count(selector, fn)`
 - \+ `.get.text(selector, fn)`
-- \+ `.get.html(selector, fn)`
-- \+ `.get.html(fn)` - full page html.
+- \+ `.get.html([selector,] fn)` - when no selector given, returns full page html.
 - \+ `.get.attribute(selector, attribute, fn)`
 - `.get.status(fn)`
 - `.get.body(fn)`
 - `.get.headers(fn)` - return server reply headers. Note, testing
-   method is not "symmetric" - `.test.header(name, ...)`.
-- `.get.cookies(fn)` (no pair in .test.*)
+   method is not "symmetric" - use `.test.header(name, ...)`.
+- `.get.cookies(fn)` (no pair in `.test.*`)
 
 Sugar:
 
 1. If you pass `Array` instead of `Function`, data will be pushed into it.
-2. If `fn` returns `Error` object, chain will be stopped with that error.
+2. If `fn` returns `Error` object (or anything else not falsy), chain will be
+   stopped with that value.
 3. If last param (`callback`) exists, chain will be finished as with `.run` method.
 
 
@@ -167,14 +173,13 @@ Tests available for the most of `get.*` methods:
 - `.test.method_name(params..., value [, message, callback)`
 - If value to compare is `RegExp`, then data is converted to `String`, and tested
   to match provided regexp.
-- Negative condition `.not` can be added to any test, before of after method name.
+- __Negative condition `.not` can be added to almost any test, before or after
+  method name.__
 
 Additional:
 
-- \+ `.test.exists(selector [, message, callback])`
-- \+ `.test.not.exists(selector [, message, callback])`
-- \+ `.test.visible(selector [, message, callback])`
-- \+ `.test.not.visible(selector [, message, callback])`
+- \+ `.test[.not].exists(selector [, message, callback])`
+- \+ `.test[.not].visible(selector [, message, callback])`
 - \+ `.test.evaluate(fn [params..., message, callback])` - evaluate & die on any
   result but `true`.
 
@@ -192,7 +197,8 @@ Special sugar (but without custom message):
   callback),
 - `.screenshot([ selector|bounding_rect, type,] path)` - do screenshot
 - `.use(plugin [, params...])` - apply plugin
-- `.fn(function, params)` - local function execute.
+- `.fn(function, params)` - local function execute. Function can be sync
+  (0 params) and async (1 param).
 
 
 ## Batches
@@ -215,8 +221,7 @@ many times as you wish.
     .fn(function () {
       console.log('Batch done.');
     })
-});
-
+})
 // run
 .batch('init_page')
 ```
