@@ -68,7 +68,7 @@ explicit parameters list in definition, and you must pass exactly the same
 params count as defined. We decided, it's not a big price for nice API.
 
 
-## new Navit(options)
+### new Navit(options)
 
 Navit-specific options:
 
@@ -91,7 +91,7 @@ Browser engine options:
 - `cookiesFile`: sets the file name to store the persistent cookies, default not set.
 
 
-## Actions: `.do.*()`
+### Actions: `.do.*()`
 
 Navigation:
 
@@ -128,7 +128,7 @@ Waiting:
   returns `true`.
 
 
-## Get data/params: `.get.*()`
+### Get data/params: `.get.*()`
 
 All functions, passed to `.get.*`, can be sync (with 1 param) or async (with 2
 params). If function returns not falsy type of result (usually a `Error`) or
@@ -155,7 +155,7 @@ Sugar:
 3. If last param (`callback`) exists, chain will be finished as with `.run` method.
 
 
-## Set data/params: `.set.*()`
+### Set data/params: `.set.*()`
 
 - \+ `.set.headers(obj)`
 - \+ `.set.useragent(string)`
@@ -166,7 +166,7 @@ Sugar:
 - \+ `.set.cookie(name, value)`
 
 
-## Assertions: `.test.*()` & `test()`
+### Assertions: `.test.*()` & `test()`
 
 Tests available for the most of `get.*` methods:
 
@@ -190,7 +190,7 @@ Special sugar (but without custom message):
 - `.test(header_name, string_or_regexp [, callback])`
 
 
-## Misc
+### Misc
 
 - `.close()` - tear down browser process
 - `.run([teardown,] done)` - terminate sequence of command (execute and do
@@ -201,7 +201,7 @@ Special sugar (but without custom message):
   (0 params) and async (1 param).
 
 
-## Batches
+### Batches
 
 `navit` allows record sequence or commands to run it later with one call as
 many times as you wish.
@@ -225,6 +225,37 @@ many times as you wish.
 // run
 .batch('init_page')
 ```
+
+
+Other scripting projects
+------------------------
+
+Here are links to other similar libraries and comments why we did this one.
+Note that comments are given according to our requirements. Your ones can be
+different. May be you need more to scrape data from real sites instead of
+interface testing and so on. Select the best package for you needs:
+
+- [CasperJS](http://casperjs.org/)
+  - Runs standalone. You will not be able to control server and
+    browser from single script (load fixtures to db, prior to open page).
+  - Tests could be more compact, if CasperJS allows curried style.
+- [Zombie.js](https://github.com/assaf/zombie)
+  - Uses jsdom. Nice idea, but jsdom emulation is a bit limited
+    for complex things. We prefer real browser engines like PhantomJS and
+    SlimerJS.
+- [Nightmare](https://github.com/segmentio/nightmare)
+  - That was the nearest to our needs, and we used it before.
+  - It has poor errors control if error happpens in the middle of batch.
+    For example, if you wait for selector, it's difficult to check do you
+    finished with succes or by timeout.
+  - Too few built-in assertions.
+  - Not actively developped (see tracker - some problems caused by buggy
+    bridge to PhantomJS are not fixed for a long time).
+- [Horseman](https://github.com/johntitus/node-horseman)
+  - Has sync api, that can be convenient for scraping.
+  - Sync api limits you with getting multiple data from browser to server -
+    getter should be the single, always the last. You can workaround this
+    limitation, but that will increase amount of code to write.
 
 
 Authors
