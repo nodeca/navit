@@ -238,6 +238,22 @@ describe('Navit.do.*', function () {
       });
   });
 
+  it('clear', function (done) {
+    browser
+      .open('/test/fixtures/do/clear.html')
+      .do.clear('#clear-test')
+      .test.evaluate(function () {
+        return document.getElementById('clear-test').value === '';
+      })
+      .do.clear('#contenteditable-test')
+      .test.evaluate(function () {
+        return document.getElementById('contenteditable-test').innerText.trim() === '';
+      })
+      .run(function (err) {
+        done(err);
+      });
+  });
+
   it('screenshot', function (done) {
     var screenshotPath = path.join(__dirname, 'fixtures', 'test.png');
 

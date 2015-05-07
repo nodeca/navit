@@ -110,6 +110,7 @@ DOM:
 
 - \+ `.do.click(selector)`
 - \+ `.do.type(selector, text)`
+- \+ `.do.clear(selector)`
 - \+ `.do.check(selector)`
 - \+ `.do.select(selector, option)`
 - \+ `.do.upload(selector, path)`
