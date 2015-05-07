@@ -35,8 +35,6 @@ describe('Navit.do.*', function () {
     });
   });
 
-  // TODO: test upload
-
   describe('wait', function () {
     it('with function', function (done) {
       browser
@@ -248,6 +246,26 @@ describe('Navit.do.*', function () {
       .do.clear('#contenteditable-test')
       .test.evaluate(function () {
         return document.getElementById('contenteditable-test').innerText.trim() === '';
+      })
+      .run(function (err) {
+        done(err);
+      });
+  });
+
+  it('upload', function (done) {
+    var file = path.join(__dirname, 'fixtures', 'do', 'upload.txt');
+    browser
+      .open('/test/fixtures/do/upload.html')
+      .do.upload('#upload-file', file)
+      .get.evaluate(function () {
+        var input = document.getElementById('upload-file');
+        window.__reader = new window.FileReader();
+        window.__reader.readAsText(input.files[0]);
+        return true;
+      }, function (success) {})
+      .do.wait()
+      .test.evaluate(function () {
+        return window.__reader.result.trim() === 'test-TEST-test';
       })
       .run(function (err) {
         done(err);
