@@ -108,14 +108,15 @@ Navigation:
 
 DOM:
 
-- \+ `.do.click(selector)`
-- \+ `.do.type(selector, text)`
-- \+ `.do.check(selector)`
-- \+ `.do.select(selector, option)`
-- \+ `.do.upload(selector, path)`
-- \+ `.do.fill(selector, obj [, submit])`
-- \+ `.do.scrollTo(top, left)`
-- \+ `.do.inject([type, ] file)`
+- \+ `.do.click(selector)` - click on an element matching `selector`
+- \+ `.do.type(selector, text)` - type `text` into input or contenteditable
+- \+ `.do.clear(selector)` - clear input value (supports contenteditable)
+- \+ `.do.check(selector)` - toggles checkbox or radio
+- \+ `.do.select(selector, option)` - selects an `option` in dropdown
+- \+ `.do.upload(selector, path)` - selects a file in `input[type="file"]`
+- \+ `.do.fill(selector, obj [, submit])` - _not implemented yet_
+- \+ `.do.scrollTo(top, left)` - executes `window.scrollTo(top, left)`
+- \+ `.do.inject([type, ] file)` - appends a script or stylesheets from external `file` to page, `type` can be one of `js` or `css` (default type is `js`).
 
 Waiting:
 
