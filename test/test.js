@@ -32,7 +32,8 @@ describe('Navit.test.*', function () {
     it('positive', function (done) {
       browser
           .open('/test/fixtures/test/text.html')
-          .test.text('ul:first-child li:nth-child(2)', 'two', done);
+          .test.text('ul:first-child li:nth-child(2)', 'two')
+          .run(done);
     });
 
     it('negative', function (done) {

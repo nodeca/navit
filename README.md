@@ -171,7 +171,7 @@ Sugar:
 
 Tests available for the most of `get.*` methods:
 
-- `.test.method_name(params..., value [, message, callback)`
+- `.test.method_name(params..., value [, message)`
 - If value to compare is `RegExp`, then data is converted to `String`, and tested
   to match provided regexp.
 - __Negative condition `.not` can be added to almost any test, before or after
@@ -179,16 +179,16 @@ Tests available for the most of `get.*` methods:
 
 Additional:
 
-- \+ `.test[.not].exists(selector [, message, callback])`
-- \+ `.test[.not].visible(selector [, message, callback])`
-- \+ `.test.evaluate(fn [params..., message, callback])` - evaluate & die on any
+- \+ `.test[.not].exists(selector [, message])`
+- \+ `.test[.not].visible(selector [, message])`
+- \+ `.test.evaluate(fn [params..., message])` - evaluate & die on any
   result but `true`.
 
 Special sugar (but without custom message):
 
-- `.test(status_number [, callback])`
-- `.test(body_rexexp [, callback])`
-- `.test(header_name, string_or_regexp [, callback])`
+- `.test(status_number [, message])`
+- `.test(body_rexexp [, message])`
+- `.test(header_name, string_or_regexp [, message])`
 
 
 ### Misc
