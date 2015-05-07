@@ -54,9 +54,7 @@ API
 1. All methods are chainable.
 2. Methods, marked with `+` have direct aliases without namespace.
 3. Chain should be finished with terminator `.run([teardown,] callback)` call.
-4. All `.test.*` methods have optional last param `callback`, turning them to
-   termintors: `.prefix.method_name(arguments... [, callback])`.
-5. Almost everywhere `String` & `Number` params can be defined as functions for
+4. Almost everywhere `String` & `Number` params can be defined as functions for
    lazy evaluation.
 
 __Known limitations:__
@@ -186,7 +184,7 @@ Additional:
 - \+ `.test.evaluate(fn [params..., message])` - evaluate & die on any
   result but `true`.
 
-Special sugar (but without custom message):
+Special sugar:
 
 - `.test(status_number [, message])`
 - `.test(body_rexexp [, message])`
