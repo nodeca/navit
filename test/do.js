@@ -257,15 +257,21 @@ describe('Navit.do.*', function () {
     browser
       .open('/test/fixtures/do/upload.html')
       .do.upload('#upload-file', file)
-      .get.evaluate(function () {
-        var input = document.getElementById('upload-file');
-        window.__reader = new window.FileReader();
-        window.__reader.readAsText(input.files[0]);
-        return true;
-      }, function (success) {})
-      .do.wait()
+      .do.wait(function () {
+        if (!window.__reader__) {
+          var input = document.getElementById('upload-file');
+
+          window.__reader__ = new window.FileReader();
+          window.__reader__.onload = function () {
+            window.__readerDone__ = true;
+          };
+          window.__reader__.readAsText(input.files[0]);
+        }
+
+        return window.__readerDone__;
+      })
       .test.evaluate(function () {
-        return window.__reader.result.trim() === 'test-TEST-test';
+        return window.__reader__.result.trim() === 'test-TEST-test';
       })
       .run(function (err) {
         done(err);
