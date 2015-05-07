@@ -1,3 +1,12 @@
+1.1.0 / 2015-05-07
+------------------
+
+- Added contenteditable support for `.type()`, thanks to @inca.
+- Added `[.do].clear()`, thanks to @inca.
+- Removed terminator callbacks from `.test.*` all methods.
+- Doc fixes.
+
+
 1.0.1 / 2015-04-21
 ------------------
 
