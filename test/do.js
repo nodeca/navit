@@ -229,6 +229,10 @@ describe('Navit.do.*', function () {
       .test.evaluate(function () {
         return document.getElementById('type-test').value === 'test-TEST-test';
       })
+      .do.type('#contenteditable-test', 'test-TEST-test')
+      .test.evaluate(function () {
+        return document.getElementById('contenteditable-test').innerText.trim() === 'test-TEST-test';
+      })
       .run(function (err) {
         done(err);
       });
