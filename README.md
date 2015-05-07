@@ -61,7 +61,7 @@ API
 
 __Known limitations:__
 
-Some methods like `.do.evaluate()` allow to pass params to evaluated functions.
+Some methods like `.get.evaluate()` allow to pass params to evaluated functions.
 `navit` uses function's `.length` property, to properly detect params count,
 because tailing callbacks are optional. That means, such functions must have
 explicit parameters list in definition, and you must pass exactly the same
@@ -142,6 +142,8 @@ test conditions.
 - \+ `.get.text(selector, fn)`
 - \+ `.get.html([selector,] fn)` - when no selector given, returns full page html.
 - \+ `.get.attribute(selector, attribute, fn)`
+- `.get.evaluate(fnToEval [, params, fn])` - evaluate function on client with optional params.
+  Returned result can be processed on server, if handler set.
 - `.get.status(fn)`
 - `.get.body(fn)`
 - `.get.headers(fn)` - return server reply headers. Note, testing
