@@ -191,6 +191,14 @@ Special sugar:
 - `.test(header_name, string_or_regexp [, message])`
 
 
+### Tabs: `.tab.*()`
+
+- `.tab.open([url [, options]])` - create and switch to new tab. Run `.do.open(url, options)` if `url` specified
+- `.tab.count(fn)` - get tabs count (if you pass `Array`, value will be pushed into)
+- `.tab.switch(index)` - switch to tab by `index`
+- `.tab.close([index])` - close tab by `index` or close current tab if `index` not specified
+
+
 ### Misc
 
 - `.close()` - tear down browser process
