@@ -39,6 +39,7 @@ browser
     if (location.url !== data[data.length - 1]) { return true; }
   }, stack)
   .test.exists('.forum-topiclines')
+  // first param `true` is equivalent to `.close()` call
   .run(true, function(err) {
     console.log(err || 'Succeeded');
   });
@@ -203,8 +204,9 @@ Special sugar:
 
 - `.close()` - tear down browser process
 - `.run([teardown,] done)` - terminate sequence of commands (execute and do
-  callback).  If `teardown` is `true`, then close the browser after the
-  sequence finishes.
+  callback).
+  - If `teardown` is `true`, then close the browser after the sequence finishes.
+    It's a sugar to avoid explicit `.close()` call.
 - `.screenshot([ selector|bounding_rect, type,] path)` - do screenshot
 - `.use(plugin [, params...])` - apply plugin
 - `.fn(function, params)` - local function execute. Function can be sync
