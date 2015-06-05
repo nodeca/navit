@@ -39,7 +39,7 @@ browser
     if (location.url !== data[data.length - 1]) { return true; }
   }, stack)
   .test.exists('.forum-topiclines')
-  .run(function(err) {
+  .run(true, function(err) {
     console.log(err || 'Succeeded');
   });
 ```
@@ -202,8 +202,9 @@ Special sugar:
 ### Misc
 
 - `.close()` - tear down browser process
-- `.run([teardown,] done)` - terminate sequence of command (execute and do
-  callback),
+- `.run([teardown,] done)` - terminate sequence of commands (execute and do
+  callback).  If `teardown` is `true`, then close the browser after the
+  sequence finishes.
 - `.screenshot([ selector|bounding_rect, type,] path)` - do screenshot
 - `.use(plugin [, params...])` - apply plugin
 - `.fn(function, params)` - local function execute. Function can be sync
