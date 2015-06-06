@@ -239,6 +239,46 @@ many times as you wish.
 ```
 
 
+### .afterOpen
+
+If you assign function to this property, it will be called after any `.open`
+and `.reload` definition to stack additional commands. This is experimental
+feature, that can be changed.
+
+Sometime you may wish to do global setup for all opened pages. For example:
+
+- wait full page init, when it has dynamic scripts loader.
+- inject testing scripts from remote host (when you don't like to use global
+  option).
+
+You can record your sequence to batch and automate it's injection after every
+`open` / `reload`. See example how we setup `navit` in `nodeca`:
+
+
+```js
+// Wait for nodeca scripts load and check status
+//
+navit.batch.create('waitNodecaBooted', function () {
+  this
+    .wait(function () {
+      try {
+        return window.NodecaLoader.booted;
+      } catch (__) {}
+      return false;
+    })
+    .test.status(200);
+});
+
+navit.afterOpen = function () {
+  this.batch('waitNodecaBooted');
+};
+```
+
+__Note__. `.afterOpen` is called on chain definition phase, not on execution
+phase. It's ~ equivalent of typing content manually in test body. That's why it
+doesn't have callback to wait async operations - it's not needed.
+
+
 Other scripting projects
 ------------------------
 
