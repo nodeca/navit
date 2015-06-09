@@ -279,6 +279,25 @@ phase. It's ~ equivalent of typing content manually in test body. That's why it
 doesn't have callback to wait async operations - it's not needed.
 
 
+### Debug
+
+If you assign environment variable `DEBUG` to `navit`, you will see debug message
+for every action.
+
+Output example for `DEBUG=navit mocha`:
+
+```
+...
+navit do.open('http://localhost:17345/test/fixtures/do/type.html') +25ms
+navit do.type('#type-test') +20ms
+navit test.evaluate() +9ms
+navit do.type('#contenteditable-test') +2ms
+navit test.evaluate() +9ms
+  ✓ type (64ms)
+...
+```
+
+
 Other scripting projects
 ------------------------
 
