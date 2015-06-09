@@ -200,13 +200,13 @@ Special sugar:
 - `.tab.close([index])` - close tab by `index` or close current tab if `index` not specified
 
 
-### Frame: `.frame.*()`
+### Frames: `.frame.*()`
 
 - `.frame.enter(selector)` - switch to frame by `selector`
 - `.frame.exit()` - exit to top window
 
 
-### Misc
+### Other
 
 - `.close()` - tear down browser process
 - `.run([teardown,] done)` - terminate sequence of commands (execute and do
