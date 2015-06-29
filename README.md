@@ -208,15 +208,17 @@ Special sugar:
 
 ### Other
 
-- `.close()` - tear down browser process
+- `.fn(function, params)` - local function execute. Function can be sync
+  (0 params) and async (1 param).
+- `.close()` - tear down browser process. Note, browser will NOT be closed until you
+  do it explicit via this method or `.run(true, ...)`.
 - `.run([teardown,] done)` - terminate sequence of commands (execute and do
   callback).
   - If `teardown` is `true`, then close the browser after the sequence finishes.
     It's a sugar to avoid explicit `.close()` call.
 - `.screenshot([ selector|bounding_rect, type,] path)` - do screenshot
-- `.use(plugin [, params...])` - apply plugin
-- `.fn(function, params)` - local function execute. Function can be sync
-  (0 params) and async (1 param).
+- `.registerMethod(names, fn)` - add new method with given name(s) (`names` can be string or array).
+- `.use(plugin [, params...])` - apply plugin.
 
 
 ### Batches
