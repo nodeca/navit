@@ -4,6 +4,14 @@
   <meta charset="utf-8">
 </head>
 <body>
-<input type="checkbox" id="checkbox-test" value="test val">
+  <input type="checkbox" id="checkbox-test" value="test val">
+  <div id="checkbox-change-monitor"></div>
+  <script>
+    var checkbox = document.getElementById('checkbox-test');
+    checkbox.addEventListener('change', function (ev) {
+      document.getElementById('checkbox-change-monitor')
+        .innerText = checkbox.checked ? 'checked' : 'not checked';
+    });
+  </script>
 </body>
 </html>

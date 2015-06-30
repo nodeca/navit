@@ -10,5 +10,13 @@
   <option value="opt3">opt3</option>
   <option value="opt4">opt4</option>
 </select>
+<div id="select-change-monitor"></div>
+<script>
+  var select = document.getElementById('select-test');
+  select.addEventListener('change', function (ev) {
+    document.getElementById('select-change-monitor')
+      .innerText = 'The value is: ' + select.value;
+  });
+</script>
 </body>
 </html>
