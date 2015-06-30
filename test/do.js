@@ -187,10 +187,18 @@ describe('Navit.do.*', function () {
   it('select', function (done) {
     browser
       .open('/test/fixtures/do/select.html')
+      .test.evaluate(function () {
+        return document.getElementById('select-change-monitor')
+          .innerText === '';
+      })
       .do.select('#select-test', 'opt3')
-      .test.evaluate(function (selector) {
-        return document.getElementById(selector).selectedIndex === 2;
-      }, 'select-test')
+      .test.evaluate(function () {
+        return document.getElementById('select-test').selectedIndex === 2;
+      })
+      .test.evaluate(function () {
+        return document.getElementById('select-change-monitor')
+          .innerText === 'The value is: opt3';
+      })
       .run(function (err) {
         done(err);
       });
@@ -199,9 +207,25 @@ describe('Navit.do.*', function () {
   it('check', function (done) {
     browser
       .open('/test/fixtures/do/check.html')
+      .test.evaluate(function () {
+        return document.getElementById('checkbox-change-monitor')
+          .innerText === '';
+      })
       .do.check('#checkbox-test')
       .test.evaluate(function () {
         return document.getElementById('checkbox-test').checked;
+      })
+      .test.evaluate(function () {
+        return document.getElementById('checkbox-change-monitor')
+          .innerText === 'checked';
+      })
+      .do.check('#checkbox-test')
+      .test.evaluate(function () {
+        return !document.getElementById('checkbox-test').checked;
+      })
+      .test.evaluate(function () {
+        return document.getElementById('checkbox-change-monitor')
+          .innerText === 'not checked';
       })
       .run(function (err) {
         done(err);
