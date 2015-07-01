@@ -290,7 +290,7 @@ describe('Navit.test.*', function () {
     it('positive', function (done) {
       browser
         .open('/test/fixtures/test/header.html')
-        .test.header('Connection', 'keep-alive')
+        .test.header('X-Powered-By', 'Express')
         .run(function (err) {
           done(err);
         });
@@ -299,11 +299,11 @@ describe('Navit.test.*', function () {
     it('negative', function (done) {
       browser
         .open('/test/fixtures/test/header.html')
-        .test.header('Connection', 'somthing else')
+        .test.header('X-Powered-By', 'foobar')
         .run(function (err) {
           assert.equal(
-            err ? err.toString() : '',
-            'AssertionError: test.header(\'Connection\') failed: expected \'keep-alive\' to equal \'somthing else\''
+            err.toString(),
+            'AssertionError: test.header(\'X-Powered-By\') failed: expected \'Express\' to equal \'foobar\''
           );
           done();
         });
@@ -344,7 +344,7 @@ describe('Navit.test.*', function () {
     it('header', function (done) {
       browser
         .open('/test/fixtures/test/header.html')
-        .test('Connection', 'keep-alive')
+        .test('X-Powered-By', 'Express')
         .run(function (err) {
           done(err);
         });
