@@ -4,6 +4,7 @@
 var assert  = require('chai').assert;
 var express = require('express');
 var path    = require('path');
+var _       = require('lodash');
 var fs      = require('fs');
 var navit   = require('../');
 
@@ -306,8 +307,12 @@ describe('Navit.get.*', function () {
     browser
       .open('/test/fixtures/get/cookies.html')
       .set.cookie('a', 'b')
-      .get.cookies(function (val) {
-        assert.equal(val[0].value, 'b');
+      .get.cookies(function (cookies) {
+        var cookie = _.find(cookies, function (cookie) {
+          return cookie.name === 'a';
+        });
+
+        assert.equal(cookie.value, 'b');
       })
       .run(function (err) {
         done(err);

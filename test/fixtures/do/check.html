@@ -8,9 +8,10 @@
   <div id="checkbox-change-monitor"></div>
   <script>
     var checkbox = document.getElementById('checkbox-test');
-    checkbox.addEventListener('change', function (ev) {
+
+    checkbox.addEventListener('change', function () {
       document.getElementById('checkbox-change-monitor')
-        .innerText = checkbox.checked ? 'checked' : 'not checked';
+        .innerHTML = checkbox.checked ? 'checked' : 'not checked';
     });
   </script>
 </body>

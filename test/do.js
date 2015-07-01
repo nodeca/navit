@@ -189,7 +189,7 @@ describe('Navit.do.*', function () {
       .open('/test/fixtures/do/select.html')
       .test.evaluate(function () {
         return document.getElementById('select-change-monitor')
-          .innerText === '';
+          .innerHTML === '';
       })
       .do.select('#select-test', 'opt3')
       .test.evaluate(function () {
@@ -197,7 +197,7 @@ describe('Navit.do.*', function () {
       })
       .test.evaluate(function () {
         return document.getElementById('select-change-monitor')
-          .innerText === 'The value is: opt3';
+          .innerHTML === 'The value is: opt3';
       })
       .run(function (err) {
         done(err);
@@ -209,7 +209,7 @@ describe('Navit.do.*', function () {
       .open('/test/fixtures/do/check.html')
       .test.evaluate(function () {
         return document.getElementById('checkbox-change-monitor')
-          .innerText === '';
+          .innerHTML === '';
       })
       .do.check('#checkbox-test')
       .test.evaluate(function () {
@@ -217,7 +217,7 @@ describe('Navit.do.*', function () {
       })
       .test.evaluate(function () {
         return document.getElementById('checkbox-change-monitor')
-          .innerText === 'checked';
+          .innerHTML === 'checked';
       })
       .do.check('#checkbox-test')
       .test.evaluate(function () {
@@ -225,7 +225,7 @@ describe('Navit.do.*', function () {
       })
       .test.evaluate(function () {
         return document.getElementById('checkbox-change-monitor')
-          .innerText === 'not checked';
+          .innerHTML === 'not checked';
       })
       .run(function (err) {
         done(err);
@@ -253,7 +253,7 @@ describe('Navit.do.*', function () {
       })
       .do.type('#contenteditable-test', 'test-TEST-test')
       .test.evaluate(function () {
-        return document.getElementById('contenteditable-test').innerText.trim() === 'test-TEST-test';
+        return document.getElementById('contenteditable-test').innerHTML.trim() === 'test-TEST-test';
       })
       .run(function (err) {
         done(err);
@@ -269,7 +269,7 @@ describe('Navit.do.*', function () {
       })
       .do.clear('#contenteditable-test')
       .test.evaluate(function () {
-        return document.getElementById('contenteditable-test').innerText.trim() === '';
+        return document.getElementById('contenteditable-test').innerHTML.trim() === '';
       })
       .run(function (err) {
         done(err);

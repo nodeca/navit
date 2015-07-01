@@ -13,9 +13,10 @@
 <div id="select-change-monitor"></div>
 <script>
   var select = document.getElementById('select-test');
-  select.addEventListener('change', function (ev) {
+
+  select.addEventListener('change', function () {
     document.getElementById('select-change-monitor')
-      .innerText = 'The value is: ' + select.value;
+      .innerHTML = 'The value is: ' + select.value;
   });
 </script>
 </body>

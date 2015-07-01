@@ -4,6 +4,7 @@
 var assert  = require('chai').assert;
 var express = require('express');
 var path    = require('path');
+var _       = require('lodash');
 var navit   = require('../');
 
 
@@ -79,7 +80,11 @@ describe('Navit.set.*', function () {
         path: '/test'
       })
       .get.cookies(function (cookies) {
-        assert.equal(cookies[0].path, '/test');
+        var cookie = _.find(cookies, function (cookie) {
+          return cookie.name === 'test';
+        });
+
+        assert.equal(cookie.value, 'cookie');
       })
       // Remove cookie
       .set.cookie({

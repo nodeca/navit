@@ -4,6 +4,7 @@ var assert  = require('chai').assert;
 var express = require('express');
 var path    = require('path');
 var fs      = require('fs');
+var _       = require('lodash');
 var navit   = require('../');
 
 
@@ -159,7 +160,8 @@ describe('Navit api', function () {
         .open('/test/fixtures/api/fn.html')
         .get.text('body', results)
         .fn(function (a, b, c, next) {
-          assert.equal(results[0], 'test text');
+          // Need trim because SlimerJS can add new line symbols at start and at end of body
+          assert.equal(_.trim(results[0], '\n'), 'test text');
           assert.equal(a, 'a');
           assert.equal(b, 'b');
           assert.equal(c, 'c');
@@ -176,7 +178,8 @@ describe('Navit api', function () {
         .open('/test/fixtures/api/fn.html')
         .get.text('body', results)
         .fn(function (a, b, c) {
-          assert.equal(results[0], 'test text');
+          // Need trim because SlimerJS can add new line symbols at start and at end of body
+          assert.equal(_.trim(results[0], '\n'), 'test text');
           assert.equal(a, 'a');
           assert.equal(b, 'b');
           assert.equal(c, 'c');
@@ -208,8 +211,12 @@ describe('Navit api', function () {
       .test.evaluate(function () {
         return document.querySelector('#ao-test').value === 'ao-test-type';
       })
-      .get.cookies(function (coockies) {
-        assert.equal(coockies[0].value, 'ao-test-cookies');
+      .get.cookies(function (cookies) {
+        var cookie = _.find(cookies, function (cookie) {
+          return cookie.name === 'ao';
+        });
+
+        assert.equal(cookie.value, 'ao-test-cookies');
       })
       .run(function (err) {
         browser.afterOpen = null;
