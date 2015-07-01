@@ -47,11 +47,20 @@ describe('Navit.set.*', function () {
   });
 
   it('zoom', function (done) {
+    var size;
+
     browser
       .open('/test/fixtures/set/zoom.html')
+      .get.evaluate(function () {
+        return [ window.innerWidth, window.innerHeight ];
+      }, function (data) {
+        size = data;
+      })
       .set.zoom(0.5)
-      .test.evaluate(function () {
-        return window.screen.width / window.innerWidth <= 0.5;
+      .get.evaluate(function () {
+        return [ window.innerWidth, window.innerHeight ];
+      }, function (data) {
+        assert.deepEqual(data, [ size[0] * 2, size[1] * 2 ]);
       })
       .set.zoom(1)
       .run(function (err) {
@@ -62,9 +71,18 @@ describe('Navit.set.*', function () {
   it('viewport', function (done) {
     browser
       .open('/test/fixtures/set/viewport.html')
-      .set.viewport(110, 120)
-      .test.evaluate(function () {
-        return window.innerWidth === 110 && window.innerHeight === 120;
+      .set.zoom(1)
+      .set.viewport(300, 400)
+      .get.evaluate(function () {
+        return [ window.innerWidth, window.innerHeight ];
+      }, function (data) {
+        assert.deepEqual(data, [ 300, 400 ]);
+      })
+      .set.viewport(110, 128)
+      .get.evaluate(function () {
+        return [ window.innerWidth, window.innerHeight ];
+      }, function (data) {
+        assert.deepEqual(data, [ 110, 128 ]);
       })
       .run(function (err) {
         done(err);
