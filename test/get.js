@@ -14,7 +14,7 @@ describe('Navit.get.*', function () {
   var browser;
 
   before(function (done) {
-    browser = navit({ prefix: 'http://localhost:17345' });
+    browser = navit({ prefix: 'http://localhost:17345', engine: process.env.ENGINE });
 
     server = express()
         .use(express.static(path.join(__dirname, '..')))

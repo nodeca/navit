@@ -13,12 +13,13 @@ GITHUB_PROJ := nodeca/${NPM_PACKAGE}
 
 
 help:
-	echo "make help       - Print this help"
-	echo "make lint       - Lint sources with JSHint"
-	echo "make test       - Lint sources and run all tests"
-	echo "make doc        - Build API docs"
-	echo "make gh-pages   - Build and push API docs into gh-pages branch"
-	echo "make publish    - Set new version tag and publish npm package"
+	echo "make help          - Print this help"
+	echo "make lint          - Lint sources with JSHint"
+	echo "make test          - Lint sources and run all tests"
+	echo "make test-slimerjs - Lint sources and run all tests in SlimerJS"
+	echo "make doc           - Build API docs"
+	echo "make gh-pages      - Build and push API docs into gh-pages branch"
+	echo "make publish       - Set new version tag and publish npm package"
 
 
 lint:
@@ -33,6 +34,8 @@ test: lint
 		fi
 	NODE_ENV=test mocha
 
+test-slimerjs:
+	ENGINE=slimerjs make test
 
 doc:
 	@if test ! `which ndoc` ; then \
@@ -79,5 +82,5 @@ publish:
 	npm publish https://github.com/${GITHUB_PROJ}/tarball/${NPM_VERSION}
 
 
-.PHONY: publish lint test doc gh-pages
+.PHONY: publish lint test test-slimerjs doc gh-pages
 .SILENT: help lint test doc

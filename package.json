@@ -21,7 +21,9 @@
     "eslint-plugin-nodeca": "^1.0.3",
     "express": "^4.12.3",
     "mocha": "^2.2.4",
-    "phantomjs": "^1.9.16"
+    "phantomjs": "^1.9.16",
+    "node-slimerjs": "^1.0.1",
+    "slimerjs": "~0.9.5"
   },
   "scripts": {
     "test": "make test"

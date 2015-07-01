@@ -8,13 +8,16 @@ var _       = require('lodash');
 var navit   = require('../');
 
 
+var ENGINE = process.env.ENGINE;
+
+
 describe('Navit api', function () {
   this.timeout(100000);
   var server;
   var browser;
 
   before(function (done) {
-    browser = navit({ prefix: 'http://localhost:17345' });
+    browser = navit({ prefix: 'http://localhost:17345', engine: ENGINE });
 
     server = express()
       .use(express.static(path.join(__dirname, '..')))
@@ -227,7 +230,7 @@ describe('Navit api', function () {
   it('options.inject', function (done) {
     var browser = navit({ inject: [
       path.join(__dirname, 'fixtures', 'api', 'inject.js')
-    ] });
+    ], engine: ENGINE });
 
     browser
       .open('http://localhost:17345/test/fixtures/api/inject.html')
@@ -239,7 +242,7 @@ describe('Navit api', function () {
 
   it('engineOptions', function (done) {
     var cookiesPath = path.join(__dirname, 'fixtures', 'cookies');
-    var browser = navit({}, { cookiesFile: cookiesPath });
+    var browser = navit({ engine: ENGINE }, { cookiesFile: cookiesPath });
 
     browser
       .open('http://localhost:17345/test/fixtures/api/engine_options.html')
