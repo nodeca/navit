@@ -4,18 +4,27 @@ navit
 [![Build Status](https://img.shields.io/travis/nodeca/navit/master.svg?style=flat)](https://travis-ci.org/nodeca/navit)
 [![NPM version](https://img.shields.io/npm/v/navit.svg?style=flat)](https://www.npmjs.org/package/navit)
 
-> Wrapper for PhantomJS to simplify browser tests scripting.
+> Wrapper for PhantomJS & SlimerJS to simplify browser tests scripting.
 
 
 Install
 -------
 
-Note, you need `phantomjs` in your dependencies.
-
 ```bash
+# phantomjs
+
 npm install navit --save
 npm install phantomjs --save
+
+# slimerjs
+
+npm install navit --save
+npm install node-slimerjs --save
+npm install slimerjs --save
 ```
+
+__Note.__ SlimerJS requires 2 additional modules (driver + engine), we did not
+included driver by default, because of big size.
 
 
 Examples
@@ -78,8 +87,10 @@ __options__ (not mandatory):
 
 __engineOpts__ (not mandatory, camelCase):
 
-See http://phantomjs.org/api/command-line.html. You can pass any options,
-supported by browser engine. Option names should be in camelCase.
+See http://phantomjs.org/api/command-line.html and
+https://docs.slimerjs.org/current/configuration.html#command-line-options.
+You can pass any options, supported by browser engine. Option names should be
+in camelCase.
 
 
 ### Actions: `.do.*()`
