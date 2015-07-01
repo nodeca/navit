@@ -6,6 +6,7 @@ var path    = require('path');
 var fs      = require('fs');
 var _       = require('lodash');
 var navit   = require('../');
+var helpers = require('./helpers');
 
 
 var ENGINE = process.env.ENGINE;
@@ -228,8 +229,11 @@ describe('Navit api', function () {
   });
 
   it('options.inject', function (done) {
+    // workaround for utf8 in dir names for SlimeerJS
+    var file = helpers.toTmp(path.join(__dirname, 'fixtures', 'api', 'inject.js'));
+
     var browser = navit({ inject: [
-      path.join(__dirname, 'fixtures', 'api', 'inject.js')
+      file
     ], engine: ENGINE });
 
     browser
@@ -237,7 +241,10 @@ describe('Navit api', function () {
       .test.text('#html-from-js', 'html from js')
       .do.reload()
       .test.text('#html-from-js', 'html from js')
-      .run(done);
+      .run(function (err) {
+        helpers.unlink(file);
+        done(err);
+      });
   });
 
   it('engineOptions', function (done) {

@@ -6,6 +6,7 @@ var express = require('express');
 var path    = require('path');
 var fs      = require('fs');
 var navit   = require('../');
+var helpers = require('./helpers');
 
 
 describe('Navit.do.*', function () {
@@ -271,13 +272,12 @@ describe('Navit.do.*', function () {
       .test.evaluate(function () {
         return document.getElementById('contenteditable-test').innerHTML.trim() === '';
       })
-      .run(function (err) {
-        done(err);
-      });
+      .run(done);
   });
 
   it('upload', function (done) {
-    var file = path.join(__dirname, 'fixtures', 'do', 'upload.txt');
+    // workaround for utf8 in dir names for SlimeerJS
+    var file = helpers.toTmp(path.join(__dirname, 'fixtures', 'do', 'upload.txt'));
 
     browser
       // Seems phantomjs has bug that cause crash on multiple open. Close tab to reset context.
@@ -301,15 +301,13 @@ describe('Navit.do.*', function () {
         return window.__reader__.result.trim() === 'test-TEST-test';
       })
       .run(function (err) {
+        helpers.unlink(file);
         done(err);
       });
   });
 
   it('screenshot', function (done) {
-    var screenshotPath = path.join(
-      require('os').tmpdir(),
-      require('crypto').randomBytes(8).toString('hex') + '.jpg'
-    );
+    var screenshotPath = helpers.tmp();
 
     browser
       .open('/test/fixtures/do/screenshot.html')
@@ -322,9 +320,7 @@ describe('Navit.do.*', function () {
 
         assert.equal(fs.existsSync(screenshotPath), true);
 
-        if (fs.existsSync(screenshotPath)) {
-          fs.unlinkSync(screenshotPath);
-        }
+        helpers.unlink(screenshotPath);
 
         done();
       });
