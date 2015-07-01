@@ -230,6 +230,28 @@ describe('Navit api', function () {
       .run(done);
   });
 
+  it('engineOptions', function (done) {
+    var cookiesPath = path.join(__dirname, 'fixtures', 'cookies');
+    var browser = navit({}, { cookiesFile: cookiesPath });
+
+    browser
+      .open('http://localhost:17345/test/fixtures/api/engine_options.html')
+      .run(function (err) {
+        if (err) {
+          done(err);
+          return;
+        }
+
+        assert.equal(fs.existsSync(cookiesPath), true);
+
+        if (fs.existsSync(cookiesPath)) {
+          fs.unlinkSync(cookiesPath);
+        }
+
+        done();
+      });
+  });
+
   after(function () {
     server.close();
     browser.close();
