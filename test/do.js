@@ -306,7 +306,10 @@ describe('Navit.do.*', function () {
   });
 
   it('screenshot', function (done) {
-    var screenshotPath = path.join(__dirname, 'fixtures', 'test.png');
+    var screenshotPath = path.join(
+      require('os').tmpdir(),
+      require('crypto').randomBytes(8).toString('hex')
+    );
 
     browser
       .open('/test/fixtures/do/screenshot.html')
