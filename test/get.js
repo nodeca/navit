@@ -338,6 +338,17 @@ describe('Navit.get.*', function () {
       });
   });
 
+  it('value', function (done) {
+    browser
+      .open('/test/fixtures/get/value.html')
+      .get.value('input:first-child', function (value) {
+        assert.strictEqual(value, 'test value');
+      })
+      .run(function (err) {
+        done(err);
+      });
+  });
+
   after(function () {
     server.close();
     browser.close();

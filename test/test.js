@@ -360,6 +360,42 @@ describe('Navit.test.*', function () {
     });
   });
 
+  describe('value', function () {
+    it('positive', function (done) {
+      browser
+        .open('/test/fixtures/test/value.html')
+        .test.value('input', 'test value')
+        .run(done);
+    });
+
+    it('negative', function (done) {
+      browser
+        .open('/test/fixtures/test/value.html')
+        .test.value('input', 'not test value')
+        .run(function (err) {
+          assert.equal(err ? err.name : '', 'AssertionError');
+          done();
+        });
+    });
+
+    it('.not positive', function (done) {
+      browser
+        .open('/test/fixtures/test/value.html')
+        .test.value.not('input', 'not test value')
+        .run(done);
+    });
+
+    it('.not negative', function (done) {
+      browser
+        .open('/test/fixtures/test/value.html')
+        .test.value.not('input', 'test value')
+        .run(function (err) {
+          assert.equal(err ? err.name : '', 'AssertionError');
+          done();
+        });
+    });
+  });
+
   after(function () {
     server.close();
     browser.close();
