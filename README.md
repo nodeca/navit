@@ -67,27 +67,31 @@ explicit parameters list in definition, and you must pass exactly the same
 params count as defined. We decided, it's not a big price for nice API.
 
 
-### new Navit(options)
+### new Navit(options, engineOpts)
 
-Navit-specific options:
+__options__ (not mandatory):
 
-- `inject`: Array of scripts (file paths) to inject after every page load
-  (`[ require.resolve('jquery/dist/jquery') ]`).
-- `timeout`: Page load and `.wait()` timeout, default `5000ms`.
-- `prefix`: url prefix for `.open()` and `.post()`, default empty string.
+- Navit-specific:
+  - `inject`: Array of scripts (file paths) to inject after every page load
+    (`[ require.resolve('jquery/dist/jquery') ]`).
+  - `timeout`: Page load and `.wait()` timeout, default `5000ms`.
+  - `prefix`: url prefix for `.open()` and `.post()`, default empty string.
+- Engine-related:
+  - `loadImages`: loads all inlined images, `true` (default) or `false`.
+  - `ignoreSslErrors`: ignores SSL errors (expired/self-signed certificate errors),
+    `true` (default) or `false`.
+  - `sslProtocol`: sets the SSL protocol (`sslv3`|`sslv2`|`tlsv1`), default `any`.
+  - `webSecurity`: enables web security and forbids cross-domain XHR, default `true`.
+  - `proxy`: sets the proxy server, e.g. `http://proxy.company.com:8080`.
+  - `proxyType`: specifies the proxy type, `http` (default), `none` (disable completely),
+    or `socks5`.
+  - `proxyAuth`: provides authentication information for the proxy, e.g. `username:password`.
+  - `cookiesFile`: sets the file name to store the persistent cookies, default not set.
 
-Browser engine options:
+__engineOpts__ (not mandatory, camelCase):
 
-- `loadImages`: loads all inlined images, `true` (default) or `false`.
-- `ignoreSslErrors`: ignores SSL errors (expired/self-signed certificate errors),
-  `true` (default) or `false`.
-- `sslProtocol`: sets the SSL protocol (`sslv3`|`sslv2`|`tlsv1`), default `any`.
-- `webSecurity`: enables web security and forbids cross-domain XHR, default `true`.
-- `proxy`: sets the proxy server, e.g. `http://proxy.company.com:8080`.
-- `proxyType`: specifies the proxy type, `http` (default), `none` (disable completely),
-  or `socks5`.
-- `proxyAuth`: provides authentication information for the proxy, e.g. `username:password`.
-- `cookiesFile`: sets the file name to store the persistent cookies, default not set.
+See http://phantomjs.org/api/command-line.html. You can pass any options,
+supported by browser engine. Option names should be in camelCase.
 
 
 ### Actions: `.do.*()`
@@ -141,6 +145,7 @@ test conditions.
 - \+ `.get.text(selector, fn)`
 - \+ `.get.html([selector,] fn)` - when no selector given, returns full page html.
 - \+ `.get.attribute(selector, attribute, fn)`
+- \+ `.get.value(selector, fn)` - for input/selector fields, returns field value.
 - `.get.evaluate(fnToEval [, params, fn])` - evaluate function on client with optional params.
   Returned result can be processed on server, if handler set.
 - `.get.status(fn)`
@@ -198,6 +203,8 @@ Special sugar:
 - `.tab.count(fn)` - get tabs count (if you pass `Array`, value will be pushed into)
 - `.tab.switch(index)` - switch to tab by `index`
 - `.tab.close([index])` - close tab by `index` or close current tab if `index` not specified
+  - negative `index` address tab from the tail
+  - after all tabs closed, new one will be created automatically
 
 
 ### Frames: `.frame.*()`

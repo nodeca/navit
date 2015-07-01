@@ -1,3 +1,12 @@
+1.2.0 / WIP
+------------------
+
+- Added `.get.value` for input fields.
+- Added new constructor option to pass arbitrary engine params.
+- Emulate `change` event after input update.
+- Keep tab open after `.run` (experimental).
+
+
 1.1.2 / 2015-06-09
 ------------------
 
