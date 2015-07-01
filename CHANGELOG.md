@@ -1,10 +1,15 @@
-1.2.0 / WIP
+2.0.0 / WIP
 ------------------
 
+- Engine options are completely separated in constructor call. Constructor now
+  has 2 parameters.
+- `ignoreSslErrors` is not `true` anymore. Change it via engine options (second
+  constructor param) if needed.
 - Added `.get.value` for input fields.
-- Added new constructor option to pass arbitrary engine params.
 - Emulate `change` event after input update.
 - Keep tab open after `.run` (experimental).
+- `.tab.close` now accepts negative index (count from the tail), and auto-open
+  new tab if all tabs were closed.
 
 
 1.1.2 / 2015-06-09
