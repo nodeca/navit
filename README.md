@@ -71,22 +71,10 @@ params count as defined. We decided, it's not a big price for nice API.
 
 __options__ (not mandatory):
 
-- Navit-specific:
-  - `inject`: Array of scripts (file paths) to inject after every page load
-    (`[ require.resolve('jquery/dist/jquery') ]`).
-  - `timeout`: Page load and `.wait()` timeout, default `5000ms`.
-  - `prefix`: url prefix for `.open()` and `.post()`, default empty string.
-- Engine-related:
-  - `loadImages`: loads all inlined images, `true` (default) or `false`.
-  - `ignoreSslErrors`: ignores SSL errors (expired/self-signed certificate errors),
-    `true` (default) or `false`.
-  - `sslProtocol`: sets the SSL protocol (`sslv3`|`sslv2`|`tlsv1`), default `any`.
-  - `webSecurity`: enables web security and forbids cross-domain XHR, default `true`.
-  - `proxy`: sets the proxy server, e.g. `http://proxy.company.com:8080`.
-  - `proxyType`: specifies the proxy type, `http` (default), `none` (disable completely),
-    or `socks5`.
-  - `proxyAuth`: provides authentication information for the proxy, e.g. `username:password`.
-  - `cookiesFile`: sets the file name to store the persistent cookies, default not set.
+- `inject`: Array of scripts (file paths) to inject after every page load
+  (`[ require.resolve('jquery/dist/jquery') ]`).
+- `timeout`: Page load and `.wait()` timeout, default `5000ms`.
+- `prefix`: url prefix for `.open()` and `.post()`, default empty string.
 
 __engineOpts__ (not mandatory, camelCase):
 
