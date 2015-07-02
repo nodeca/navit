@@ -16,9 +16,6 @@ help:
 	echo "make help          - Print this help"
 	echo "make lint          - Lint sources with JSHint"
 	echo "make test          - Lint sources and run all tests"
-	echo "make test-slimerjs - Lint sources and run all tests in SlimerJS"
-	echo "make doc           - Build API docs"
-	echo "make gh-pages      - Build and push API docs into gh-pages branch"
 	echo "make publish       - Set new version tag and publish npm package"
 
 
@@ -27,42 +24,10 @@ lint:
 
 
 test: lint
-	@if test ! `which mocha` ; then \
-		echo "You need 'mocha' installed in order to run tests." >&2 ; \
-		echo "  $ npm install" >&2 ; \
-		exit 128 ; \
-		fi
-	NODE_ENV=test mocha
+	mocha
 
 test-slimerjs:
-	ENGINE=slimerjs make test
-
-doc:
-	@if test ! `which ndoc` ; then \
-		echo "You need 'ndoc' installed in order to generate docs." >&2 ; \
-		echo "  $ npm install -g ndoc" >&2 ; \
-		exit 128 ; \
-		fi
-	rm -rf ./doc
-	ndoc --link-format "{package.homepage}/blob/${CURR_HEAD}/{file}#L{line}"
-
-
-gh-pages:
-	@if test -z ${REMOTE_REPO} ; then \
-		echo 'Remote repo URL not found' >&2 ; \
-		exit 128 ; \
-		fi
-	$(MAKE) doc && \
-		cp -r ./doc ${TMP_PATH} && \
-		touch ${TMP_PATH}/.nojekyll
-	cd ${TMP_PATH} && \
-		git init && \
-		git add . && \
-		git commit -q -m 'Recreated docs'
-	cd ${TMP_PATH} && \
-		git remote add remote ${REMOTE_REPO} && \
-		git push --force remote +master:gh-pages
-	rm -rf ${TMP_PATH}
+	ENGINE=slimerjs mocha
 
 
 publish:
@@ -82,5 +47,5 @@ publish:
 	npm publish https://github.com/${GITHUB_PROJ}/tarball/${NPM_VERSION}
 
 
-.PHONY: publish lint test test-slimerjs doc gh-pages
-.SILENT: help lint test doc
+.PHONY: publish lint test test-slimerjs
+.SILENT: help lint test
