@@ -241,32 +241,23 @@ describe('Navit api', function () {
       .test.text('#html-from-js', 'html from js')
       .do.reload()
       .test.text('#html-from-js', 'html from js')
-      .run(function (err) {
+      .run(true, function (err) {
         helpers.unlink(file);
         done(err);
       });
   });
 
   it('engineOptions', function (done) {
-    var cookiesPath = path.join(__dirname, 'fixtures', 'cookies');
-    var browser = navit({ engine: ENGINE }, { cookiesFile: cookiesPath });
+    var browser = navit({ engine: ENGINE }, { loadImages: false });
 
     browser
       .open('http://localhost:17345/test/fixtures/api/engine_options.html')
-      .run(function (err) {
-        if (err) {
-          done(err);
-          return;
-        }
-
-        assert.equal(fs.existsSync(cookiesPath), true);
-
-        if (fs.existsSync(cookiesPath)) {
-          fs.unlinkSync(cookiesPath);
-        }
-
-        done();
-      });
+      .get.evaluate(function () {
+        return [ document.querySelector('img').clientWidth, document.querySelector('img').clientHeight ];
+      }, function (size) {
+        assert.notDeepEqual(size, [ 1, 1 ]);
+      })
+      .run(true, done);
   });
 
   after(function () {
