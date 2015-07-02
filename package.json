@@ -15,15 +15,17 @@
     "chai": "^2.2.0",
     "debug": "^2.2.0",
     "lodash": "^3.7.0",
-    "node-phantom-simple": "^1.2.0"
+    "node-phantom-simple": "git://github.com/nodeca/node-phantom-simple.git"
   },
+  "bundledDependencies": [
+    "node-phantom-simple"
+  ],
   "devDependencies": {
     "eslint": "0.18.0",
     "eslint-plugin-nodeca": "^1.0.3",
     "express": "^4.12.3",
     "mocha": "^2.2.4",
     "phantomjs": "^1.9.16",
-    "node-slimerjs": "^1.0.1",
     "slimerjs": "~0.9.5"
   },
   "scripts": {

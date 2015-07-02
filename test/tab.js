@@ -78,8 +78,8 @@ describe('Navit.tab.*', function () {
       .run(done);
   });
 
-  after(function () {
+  after(function (done) {
     server.close();
-    browser.close();
+    browser.close(done);
   });
 });

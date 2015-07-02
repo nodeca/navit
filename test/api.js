@@ -260,8 +260,8 @@ describe('Navit api', function () {
       .run(true, done);
   });
 
-  after(function () {
+  after(function (done) {
     server.close();
-    browser.close();
+    browser.close(done);
   });
 });
