@@ -33,7 +33,7 @@ describe('Navit.tab.*', function () {
       .tab.open()
       .tab.open('/test/fixtures/tab/open.html')
       .test.url('http://localhost:17345/test/fixtures/tab/open.html')
-      .run(done);
+      .run(true, done);
   });
 
   it('count', function (done) {
@@ -46,7 +46,7 @@ describe('Navit.tab.*', function () {
       .tab.open()
       .tab.open()
       .tab.count(stack)
-      .run(function (err) {
+      .run(true, function (err) {
         if (err) {
           done(err);
           return;
@@ -64,7 +64,7 @@ describe('Navit.tab.*', function () {
       .test.url('http://localhost:17345/test/fixtures/tab/switch.html')
       .tab.switch(-2)
       .test.url('http://localhost:17345/test/fixtures/tab/open.html')
-      .run(done);
+      .run(true, done);
   });
 
   it('close', function (done) {
@@ -75,7 +75,7 @@ describe('Navit.tab.*', function () {
       .test.url('http://localhost:17345/test/fixtures/tab/close.html')
       .tab.close()
       .test.url('http://localhost:17345/test/fixtures/tab/open.html')
-      .run(done);
+      .run(true, done);
   });
 
   after(function (done) {
