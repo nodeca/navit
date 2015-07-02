@@ -34,7 +34,8 @@ describe('Navit.frame.*', function () {
       .test.text('p', 'It is enter.html')
       .frame.enter('#test-frame')
       .test.text('p', 'It is iframe.html')
-      .run(function (err) {
+      // SlimerJS stay in frame. Reset context for next test.
+      .run(true, function (err) {
         done(err);
       });
   });
@@ -46,7 +47,7 @@ describe('Navit.frame.*', function () {
       .test.text('p', 'It is iframe.html')
       .frame.exit()
       .test.text('p', 'It is exit.html')
-      .run(function (err) {
+      .run(true, function (err) {
         done(err);
       });
   });
