@@ -259,7 +259,7 @@ describe('Navit.test.*', function () {
           return a + b + c === 7;
         }, 1, 2, 3, 'test msg')
         .run(function (err) {
-          assert.equal(err ? err.toString() : '', 'AssertionError: test msg: expected null to equal true');
+          assert.equal(err ? err.toString() : '', 'AssertionError: test msg: expected false to equal true');
           done();
         });
     });
