@@ -1,3 +1,9 @@
+2.0.1 / 2015-07-10
+------------------
+
+- Switched `node-phantom-simple` driver to 2.0.0 from mainstream.
+
+
 2.0.0 / 2015-07-02
 ------------------
 

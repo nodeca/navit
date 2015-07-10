@@ -1,6 +1,6 @@
 {
   "name": "navit",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Wrapper for PhantomJS and SlimerJS to simplify browser tests scripting",
   "keywords": [
     "phantomjs",
