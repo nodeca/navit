@@ -18,7 +18,7 @@
     "node-phantom-simple": "^2.0.0"
   },
   "devDependencies": {
-    "eslint": "0.18.0",
+    "eslint": "0.24.1",
     "eslint-plugin-nodeca": "^1.0.3",
     "express": "^4.13.0",
     "mocha": "^2.2.5",
