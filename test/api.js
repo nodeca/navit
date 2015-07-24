@@ -3,7 +3,6 @@
 var assert  = require('chai').assert;
 var express = require('express');
 var path    = require('path');
-var fs      = require('fs');
 var _       = require('lodash');
 var navit   = require('../');
 var helpers = require('./helpers');
