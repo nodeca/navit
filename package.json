@@ -23,7 +23,7 @@
     "express": "^4.13.0",
     "mocha": "^2.2.5",
     "phantomjs": "^1.9.17",
-    "slimerjs": "~0.9.5"
+    "slimerjs": "^0.9.6"
   },
   "scripts": {
     "test": "make test"
