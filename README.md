@@ -80,7 +80,7 @@ __options__ (not mandatory):
   (`[ require.resolve('jquery/dist/jquery') ]`).
 - `timeout`: Page load and `.wait()` timeout, default `5000ms`.
 - `prefix`: url prefix for `.open()` and `.post()`, default empty string.
-- `engine`: `'pnatnomjs'` | `'slimerjs'`, default is `'pnatnomjs'`. Specify
+- `engine`: `'phantomjs'` | `'slimerjs'`, default is `'phantomjs'`. Specify
   engine to use. Make sure you installed `phantomjs` or `slimerjs` package.
 
 __engineOpts__ (not mandatory, camelCase):
