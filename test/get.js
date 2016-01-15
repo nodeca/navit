@@ -319,17 +319,35 @@ describe('Navit.get.*', function () {
       });
   });
 
-  it('evaluate', function (done) {
-    browser
-      .open('/test/fixtures/get/evaluate.html')
-      .get.evaluate(function (a, b, c) {
-        return a + b + c;
-      }, 1, 2, 3, function (result) {
-        assert.equal(result, 6);
-      })
-      .run(function (err) {
-        done(err);
-      });
+  describe('evaluate', function () {
+    it('evaluate with params', function (done) {
+      browser
+        .open('/test/fixtures/get/evaluate.html')
+        .get.evaluate(function (a, b, c) {
+          return a + b + c;
+        }, 1, 2, 3, function (result) {
+          assert.equal(result, 6);
+        })
+        .run(function (err) {
+          done(err);
+        });
+    });
+
+    it('evaluate without params', function (done) {
+      browser
+        .open('/test/fixtures/get/evaluate.html')
+        .get.evaluate(function () {
+          window.abc = 123;
+        })
+        .get.evaluate(function () {
+          return window.abc;
+        }, function (result) {
+          assert.equal(result, 123);
+        })
+        .run(function (err) {
+          done(err);
+        });
+    });
   });
 
   it('status', function (done) {
