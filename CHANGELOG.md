@@ -1,3 +1,12 @@
+2.1.0 / 2016-01-28
+------------------
+
+- Added PhantomJS 2.1 support (see below).
+- Force page cache reset before request. Without it Phantom 2.1 could get
+  304 status (without body) instead of 200.
+- Improved compatibility of `do.reload` implementation.
+
+
 2.0.2 / 2016-01-15
 ------------------
 
