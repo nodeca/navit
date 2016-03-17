@@ -16,7 +16,7 @@ not included as dependencies.
 
 ```bash
 # for phantomjs:
-npm install navit phantomjs --save
+npm install navit phantomjs-prebuilt --save
 
 # for slimerjs:
 npm install navit slimerjs --save
