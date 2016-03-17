@@ -5,5 +5,11 @@
 </head>
 <body>
 <a href="back.html" id="click-test">click-test</a>
+<div id="click-test-2">click-test-2</div>
+<script>
+  document.querySelector('body').onclick = function (event) {
+    window.__mouse_btn__ = event.which;
+  };
+</script>
 </body>
 </html>

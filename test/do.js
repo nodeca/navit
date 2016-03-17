@@ -183,6 +183,19 @@ describe('Navit.do.*', function () {
           done(err);
         });
     });
+
+    // This test case cover phantomjs issue: https://github.com/ariya/phantomjs/issues/14109
+    it('event.which should be equals to 1', function (done) {
+      browser
+        .open('/test/fixtures/do/click.html')
+        .do.click('#click-test-2')
+        .test.evaluate(function () {
+          return window.__mouse_btn__ === 1;
+        })
+        .run(function (err) {
+          done(err);
+        });
+    });
   });
 
   it('select', function (done) {
