@@ -1,6 +1,6 @@
 {
   "name": "navit",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Wrapper for PhantomJS and SlimerJS to simplify browser tests scripting",
   "keywords": [
     "phantomjs",
@@ -22,7 +22,7 @@
     "eslint-plugin-nodeca": "^1.0.3",
     "express": "^4.13.0",
     "mocha": "^2.2.5",
-    "phantomjs": "^2.1.2",
+    "phantomjs-prebuilt": "^2.1.5",
     "slimerjs": "^0.9.6"
   },
   "scripts": {
