@@ -1,3 +1,10 @@
+2.2.0 / 2016-03-17
+------------------
+
+- `.do.click()` - Fixed phantomjs2 compatibility.
+- Add `phantomjs-prebuild` search when `phantomjs` engine selected.
+
+
 2.1.0 / 2016-01-28
 ------------------
 
