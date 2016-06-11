@@ -23,13 +23,16 @@ lint:
 	eslint --reset .
 
 
-test: test-phantomjs test-slimerjs
+test: test-phantomjs test-slimerjs test-electron
 
 test-phantomjs: lint
 	mocha
 
 test-slimerjs: lint
 	ENGINE=slimerjs mocha
+
+test-electron: lint
+	ENGINE=electron mocha
 
 publish:
 	@if test 0 -ne `git status --porcelain | wc -l` ; then \

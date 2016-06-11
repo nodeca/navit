@@ -99,7 +99,7 @@ describe('Navit.do.*', function () {
     });
   });
 
-  it('inject', function (done) {
+  it.skip('inject', function (done) {
     browser
       .open('/test/fixtures/do/inject.html')
       .do.inject(path.join(__dirname, 'fixtures', 'do', 'inject.js'))
@@ -109,7 +109,7 @@ describe('Navit.do.*', function () {
       });
   });
 
-  it('reload', function (done) {
+  it.skip('reload', function (done) {
     browser
       .open('/test/fixtures/do/reload.html')
       .do.inject(path.join(__dirname, 'fixtures', 'do', 'reload.js'))
@@ -121,7 +121,7 @@ describe('Navit.do.*', function () {
       });
   });
 
-  it('back', function (done) {
+  it.skip('back', function (done) {
     browser
       .open('/test/fixtures/do/back.html')
       .open('/test/fixtures/do/forward.html')
@@ -138,7 +138,7 @@ describe('Navit.do.*', function () {
       });
   });
 
-  it('forward', function (done) {
+  it.skip('forward', function (done) {
     browser
       .open('/test/fixtures/do/forward.html')
       .open('/test/fixtures/do/back.html')
@@ -258,7 +258,7 @@ describe('Navit.do.*', function () {
       });
   });
 
-  it('type', function (done) {
+  it.skip('type', function (done) {
     browser
       .open('/test/fixtures/do/type.html')
       .do.type('#type-test', 'test-TEST-test')
@@ -288,7 +288,7 @@ describe('Navit.do.*', function () {
       .run(done);
   });
 
-  it('upload', function (done) {
+  it.skip('upload', function (done) {
     // workaround for utf8 in dir names for SlimeerJS
     var file = helpers.toTmp(path.join(__dirname, 'fixtures', 'do', 'upload.txt'));
 
@@ -319,7 +319,7 @@ describe('Navit.do.*', function () {
       });
   });
 
-  it('screenshot', function (done) {
+  it.skip('screenshot', function (done) {
     var screenshotPath = helpers.tmp();
 
     browser
@@ -339,7 +339,7 @@ describe('Navit.do.*', function () {
       });
   });
 
-  it('open with headers override', function (done) {
+  it.skip('open with headers override', function (done) {
     browser
       .set.headers({ 'test-header': 'test-value', 'test-header-2': 'test-value' })
       .do.open('/test/fixtures/do/open.html', { headers: { 'test-header': 'test-open-value' } })
@@ -348,7 +348,7 @@ describe('Navit.do.*', function () {
       .run(done);
   });
 
-  it('post', function (done) {
+  it.skip('post', function (done) {
     browser
       .do.post('/test/fixtures/do/post.html')
       .test.body(/post-test/)

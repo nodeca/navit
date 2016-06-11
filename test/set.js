@@ -34,7 +34,7 @@ describe('Navit.set.*', function () {
 
   // TODO: authentication test
 
-  it('useragent', function (done) {
+  it.skip('useragent', function (done) {
     browser
       .set.useragent('test-ua')
       .open('/test/fixtures/set/useragent.html')
@@ -46,7 +46,7 @@ describe('Navit.set.*', function () {
       });
   });
 
-  it('zoom', function (done) {
+  it.skip('zoom', function (done) {
     var size;
 
     browser
@@ -68,7 +68,7 @@ describe('Navit.set.*', function () {
       });
   });
 
-  it('viewport', function (done) {
+  it.skip('viewport', function (done) {
     browser
       .open('/test/fixtures/set/viewport.html')
       .set.zoom(1)
@@ -89,7 +89,7 @@ describe('Navit.set.*', function () {
       });
   });
 
-  it('cookies', function (done) {
+  it.skip('cookies', function (done) {
     browser
       .open('/test/fixtures/set/cookies.html')
       .set.cookie({
@@ -117,7 +117,7 @@ describe('Navit.set.*', function () {
       .run(done);
   });
 
-  it('headers', function (done) {
+  it.skip('headers', function (done) {
     browser
       .set.headers({ 'test-header': 'test-value' })
       .open('/test/fixtures/set/headers.html')

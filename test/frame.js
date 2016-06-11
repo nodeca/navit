@@ -6,7 +6,7 @@ var path    = require('path');
 var navit   = require('../');
 
 
-describe('Navit.frame.*', function () {
+describe.skip('Navit.frame.*', function () {
   var server;
   var browser;
 

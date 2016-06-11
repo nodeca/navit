@@ -11,7 +11,7 @@ to simplify browser tests scripting.
 Install
 -------
 
-Note, you need to install `phantomjs` or `slimerjs` with this package, those are
+Note, you need to install `phantomjs`, `slimerjs` or `electron` with this package, those are
 not included as dependencies.
 
 ```bash
@@ -20,6 +20,9 @@ npm install navit phantomjs-prebuilt --save
 
 # for slimerjs:
 npm install navit slimerjs --save
+
+# for electron:
+npm install navit electron-prebuilt --save
 ```
 
 

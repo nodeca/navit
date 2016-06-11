@@ -236,7 +236,7 @@ describe('Navit.get.*', function () {
         });
     });
 
-    it('for whole page', function (done) {
+    it.skip('for whole page', function (done) {
       var fixture = fs.readFileSync(path.join(__dirname, 'fixtures', 'get', 'html.html'), 'utf-8')
         .split(/[\n ]/)
         .join('');
@@ -303,7 +303,7 @@ describe('Navit.get.*', function () {
     });
   });
 
-  it('cookies with function', function (done) {
+  it.skip('cookies with function', function (done) {
     browser
       .open('/test/fixtures/get/cookies.html')
       .set.cookie('a', 'b')
@@ -350,7 +350,7 @@ describe('Navit.get.*', function () {
     });
   });
 
-  it('status', function (done) {
+  it.skip('status', function (done) {
     browser
       .open('/test/fixtures/get/status.html')
       .get.status(function (st) {

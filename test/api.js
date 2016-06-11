@@ -138,7 +138,7 @@ describe('Navit api', function () {
     });
   });
 
-  it('.batch', function (done) {
+  it.skip('.batch', function (done) {
     browser.batch.create('test_batch', function () {
       this
         .open('/test/fixtures/api/batch.html')
@@ -202,7 +202,7 @@ describe('Navit api', function () {
     assert.equal(browser.use_test(), 'abc');
   });
 
-  it('afterOpen', function (done) {
+  it.skip('afterOpen', function (done) {
     browser.afterOpen = function () {
       this
         .set.cookie('ao', 'ao-test-cookies')
@@ -227,7 +227,7 @@ describe('Navit api', function () {
       });
   });
 
-  it('options.inject', function (done) {
+  it.skip('options.inject', function (done) {
     // workaround for utf8 in dir names for SlimeerJS
     var file = helpers.toTmp(path.join(__dirname, 'fixtures', 'api', 'inject.js'));
 
