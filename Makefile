@@ -34,6 +34,9 @@ test-slimerjs: lint
 test-electron: lint
 	ENGINE=electron mocha
 
+test-ci: test-phantomjs test-electron
+
+
 publish:
 	@if test 0 -ne `git status --porcelain | wc -l` ; then \
 		echo "Unclean working tree. Commit or stash changes first." >&2 ; \
