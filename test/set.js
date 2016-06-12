@@ -6,6 +6,7 @@ var express = require('express');
 var path    = require('path');
 var _       = require('lodash');
 var navit   = require('../');
+var auth    = require('basic-auth');
 
 
 describe('Navit.set.*', function () {
@@ -16,6 +17,18 @@ describe('Navit.set.*', function () {
     browser = navit({ prefix: 'http://localhost:17345', engine: process.env.ENGINE });
 
     server = express()
+        .get('/test/fixtures/set/authentication.html', (req, res, next) => {
+          let user = auth(req);
+
+          if (!user || user.name !== 'john' || user.pass !== 'doe') {
+            res.statusCode = 401;
+            res.setHeader('WWW-Authenticate', 'Basic realm="example"');
+            res.end('Access denied');
+            return;
+          }
+
+          next();
+        })
         .use(express.static(path.join(__dirname, '..')))
         .get('/test/fixtures/set/headers.html', function (req, res) {
           res.send(JSON.stringify(req.headers));
@@ -32,7 +45,13 @@ describe('Navit.set.*', function () {
     });
   });
 
-  // TODO: authentication test
+  it('authentication', function (done) {
+    browser
+      .set.authentication('john', 'doe')
+      .open('/test/fixtures/set/authentication.html')
+      .test.exists('#test-div')
+      .run(done);
+  });
 
   it('useragent', function (done) {
     browser
