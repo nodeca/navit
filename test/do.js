@@ -1,38 +1,34 @@
 'use strict';
 
 
-var assert  = require('chai').assert;
-var express = require('express');
-var path    = require('path');
-var fs      = require('fs');
-var navit   = require('../');
-var helpers = require('./helpers');
+const assert  = require('chai').assert;
+const express = require('express');
+const path    = require('path');
+const fs      = require('fs');
+const navit   = require('../');
+const helpers = require('./helpers');
 
 
 describe('Navit.do.*', function () {
-  var server;
-  var browser;
+  let server;
+  let browser;
 
   before(function (done) {
     browser = navit({ prefix: 'http://localhost:17345', engine: process.env.ENGINE });
 
     server = express()
-        .use(express.static(path.join(__dirname, '..')))
-        .get('/test/fixtures/do/open.html', function (req, res) {
-          res.send(JSON.stringify(req.headers));
-        })
-        .post('/test/fixtures/do/post.html', function (req, res) {
-          res.send('post-test');
-        })
-        .listen(17345, function (err) {
-          if (err) {
-            done(err);
-            return;
-          }
-
-          // Init phantom before execute first test
-          browser.run(done);
-        });
+      .use(express.static(path.join(__dirname, '..')))
+      .get('/test/fixtures/do/open.html', (req, res) => {
+        res.send(JSON.stringify(req.headers));
+      })
+      .post('/test/fixtures/do/post.html', (req, res) => {
+        res.send('post-test');
+      })
+      .listen(17345, err => {
+        if (err) return done(err);
+        // Init engine before execute first test
+        browser.run(done);
+      });
   });
 
   describe('wait', function () {
@@ -48,9 +44,7 @@ describe('Navit.do.*', function () {
 
           return window.__finish__;
         })
-        .run(function (err) {
-          done(err);
-        });
+        .run(done);
     });
 
     it('with function and extra params', function (done) {
@@ -58,20 +52,14 @@ describe('Navit.do.*', function () {
         .open('/test/fixtures/do/wait.html')
         .do.wait(function (param1, param2) {
           return param1 === 'abc' && param2 === 'cde';
-        }, function () {
-          return 'abc';
-        }, 'cde')
-        .run(function (err) {
-          done(err);
-        });
+        }, () => 'abc', 'cde')
+        .run(done);
     });
 
     it('with function fail by timeout', function (done) {
       browser
         .open('/test/fixtures/do/wait.html')
-        .do.wait(function () {
-          return false;
-        }, 1)
+        .do.wait(() => false, 1)
         .run(function (err) {
           assert.equal(err ? err.name : '', 'NavitError');
           done();
@@ -82,9 +70,7 @@ describe('Navit.do.*', function () {
       browser
         .open('/test/fixtures/do/wait.html')
         .do.wait('#test-div')
-        .run(function (err) {
-          done(err);
-        });
+        .run(done);
     });
 
     it('with selector fail by timeout', function (done) {
@@ -103,9 +89,7 @@ describe('Navit.do.*', function () {
       .open('/test/fixtures/do/inject.html')
       .do.inject(path.join(__dirname, 'fixtures', 'do', 'inject.js'))
       .do.wait('#html-from-js')
-      .run(function (err) {
-        done(err);
-      });
+      .run(done);
   });
 
   it('reload', function (done) {
@@ -115,26 +99,18 @@ describe('Navit.do.*', function () {
       .do.wait('#html-from-js')
       .do.reload()
       .test.not.exists('#html-from-js')
-      .run(function (err) {
-        done(err);
-      });
+      .run(done);
   });
 
   it('back', function (done) {
     browser
       .open('/test/fixtures/do/back.html')
       .open('/test/fixtures/do/forward.html')
-      .get.url(function (url) {
-        assert.equal(url, 'http://localhost:17345/test/fixtures/do/forward.html');
-      })
+      .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/forward.html'))
       .do.back()
       .do.wait()
-      .get.url(function (url) {
-        assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html');
-      })
-      .run(function (err) {
-        done(err);
-      });
+      .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'))
+      .run(done);
   });
 
   it('forward', function (done) {
@@ -143,17 +119,11 @@ describe('Navit.do.*', function () {
       .open('/test/fixtures/do/back.html')
       .do.back()
       .do.wait()
-      .get.url(function (url) {
-        assert.equal(url, 'http://localhost:17345/test/fixtures/do/forward.html');
-      })
+      .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/forward.html'))
       .do.forward()
       .do.wait()
-      .get.url(function (url) {
-        assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html');
-      })
-      .run(function (err) {
-        done(err);
-      });
+      .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'))
+      .run(done);
   });
 
   describe('click', function () {
@@ -162,12 +132,8 @@ describe('Navit.do.*', function () {
         .open('/test/fixtures/do/click.html')
         .do.click('#click-test')
         .do.wait()
-        .get.url(function (url) {
-          assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html');
-        })
-        .run(function (err) {
-          done(err);
-        });
+        .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'))
+        .run(done);
     });
 
     it('with function', function (done) {
@@ -175,12 +141,8 @@ describe('Navit.do.*', function () {
         .open('/test/fixtures/do/click.html')
         .do.click(function () { return '#click-test'; })
         .do.wait()
-        .get.url(function (url) {
-          assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html');
-        })
-        .run(function (err) {
-          done(err);
-        });
+        .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'))
+        .run(done);
     });
 
     // This test case cover phantomjs issue: https://github.com/ariya/phantomjs/issues/14109
@@ -191,9 +153,7 @@ describe('Navit.do.*', function () {
         .test.evaluate(function () {
           return window.__mouse_btn__ === 1;
         })
-        .run(function (err) {
-          done(err);
-        });
+        .run(done);
     });
   });
 
@@ -212,9 +172,7 @@ describe('Navit.do.*', function () {
         return document.getElementById('select-change-monitor')
           .innerHTML === 'The value is: opt3';
       })
-      .run(function (err) {
-        done(err);
-      });
+      .run(done);
   });
 
   it('check', function (done) {
@@ -240,9 +198,7 @@ describe('Navit.do.*', function () {
         return document.getElementById('checkbox-change-monitor')
           .innerHTML === 'not checked';
       })
-      .run(function (err) {
-        done(err);
-      });
+      .run(done);
   });
 
   it('scrollTo', function (done) {
@@ -252,9 +208,7 @@ describe('Navit.do.*', function () {
       .test.evaluate(function () {
         return window.pageYOffset === 100;
       })
-      .run(function (err) {
-        done(err);
-      });
+      .run(done);
   });
 
   it('type', function (done) {
@@ -268,9 +222,7 @@ describe('Navit.do.*', function () {
       .test.evaluate(function () {
         return document.getElementById('contenteditable-test').innerHTML.trim() === 'test-TEST-test';
       })
-      .run(function (err) {
-        done(err);
-      });
+      .run(done);
   });
 
   it('clear', function (done) {
@@ -312,7 +264,7 @@ describe('Navit.do.*', function () {
       .test.evaluate(function () {
         return window.__reader__.result.trim() === 'test-TEST-test';
       })
-      .run(function (err) {
+      .run(err => {
         helpers.unlink(file);
         done(err);
       });
@@ -324,16 +276,12 @@ describe('Navit.do.*', function () {
     browser
       .open('/test/fixtures/do/screenshot.html')
       .do.screenshot(screenshotPath)
-      .run(function (err) {
-        if (err) {
-          done(err);
-          return;
-        }
+      .run(err => {
+        if (err) return done(err);
 
         assert.equal(fs.existsSync(screenshotPath), true);
 
         helpers.unlink(screenshotPath);
-
         done();
       });
   });

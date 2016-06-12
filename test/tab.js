@@ -1,30 +1,26 @@
 'use strict';
 
 
-var assert  = require('chai').assert;
-var express = require('express');
-var path    = require('path');
-var navit   = require('../');
+const assert  = require('chai').assert;
+const express = require('express');
+const path    = require('path');
+const navit   = require('../');
 
 
 describe('Navit.tab.*', function () {
-  var server;
-  var browser;
+  let server;
+  let browser;
 
   before(function (done) {
     browser = navit({ prefix: 'http://localhost:17345', engine: process.env.ENGINE });
 
     server = express()
-        .use(express.static(path.join(__dirname, '..')))
-        .listen(17345, function (err) {
-          if (err) {
-            done(err);
-            return;
-          }
-
-          // Init phantom before execute first test
-          browser.run(done);
-        });
+      .use(express.static(path.join(__dirname, '..')))
+      .listen(17345, err => {
+        if (err) return done(err);
+        // Init phantom before execute first test
+        browser.run(done);
+      });
   });
 
   it('open', function (done) {
@@ -45,11 +41,8 @@ describe('Navit.tab.*', function () {
       .tab.open()
       .tab.open()
       .tab.count(stack)
-      .run(true, function (err) {
-        if (err) {
-          done(err);
-          return;
-        }
+      .run(true, err => {
+        if (err) return done(err);
 
         assert.strictEqual(stack[0] + 3, stack[1]);
         done();

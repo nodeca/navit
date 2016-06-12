@@ -1,47 +1,43 @@
 'use strict';
 
 
-var assert  = require('chai').assert;
-var express = require('express');
-var path    = require('path');
-var _       = require('lodash');
-var navit   = require('../');
-var auth    = require('basic-auth');
+const assert  = require('chai').assert;
+const express = require('express');
+const path    = require('path');
+const _       = require('lodash');
+const navit   = require('../');
+const auth    = require('basic-auth');
 
 
 describe('Navit.set.*', function () {
-  var server;
-  var browser;
+  let server;
+  let browser;
 
   before(function (done) {
     browser = navit({ prefix: 'http://localhost:17345', engine: process.env.ENGINE });
 
     server = express()
-        .get('/test/fixtures/set/authentication.html', (req, res, next) => {
-          let user = auth(req);
+      .get('/test/fixtures/set/authentication.html', (req, res, next) => {
+        let user = auth(req);
 
-          if (!user || user.name !== 'john' || user.pass !== 'doe') {
-            res.statusCode = 401;
-            res.setHeader('WWW-Authenticate', 'Basic realm="example"');
-            res.end('Access denied');
-            return;
-          }
+        if (!user || user.name !== 'john' || user.pass !== 'doe') {
+          res.statusCode = 401;
+          res.setHeader('WWW-Authenticate', 'Basic realm="example"');
+          res.end('Access denied');
+          return;
+        }
 
-          next();
-        })
-        .use(express.static(path.join(__dirname, '..')))
-        .get('/test/fixtures/set/headers.html', function (req, res) {
-          res.send(JSON.stringify(req.headers));
-        })
-        .listen(17345, function (err) {
-          if (err) {
-            done(err);
-            return;
-          }
-
-          // Init phantom before execute first test
-          browser.run(done);
-        });
+        next();
+      })
+      .use(express.static(path.join(__dirname, '..')))
+      .get('/test/fixtures/set/headers.html', (req, res) => {
+        res.send(JSON.stringify(req.headers));
+      })
+      .listen(17345, err => {
+        if (err) return done(err);
+        // Init phantom before execute first test
+        browser.run(done);
+      });
   });
 
   it('authentication', function (done) {
@@ -59,9 +55,7 @@ describe('Navit.set.*', function () {
       .test.evaluate(function () {
         return window.navigator.userAgent === 'test-ua';
       })
-      .run(function (err) {
-        done(err);
-      });
+      .run(done);
   });
 
   it.skip('zoom', function (done) {
@@ -71,19 +65,13 @@ describe('Navit.set.*', function () {
       .open('/test/fixtures/set/zoom.html')
       .get.evaluate(function () {
         return [ window.innerWidth, window.innerHeight ];
-      }, function (data) {
-        size = data;
-      })
+      }, data => { size = data; })
       .set.zoom(0.5)
       .get.evaluate(function () {
         return [ window.innerWidth, window.innerHeight ];
-      }, function (data) {
-        assert.deepEqual(data, [ size[0] * 2, size[1] * 2 ]);
-      })
+      }, data => assert.deepEqual(data, [ size[0] * 2, size[1] * 2 ]))
       .set.zoom(1)
-      .run(function (err) {
-        done(err);
-      });
+      .run(done);
   });
 
   it.skip('viewport', function (done) {
@@ -93,18 +81,12 @@ describe('Navit.set.*', function () {
       .set.viewport(300, 400)
       .get.evaluate(function () {
         return [ window.innerWidth, window.innerHeight ];
-      }, function (data) {
-        assert.deepEqual(data, [ 300, 400 ]);
-      })
+      }, data => assert.deepEqual(data, [ 300, 400 ]))
       .set.viewport(110, 128)
       .get.evaluate(function () {
         return [ window.innerWidth, window.innerHeight ];
-      }, function (data) {
-        assert.deepEqual(data, [ 110, 128 ]);
-      })
-      .run(function (err) {
-        done(err);
-      });
+      }, data => assert.deepEqual(data, [ 110, 128 ]))
+      .run(done);
   });
 
   it('cookies', function (done) {
@@ -115,10 +97,8 @@ describe('Navit.set.*', function () {
         value: 'cookie',
         path: '/test'
       })
-      .get.cookies(function (cookies) {
-        var cookie = _.find(cookies, function (cookie) {
-          return cookie.name === 'test';
-        });
+      .get.cookies(cookies => {
+        let cookie = _.find(cookies, cookie => cookie.name === 'test');
 
         assert.equal(cookie.value, 'cookie');
       })
@@ -129,9 +109,7 @@ describe('Navit.set.*', function () {
         value: 'cookie',
         expires: Date.now() - 1000
       })
-      .get.cookies(function (cookies) {
-        assert.equal(cookies.length, 0);
-      })
+      .get.cookies(cookies => assert.equal(cookies.length, 0))
       .run(done);
   });
 

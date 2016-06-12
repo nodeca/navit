@@ -1,27 +1,22 @@
 'use strict';
 
 
-var express = require('express');
-var path    = require('path');
-var navit   = require('../');
+const express = require('express');
+const path    = require('path');
+const navit   = require('../');
 
 
 describe.skip('Navit.frame.*', function () {
-  var server;
-  var browser;
+  let server;
+  let browser;
 
   before(function (done) {
     browser = navit({ prefix: 'http://localhost:17345', engine: process.env.ENGINE });
 
     server = express()
       .use(express.static(path.join(__dirname, '..')))
-      .listen(17345, function (err) {
-
-        if (err) {
-          done(err);
-          return;
-        }
-
+      .listen(17345, err => {
+        if (err) return done(err);
         // Init phantom before execute first test
         browser.run(done);
       });
@@ -34,9 +29,7 @@ describe.skip('Navit.frame.*', function () {
       .frame.enter('#test-frame')
       .test.text('p', 'It is iframe.html')
       // SlimerJS stay in frame. Reset context for next test.
-      .run(true, function (err) {
-        done(err);
-      });
+      .run(true, err => done(err));
   });
 
   it('exit', function (done) {
@@ -46,9 +39,7 @@ describe.skip('Navit.frame.*', function () {
       .test.text('p', 'It is iframe.html')
       .frame.exit()
       .test.text('p', 'It is exit.html')
-      .run(true, function (err) {
-        done(err);
-      });
+      .run(true, err => done(err));
   });
 
   after(function (done) {
