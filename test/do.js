@@ -121,7 +121,7 @@ describe('Navit.do.*', function () {
       });
   });
 
-  it.skip('back', function (done) {
+  it('back', function (done) {
     browser
       .open('/test/fixtures/do/back.html')
       .open('/test/fixtures/do/forward.html')
@@ -138,7 +138,7 @@ describe('Navit.do.*', function () {
       });
   });
 
-  it.skip('forward', function (done) {
+  it('forward', function (done) {
     browser
       .open('/test/fixtures/do/forward.html')
       .open('/test/fixtures/do/back.html')
