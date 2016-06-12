@@ -19,15 +19,14 @@ describe('Navit.get.*', function () {
     server = express()
         .use(express.static(path.join(__dirname, '..')))
         .listen(17345, function (err) {
+          if (err) {
+            done(err);
+            return;
+          }
 
-      if (err) {
-        done(err);
-        return;
-      }
-
-      // Init phantom before execute first test
-      browser.run(done);
-    });
+          // Init phantom before execute first test
+          browser.run(done);
+        });
   });
 
   describe('title', function () {

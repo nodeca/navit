@@ -34,15 +34,14 @@ describe('Navit.set.*', function () {
           res.send(JSON.stringify(req.headers));
         })
         .listen(17345, function (err) {
+          if (err) {
+            done(err);
+            return;
+          }
 
-      if (err) {
-        done(err);
-        return;
-      }
-
-      // Init phantom before execute first test
-      browser.run(done);
-    });
+          // Init phantom before execute first test
+          browser.run(done);
+        });
   });
 
   it('authentication', function (done) {

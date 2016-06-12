@@ -1,5 +1,3 @@
-PATH        := ./node_modules/.bin:${PATH}
-
 NPM_PACKAGE := $(shell node -e 'console.log(require("./package.json").name)')
 NPM_VERSION := $(shell node -e 'console.log(require("./package.json").version)')
 
@@ -20,19 +18,19 @@ help:
 
 
 lint:
-	eslint --reset .
+	./node_modules/.bin/eslint .
 
 
 test: test-phantomjs test-slimerjs test-electron
 
 test-phantomjs: lint
-	mocha
+	./node_modules/.bin/mocha
 
 test-slimerjs: lint
-	ENGINE=slimerjs mocha
+	ENGINE=slimerjs ./node_modules/.bin/mocha
 
 test-electron: lint
-	ENGINE=electron mocha
+	ENGINE=electron ./node_modules/.bin/mocha
 
 test-ci: test-phantomjs test-electron
 
@@ -54,5 +52,5 @@ publish:
 	npm publish https://github.com/${GITHUB_PROJ}/tarball/${NPM_VERSION}
 
 
-.PHONY: publish lint test test-slimerjs
+.PHONY: publish lint test
 .SILENT: help lint test

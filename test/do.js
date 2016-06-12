@@ -25,15 +25,14 @@ describe('Navit.do.*', function () {
           res.send('post-test');
         })
         .listen(17345, function (err) {
+          if (err) {
+            done(err);
+            return;
+          }
 
-      if (err) {
-        done(err);
-        return;
-      }
-
-      // Init phantom before execute first test
-      browser.run(done);
-    });
+          // Init phantom before execute first test
+          browser.run(done);
+        });
   });
 
   describe('wait', function () {
