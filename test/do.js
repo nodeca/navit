@@ -99,7 +99,7 @@ describe('Navit.do.*', function () {
     });
   });
 
-  it.skip('inject', function (done) {
+  it('inject', function (done) {
     browser
       .open('/test/fixtures/do/inject.html')
       .do.inject(path.join(__dirname, 'fixtures', 'do', 'inject.js'))
@@ -109,7 +109,7 @@ describe('Navit.do.*', function () {
       });
   });
 
-  it.skip('reload', function (done) {
+  it('reload', function (done) {
     browser
       .open('/test/fixtures/do/reload.html')
       .do.inject(path.join(__dirname, 'fixtures', 'do', 'reload.js'))
@@ -258,7 +258,7 @@ describe('Navit.do.*', function () {
       });
   });
 
-  it.skip('type', function (done) {
+  it('type', function (done) {
     browser
       .open('/test/fixtures/do/type.html')
       .do.type('#type-test', 'test-TEST-test')

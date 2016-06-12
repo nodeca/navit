@@ -227,7 +227,7 @@ describe('Navit api', function () {
       });
   });
 
-  it.skip('options.inject', function (done) {
+  it('options.inject', function (done) {
     // workaround for utf8 in dir names for SlimeerJS
     var file = helpers.toTmp(path.join(__dirname, 'fixtures', 'api', 'inject.js'));
 

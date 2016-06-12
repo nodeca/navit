@@ -34,7 +34,7 @@ describe('Navit.set.*', function () {
 
   // TODO: authentication test
 
-  it.skip('useragent', function (done) {
+  it('useragent', function (done) {
     browser
       .set.useragent('test-ua')
       .open('/test/fixtures/set/useragent.html')
@@ -68,10 +68,10 @@ describe('Navit.set.*', function () {
       });
   });
 
-  it.skip('viewport', function (done) {
+  it('viewport', function (done) {
     browser
       .open('/test/fixtures/set/viewport.html')
-      .set.zoom(1)
+      // .set.zoom(1)
       .set.viewport(300, 400)
       .get.evaluate(function () {
         return [ window.innerWidth, window.innerHeight ];
