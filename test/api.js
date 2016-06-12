@@ -138,7 +138,7 @@ describe('Navit api', function () {
     });
   });
 
-  it.skip('.batch', function (done) {
+  it('.batch', function (done) {
     browser.batch.create('test_batch', function () {
       this
         .open('/test/fixtures/api/batch.html')
@@ -202,7 +202,7 @@ describe('Navit api', function () {
     assert.equal(browser.use_test(), 'abc');
   });
 
-  it.skip('afterOpen', function (done) {
+  it('afterOpen', function (done) {
     browser.afterOpen = function () {
       this
         .set.cookie('ao', 'ao-test-cookies')

@@ -68,7 +68,7 @@ describe('Navit.set.*', function () {
       });
   });
 
-  it('viewport', function (done) {
+  it.skip('viewport', function (done) {
     browser
       .open('/test/fixtures/set/viewport.html')
       // .set.zoom(1)
@@ -89,7 +89,7 @@ describe('Navit.set.*', function () {
       });
   });
 
-  it.skip('cookies', function (done) {
+  it('cookies', function (done) {
     browser
       .open('/test/fixtures/set/cookies.html')
       .set.cookie({

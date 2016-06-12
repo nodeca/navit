@@ -303,7 +303,7 @@ describe('Navit.get.*', function () {
     });
   });
 
-  it.skip('cookies with function', function (done) {
+  it('cookies with function', function (done) {
     browser
       .open('/test/fixtures/get/cookies.html')
       .set.cookie('a', 'b')
