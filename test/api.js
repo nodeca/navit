@@ -123,10 +123,10 @@ describe('Navit api', function () {
   });
 
   describe('.fn', function () {
-    it('async', function (done) {
-      var results = [];
+    it('async', function () {
+      let results = [];
 
-      browser
+      return browser
         .open('/test/fixtures/api/fn.html')
         .get.text('body', results)
         .fn((a, b, c, next) => {
@@ -137,8 +137,7 @@ describe('Navit api', function () {
           assert.equal(c, 'c');
 
           next();
-        }, 'a', 'b', 'c')
-        .run(done);
+        }, 'a', 'b', 'c');
     });
 
     it('sync', function () {
@@ -189,7 +188,7 @@ describe('Navit api', function () {
       );
   });
 
-  it('options.inject', function (done) {
+  it('options.inject', function () {
     // workaround for utf8 in dir names for SlimeerJS
     let file = helpers.toTmp(path.join(__dirname, 'fixtures', 'api', 'inject.js'));
 
@@ -197,30 +196,31 @@ describe('Navit api', function () {
       file
     ], engine: ENGINE });
 
-    browser
+    return browser
       .open('http://localhost:17345/test/fixtures/api/inject.html')
       .test.text('#html-from-js', 'html from js')
       .do.reload()
       .test.text('#html-from-js', 'html from js')
-      .run(true, err => {
-        helpers.unlink(file);
-        done(err);
-      });
+      .close()
+      .then(
+        () => { helpers.unlink(file); },
+        err => { helpers.unlink(file); throw err; }
+      );
   });
 
-  it('engineOptions', function (done) {
+  it('engineOptions', function () {
     let browser = navit({ engine: ENGINE }, { loadImages: false });
 
-    browser
+    return browser
       .open('http://localhost:17345/test/fixtures/api/engine_options.html')
       .get.evaluate(function () {
         return [ document.querySelector('img').clientWidth, document.querySelector('img').clientHeight ];
       }, size => assert.notDeepEqual(size, [ 1, 1 ]))
-      .run(true, done);
+      .close();
   });
 
   after(function (done) {
     server.close();
-    browser.close(done);
+    browser.exit(done);
   });
 });

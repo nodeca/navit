@@ -284,6 +284,6 @@ describe('Navit.do.*', function () {
 
   after(function (done) {
     server.close();
-    browser.close(done);
+    browser.exit(done);
   });
 });

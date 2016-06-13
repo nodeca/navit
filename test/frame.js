@@ -29,7 +29,7 @@ describe.skip('Navit.frame.*', function () {
       .frame.enter('#test-frame')
       .test.text('p', 'It is iframe.html')
       // SlimerJS stay in frame. Reset context for next test.
-      .run(true);
+      .close();
   });
 
   it('exit', function () {
@@ -39,11 +39,11 @@ describe.skip('Navit.frame.*', function () {
       .test.text('p', 'It is iframe.html')
       .frame.exit()
       .test.text('p', 'It is exit.html')
-      .run(true);
+      .close();
   });
 
   after(function (done) {
     server.close();
-    browser.close(done);
+    browser.shutdown(done);
   });
 });
