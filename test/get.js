@@ -229,6 +229,15 @@ describe('Navit.get.*', function () {
       .get.status(st => assert.equal(st, 200));
   });
 
+  it('headers', function () {
+    return browser
+      .open('/test/fixtures/get/headers.html')
+      .get.headers(headers => {
+        assert.equal(headers.find(h => h.name.toLowerCase() === 'x-powered-by').value,
+          'Express');
+      });
+  });
+
   it('value', function () {
     return browser
       .open('/test/fixtures/get/value.html')
