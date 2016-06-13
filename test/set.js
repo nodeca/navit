@@ -108,7 +108,7 @@ describe('Navit.set.*', function () {
       .get.cookies(cookies => assert.equal(cookies.length, 0));
   });
 
-  it.skip('headers', function () {
+  it('headers', function () {
     return browser
       .set.headers({ 'test-header': 'test-value' })
       .open('/test/fixtures/set/headers.html')

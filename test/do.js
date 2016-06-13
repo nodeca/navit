@@ -268,7 +268,7 @@ describe('Navit.do.*', function () {
       });
   });
 
-  it.skip('open with headers override', function () {
+  it('open with headers override', function () {
     return browser
       .set.headers({ 'test-header': 'test-value', 'test-header-2': 'test-value' })
       .do.open('/test/fixtures/do/open.html', { headers: { 'test-header': 'test-open-value' } })

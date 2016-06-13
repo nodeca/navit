@@ -273,7 +273,7 @@ describe('Navit.test.*', function () {
     });
   });
 
-  describe.skip('body.not', function () {
+  describe('body.not', function () {
     it('positive', function () {
       return browser
         .open('/test/fixtures/test/body.html')
@@ -304,7 +304,7 @@ describe('Navit.test.*', function () {
         .test('X-Powered-By', 'Express');
     });
 
-    it.skip('body', function () {
+    it('body', function () {
       return browser
         .open('/test/fixtures/test/body.html')
         .test(/test text/);

@@ -148,14 +148,22 @@ describe('Navit.get.*', function () {
         }, val => assert.equal(val, 'Here is <b>HTML</b>!'));
     });
 
-    it.skip('for whole page', function () {
-      let fixture = fs.readFileSync(path.join(__dirname, 'fixtures', 'get', 'html.html'), 'utf-8')
-        .split(/[\n ]/)
-        .join('');
+    it('for whole page', function () {
+      // Equalize fixture & browser data by removing glitching elements
+      function cleanup(src) {
+        return src
+          // 1. phantom add <html> even if not exists
+          // 2. electron's emulator don't add this
+          .replace(/<html[^>]*>|<\/html>/g, '')
+          // slimer can do something strange
+          .replace(/[\n ]/g, '');
+      }
+
+      let fixture = fs.readFileSync(path.join(__dirname, 'fixtures', 'get', 'html.html'), 'utf-8');
 
       return browser
         .open('/test/fixtures/get/html.html')
-        .get.html(html => assert.equal(html.split(/[\n ]/).join(''), fixture));
+        .get.html(html => assert.equal(cleanup(html), cleanup(fixture)));
     });
   });
 
