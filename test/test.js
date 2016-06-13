@@ -227,7 +227,7 @@ describe('Navit.test.*', function () {
     });
   });
 
-  describe.skip('status', function () {
+  describe('status', function () {
     it('positive', function () {
       return browser
         .open('/test/fixtures/test/status.html')
@@ -250,7 +250,7 @@ describe('Navit.test.*', function () {
     });
   });
 
-  describe.skip('header', function () {
+  describe('header', function () {
     it('positive', function () {
       return browser
         .open('/test/fixtures/test/header.html')
@@ -291,7 +291,7 @@ describe('Navit.test.*', function () {
     });
   });
 
-  describe.skip('sugar', function () {
+  describe('sugar', function () {
     it('status', function () {
       return browser
         .open('/test/fixtures/test/status.html')
@@ -304,7 +304,7 @@ describe('Navit.test.*', function () {
         .test('X-Powered-By', 'Express');
     });
 
-    it('body', function () {
+    it.skip('body', function () {
       return browser
         .open('/test/fixtures/test/body.html')
         .test(/test text/);

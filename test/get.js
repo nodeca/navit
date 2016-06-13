@@ -223,7 +223,7 @@ describe('Navit.get.*', function () {
     });
   });
 
-  it.skip('status', function () {
+  it('status', function () {
     return browser
       .open('/test/fixtures/get/status.html')
       .get.status(st => assert.equal(st, 200));
