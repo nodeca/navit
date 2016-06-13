@@ -36,6 +36,21 @@ var Navit   = require('navit'),
 var stack = []; // You can use lazy functions to pass data between stages,
                 // but arrays have more compact notation.
 
+yield browser
+  .open('http://dev.nodeca.com')
+  .wait(function () {
+    if (window.NodecaLoader && window.NodecaLoader.booted) { return true; }
+  })
+  .get.url(stack);
+  .click('forum-category__content:first forum-section__title-link')
+  .wait(function changed(data) {
+    if (location.url !== data[data.length - 1]) { return true; }
+  }, stack)
+  .test.exists('.forum-topiclines')
+  .close()
+
+// Or with callback (old way)
+
 browser
   .open('http://dev.nodeca.com')
   .wait(function () {
@@ -217,14 +232,19 @@ Special sugar:
 
 - `.fn(function, params)` - local function execute. Function can be sync
   (0 params) and async (1 param).
-- `.close()` - tear down browser process. Note, browser will NOT be closed until you
-  do it explicit via this method or `.run(true, ...)`.
+- `.exit()` - tear down browser process. Note, browser will NOT be closed until
+  you do it explicit via this method or `.run(true, ...)`.
+- `.close()` - similar to `.exit()` but stackable (will be executed in order
+  with other chained commends).
 - `.run([teardown,] done)` - terminate sequence of commands (execute and do
   callback).
-  - If `teardown` is `true`, then close the browser after the sequence finishes.
-    It's a sugar to avoid explicit `.close()` call.
+  - If `teardown` is `true`, then close the browser after the sequence
+    finishes.
+  - If callback not passed, return result as `Promise`.
+- `.then(onSuccess, onFail)` - executes `.run(false)` under the hood.
 - `.screenshot([ selector|bounding_rect, type,] path)` - do screenshot
-- `.registerMethod(names, fn)` - add new method with given name(s) (`names` can be string or array).
+- `.registerMethod(names, fn)` - add new method with given name(s) (`names`
+  can be string or array).
 - `.use(plugin [, params...])` - apply plugin.
 
 

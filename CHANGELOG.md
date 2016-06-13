@@ -1,3 +1,15 @@
+3.0.0 / WIP
+------------------
+
+- __Breaking:__ `.close()` is now stackable command. Use `.exit()` for immediate
+  shutdown instead.
+- __Breaking:__ Dropped old nodes support. v4.+ required.
+- `Promise` support added:
+  - `.run()` returns `Promise` if invoked without callback.
+  - Navit instance is thenable (`.run()` call can be skipped with promises).
+- `Electron` support added.
+
+
 2.2.0 / 2016-03-17
 ------------------
 
