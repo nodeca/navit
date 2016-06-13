@@ -40,28 +40,26 @@ describe('Navit.set.*', function () {
       });
   });
 
-  it('authentication', function (done) {
-    browser
+  it('authentication', function () {
+    return browser
       .set.authentication('john', 'doe')
       .open('/test/fixtures/set/authentication.html')
-      .test.exists('#test-div')
-      .run(done);
+      .test.exists('#test-div');
   });
 
-  it('useragent', function (done) {
-    browser
+  it('useragent', function () {
+    return browser
       .set.useragent('test-ua')
       .open('/test/fixtures/set/useragent.html')
       .test.evaluate(function () {
         return window.navigator.userAgent === 'test-ua';
-      })
-      .run(done);
+      });
   });
 
-  it.skip('zoom', function (done) {
-    var size;
+  it.skip('zoom', function () {
+    let size;
 
-    browser
+    return browser
       .open('/test/fixtures/set/zoom.html')
       .get.evaluate(function () {
         return [ window.innerWidth, window.innerHeight ];
@@ -70,12 +68,11 @@ describe('Navit.set.*', function () {
       .get.evaluate(function () {
         return [ window.innerWidth, window.innerHeight ];
       }, data => assert.deepEqual(data, [ size[0] * 2, size[1] * 2 ]))
-      .set.zoom(1)
-      .run(done);
+      .set.zoom(1);
   });
 
-  it.skip('viewport', function (done) {
-    browser
+  it.skip('viewport', function () {
+    return browser
       .open('/test/fixtures/set/viewport.html')
       // .set.zoom(1)
       .set.viewport(300, 400)
@@ -85,12 +82,11 @@ describe('Navit.set.*', function () {
       .set.viewport(110, 128)
       .get.evaluate(function () {
         return [ window.innerWidth, window.innerHeight ];
-      }, data => assert.deepEqual(data, [ 110, 128 ]))
-      .run(done);
+      }, data => assert.deepEqual(data, [ 110, 128 ]));
   });
 
-  it('cookies', function (done) {
-    browser
+  it('cookies', function () {
+    return browser
       .open('/test/fixtures/set/cookies.html')
       .set.cookie({
         name: 'test',
@@ -109,16 +105,14 @@ describe('Navit.set.*', function () {
         value: 'cookie',
         expires: Date.now() - 1000
       })
-      .get.cookies(cookies => assert.equal(cookies.length, 0))
-      .run(done);
+      .get.cookies(cookies => assert.equal(cookies.length, 0));
   });
 
-  it.skip('headers', function (done) {
-    browser
+  it.skip('headers', function () {
+    return browser
       .set.headers({ 'test-header': 'test-value' })
       .open('/test/fixtures/set/headers.html')
-      .test.body(/test-value/)
-      .run(done);
+      .test.body(/test-value/);
   });
 
   after(function (done) {

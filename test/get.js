@@ -26,266 +26,216 @@ describe('Navit.get.*', function () {
   });
 
   describe('title', function () {
-    it('with function', function (done) {
-      browser
+    it('with function', function () {
+      return browser
         .open('/test/fixtures/get/title.html')
-        .get.title(title => assert.equal(title, 'test title'))
-        .run(done);
+        .get.title(title => assert.equal(title, 'test title'));
     });
 
-    it('with async function', function (done) {
-      browser
+    it('with async function', function () {
+      return browser
         .open('/test/fixtures/get/title.html')
         .get.title((title, next) => {
           assert.equal(title, 'test title');
           next('test-err');
         })
-        .run(err => {
-          assert.equal(err ? err : '', 'test-err');
-          done();
-        });
+        .then(
+          () => { throw new Error('Error should happen'); },
+          err => { assert.equal(err ? err : '', 'test-err'); }
+        );
     });
 
-    it('with array', function (done) {
+    it('with array', function () {
       var results = [];
 
-      browser
+      return browser
         .open('/test/fixtures/get/title.html')
         .get.title(results)
-        .run(err => {
-          if (err) return done(err);
-
-          assert.equal(results[results.length - 1], 'test title');
-          done();
-        });
+        .then(() => assert.equal(results[results.length - 1], 'test title'));
     });
   });
 
   describe('url', function () {
-    it('with function', function (done) {
-      browser
+    it('with function', function () {
+      return browser
         .open('/test/fixtures/get/url.html')
-        .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/get/url.html'))
-        .run(done);
+        .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/get/url.html'));
     });
 
-    it('with array', function (done) {
-      var results = [];
+    it('with array', function () {
+      let results = [];
 
-      browser
+      return browser
         .open('/test/fixtures/get/url.html')
         .get.url(results)
-        .run(err => {
-          if (err) return done(err);
-
-          assert.equal(results[results.length - 1], 'http://localhost:17345/test/fixtures/get/url.html');
-          done();
-        });
+        .then(() => assert.equal(results[results.length - 1], 'http://localhost:17345/test/fixtures/get/url.html'));
     });
   });
 
   describe('count', function () {
-    it('with function', function (done) {
-      browser
+    it('with function', function () {
+      return browser
         .open('/test/fixtures/get/count.html')
-        .get.count('ul:first-child li', count => assert.equal(count, 7))
-        .run(done);
+        .get.count('ul:first-child li', count => assert.equal(count, 7));
     });
 
-    it('with array', function (done) {
+    it('with array', function () {
       var results = [];
 
-      browser
+      return browser
         .open('/test/fixtures/get/count.html')
         .get.count('ul:first-child li', results)
-        .run(err => {
-          if (err) return done(err);
-
-          assert.equal(results[results.length - 1], 7);
-          done();
-        });
+        .then(() => assert.equal(results[results.length - 1], 7));
     });
 
-    it('params as functions', function (done) {
-      browser
+    it('params as functions', function () {
+      return browser
         .open('/test/fixtures/get/count.html')
         .get.count(function () {
           return 'ul:first-child li';
-        }, count => assert.equal(count, 7))
-        .run(done);
+        }, count => assert.equal(count, 7));
     });
   });
 
   describe('text', function () {
-    it('with function', function (done) {
-      browser
+    it('with function', function () {
+      return browser
         .open('/test/fixtures/get/text.html')
         .get.text('#test-div', function (val) {
           assert.equal(val, 'Here is HTML!');
-        })
-        .run(done);
-    });
-
-    it('with array', function (done) {
-      var results = [];
-
-      browser
-        .open('/test/fixtures/get/text.html')
-        .get.text('#test-div', results)
-        .run(err => {
-          if (err) return done(err);
-
-          assert.equal(results[results.length - 1], 'Here is HTML!');
-          done();
         });
     });
 
-    it('params is functions', function (done) {
-      browser
+    it('with array', function () {
+      var results = [];
+
+      return browser
+        .open('/test/fixtures/get/text.html')
+        .get.text('#test-div', results)
+        .then(() => assert.equal(results[results.length - 1], 'Here is HTML!'));
+    });
+
+    it('params is functions', function () {
+      return browser
         .open('/test/fixtures/get/text.html')
         .get.text(function () {
           return '#test-div';
-        }, val => assert.equal(val, 'Here is HTML!'))
-        .run(done);
+        }, val => assert.equal(val, 'Here is HTML!'));
     });
   });
 
   describe('html', function () {
-    it('with function', function (done) {
-      browser
+    it('with function', function () {
+      return browser
         .open('/test/fixtures/get/html.html')
-        .get.html('#test-div', val => assert.equal(val, 'Here is <b>HTML</b>!'))
-        .run(done);
+        .get.html('#test-div', val => assert.equal(val, 'Here is <b>HTML</b>!'));
     });
 
-    it('with array', function (done) {
+    it('with array', function () {
       var results = [];
 
-      browser
+      return browser
         .open('/test/fixtures/get/html.html')
         .get.html('#test-div', results)
-        .run(err => {
-          if (err) return done(err);
-
-          assert.equal(results[results.length - 1], 'Here is <b>HTML</b>!');
-          done();
-        });
+        .then(() => assert.equal(results[results.length - 1], 'Here is <b>HTML</b>!'));
     });
 
-    it('params is functions', function (done) {
-      browser
+    it('params is functions', function () {
+      return browser
         .open('/test/fixtures/get/html.html')
         .get.html(function () {
           return '#test-div';
-        }, val => assert.equal(val, 'Here is <b>HTML</b>!'))
-        .run(done);
+        }, val => assert.equal(val, 'Here is <b>HTML</b>!'));
     });
 
-    it.skip('for whole page', function (done) {
-      var fixture = fs.readFileSync(path.join(__dirname, 'fixtures', 'get', 'html.html'), 'utf-8')
+    it.skip('for whole page', function () {
+      let fixture = fs.readFileSync(path.join(__dirname, 'fixtures', 'get', 'html.html'), 'utf-8')
         .split(/[\n ]/)
         .join('');
 
-      browser
+      return browser
         .open('/test/fixtures/get/html.html')
-        .get.html(html => assert.equal(html.split(/[\n ]/).join(''), fixture))
-        .run(done);
+        .get.html(html => assert.equal(html.split(/[\n ]/).join(''), fixture));
     });
   });
 
   describe('attribute', function () {
-    it('with function', function (done) {
-      browser
+    it('with function', function () {
+      return browser
         .open('/test/fixtures/get/attribute.html')
         .get.attribute('#test-div', 'data-test-attr',
           val => assert.equal(val, 'test attr')
-        )
-        .run(done);
+        );
     });
 
-    it('with array', function (done) {
+    it('with array', function () {
       var results = [];
 
-      browser
+      return browser
         .open('/test/fixtures/get/attribute.html')
         .get.attribute('#test-div', 'data-test-attr', results)
-        .run(err => {
-          if (err) return done(err);
-
-          assert.equal(results[results.length - 1], 'test attr');
-          done();
-        });
+        .then(() => assert.equal(results[results.length - 1], 'test attr'));
     });
 
-    it('params as functions', function (done) {
+    it('params as functions', function () {
       var results = [];
 
-      browser
+      return browser
         .open('/test/fixtures/get/attribute.html')
         .get.attribute(function () {
           return '#test-div';
         }, function () {
           return 'data-test-attr';
         }, results)
-        .run(err => {
-          if (err) return done(err);
-
-          assert.equal(results[results.length - 1], 'test attr');
-          done();
-        });
+        .then(() => assert.equal(results[results.length - 1], 'test attr'));
     });
   });
 
-  it('cookies with function', function (done) {
-    browser
+  it('cookies with function', function () {
+    return browser
       .open('/test/fixtures/get/cookies.html')
       .set.cookie('a', 'b')
       .get.cookies(cookies => {
         let cookie = _.find(cookies, cookie => cookie.name === 'a');
 
         assert.equal(cookie.value, 'b');
-      })
-      .run(done);
+      });
   });
 
   describe('evaluate', function () {
-    it('evaluate with params', function (done) {
-      browser
+    it('evaluate with params', function () {
+      return browser
         .open('/test/fixtures/get/evaluate.html')
         .get.evaluate(function (a, b, c) {
           return a + b + c;
-        }, 1, 2, 3, result => assert.equal(result, 6))
-        .run(done);
+        }, 1, 2, 3, result => assert.equal(result, 6));
     });
 
-    it('evaluate without params', function (done) {
-      browser
+    it('evaluate without params', function () {
+      return browser
         .open('/test/fixtures/get/evaluate.html')
         .get.evaluate(function () {
           window.abc = 123;
         })
         .get.evaluate(function () {
           return window.abc;
-        }, result => assert.equal(result, 123))
-        .run(done);
+        }, result => assert.equal(result, 123));
     });
   });
 
-  it.skip('status', function (done) {
-    browser
+  it.skip('status', function () {
+    return browser
       .open('/test/fixtures/get/status.html')
-      .get.status(st => assert.equal(st, 200))
-      .run(done);
+      .get.status(st => assert.equal(st, 200));
   });
 
-  it('value', function (done) {
-    browser
+  it('value', function () {
+    return browser
       .open('/test/fixtures/get/value.html')
       .get.value(
         'input:first-child',
         value => assert.strictEqual(value, 'test value')
-      )
-      .run(done);
+      );
   });
 
   after(function (done) {

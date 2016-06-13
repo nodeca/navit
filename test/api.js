@@ -110,17 +110,16 @@ describe('Navit api', function () {
     });
   });
 
-  it('.batch', function (done) {
+  it('.batch', function () {
     browser.batch.create('test_batch', function () {
       this
         .open('/test/fixtures/api/batch.html')
         .set.cookie('batch', 'cookies');
     });
 
-    browser
+    return browser
       .batch('test_batch')
-      .get.cookies(val => assert.equal(val[0].value, 'cookies'))
-      .run(done);
+      .get.cookies(val => assert.equal(val[0].value, 'cookies'));
   });
 
   describe('.fn', function () {
@@ -142,10 +141,10 @@ describe('Navit api', function () {
         .run(done);
     });
 
-    it('sync', function (done) {
+    it('sync', function () {
       var results = [];
 
-      browser
+      return browser
         .open('/test/fixtures/api/fn.html')
         .get.text('body', results)
         .fn((a, b, c) => {
@@ -154,8 +153,7 @@ describe('Navit api', function () {
           assert.equal(a, 'a');
           assert.equal(b, 'b');
           assert.equal(c, 'c');
-        }, 'a', 'b', 'c')
-        .run(done);
+        }, 'a', 'b', 'c');
     });
   });
 
@@ -168,14 +166,14 @@ describe('Navit api', function () {
     assert.equal(browser.use_test(), 'abc');
   });
 
-  it('afterOpen', function (done) {
+  it('afterOpen', function () {
     browser.afterOpen = function () {
       this
         .set.cookie('ao', 'ao-test-cookies')
         .do.type('#ao-test', 'ao-test-type');
     };
 
-    browser
+    return browser
       .open('/test/fixtures/api/after_open.html')
       .test.evaluate(function () {
         return document.querySelector('#ao-test').value === 'ao-test-type';
@@ -185,10 +183,10 @@ describe('Navit api', function () {
 
         assert.equal(cookie.value, 'ao-test-cookies');
       })
-      .run(err => {
-        browser.afterOpen = null;
-        done(err);
-      });
+      .then(
+        () => { browser.afterOpen = null; },
+        err => { browser.afterOpen = null; throw err; }
+      );
   });
 
   it('options.inject', function (done) {

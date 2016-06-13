@@ -23,51 +23,47 @@ describe('Navit.tab.*', function () {
       });
   });
 
-  it('open', function (done) {
-    browser
+  it('open', function () {
+    return browser
       .tab.open()
       .tab.open('/test/fixtures/tab/open.html')
       .test.url('http://localhost:17345/test/fixtures/tab/open.html')
-      .run(true, done);
+      .run(true);
   });
 
-  it('count', function (done) {
+  it('count', function () {
     var stack = [];
 
-    browser
+    return browser
       .open('/test/fixtures/tab/count.html')
       .tab.count(stack)
       .tab.open('/test/fixtures/tab/count.html')
       .tab.open()
       .tab.open()
       .tab.count(stack)
-      .run(true, err => {
-        if (err) return done(err);
-
-        assert.strictEqual(stack[0] + 3, stack[1]);
-        done();
-      });
+      .run(true)
+      .then(() => assert.strictEqual(stack[0] + 3, stack[1]));
   });
 
-  it('switch', function (done) {
-    browser
+  it('switch', function () {
+    return browser
       .open('/test/fixtures/tab/open.html')
       .tab.open('/test/fixtures/tab/switch.html')
       .test.url('http://localhost:17345/test/fixtures/tab/switch.html')
       .tab.switch(-2)
       .test.url('http://localhost:17345/test/fixtures/tab/open.html')
-      .run(true, done);
+      .run(true);
   });
 
-  it('close', function (done) {
-    browser
+  it('close', function () {
+    return browser
       .tab.switch(-1)
       .open('/test/fixtures/tab/open.html')
       .tab.open('/test/fixtures/tab/close.html')
       .test.url('http://localhost:17345/test/fixtures/tab/close.html')
       .tab.close()
       .test.url('http://localhost:17345/test/fixtures/tab/open.html')
-      .run(true, done);
+      .run(true);
   });
 
   after(function (done) {

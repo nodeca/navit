@@ -22,24 +22,24 @@ describe.skip('Navit.frame.*', function () {
       });
   });
 
-  it('enter', function (done) {
-    browser
+  it('enter', function () {
+    return browser
       .open('/test/fixtures/frame/enter.html')
       .test.text('p', 'It is enter.html')
       .frame.enter('#test-frame')
       .test.text('p', 'It is iframe.html')
       // SlimerJS stay in frame. Reset context for next test.
-      .run(true, err => done(err));
+      .run(true);
   });
 
-  it('exit', function (done) {
-    browser
+  it('exit', function () {
+    return browser
       .open('/test/fixtures/frame/exit.html')
       .frame.enter('iframe')
       .test.text('p', 'It is iframe.html')
       .frame.exit()
       .test.text('p', 'It is exit.html')
-      .run(true, err => done(err));
+      .run(true);
   });
 
   after(function (done) {

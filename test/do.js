@@ -32,8 +32,8 @@ describe('Navit.do.*', function () {
   });
 
   describe('wait', function () {
-    it('with function', function (done) {
-      browser
+    it('with function', function () {
+      return browser
         .open('/test/fixtures/do/wait.html')
         .do.wait(function () {
           if (!window.__testTimer__) {
@@ -43,78 +43,72 @@ describe('Navit.do.*', function () {
           }
 
           return window.__finish__;
-        })
-        .run(done);
+        });
     });
 
-    it('with function and extra params', function (done) {
-      browser
+    it('with function and extra params', function () {
+      return browser
         .open('/test/fixtures/do/wait.html')
         .do.wait(function (param1, param2) {
           return param1 === 'abc' && param2 === 'cde';
-        }, () => 'abc', 'cde')
-        .run(done);
+        }, () => 'abc', 'cde');
     });
 
-    it('with function fail by timeout', function (done) {
-      browser
+    it('with function fail by timeout', function () {
+      return browser
         .open('/test/fixtures/do/wait.html')
         .do.wait(() => false, 1)
-        .run(function (err) {
-          assert.equal(err ? err.name : '', 'NavitError');
-          done();
-        });
+        .then(
+          () => { throw new Error('Error should happen'); },
+          err => { assert.equal(err ? err.name : '', 'NavitError'); }
+        );
     });
 
-    it('with selector', function (done) {
-      browser
+    it('with selector', function () {
+      return browser
         .open('/test/fixtures/do/wait.html')
-        .do.wait('#test-div')
-        .run(done);
+        .do.wait('#test-div');
     });
 
-    it('with selector fail by timeout', function (done) {
-      browser
+    it('with selector fail by timeout', function () {
+      return browser
         .open('/test/fixtures/do/wait.html')
         .do.wait('#unexisting-test-div', 1)
-        .run(function (err) {
-          assert.equal(err ? err.name : '', 'NavitError');
-          done();
-        });
+        .then(
+          () => { throw new Error('Error should happen'); },
+          err => { assert.equal(err ? err.name : '', 'NavitError'); }
+        );
     });
   });
 
-  it('inject', function (done) {
-    browser
+  it('inject', function () {
+    return browser
       .open('/test/fixtures/do/inject.html')
       .do.inject(path.join(__dirname, 'fixtures', 'do', 'inject.js'))
-      .do.wait('#html-from-js')
-      .run(done);
+      .do.wait('#html-from-js');
   });
 
-  it('reload', function (done) {
-    browser
+  it('reload', function () {
+    return browser
       .open('/test/fixtures/do/reload.html')
       .do.inject(path.join(__dirname, 'fixtures', 'do', 'reload.js'))
       .do.wait('#html-from-js')
       .do.reload()
-      .test.not.exists('#html-from-js')
-      .run(done);
+      .test.not.exists('#html-from-js');
   });
 
-  it('back', function (done) {
-    browser
+  it('back', function () {
+    return browser
       .open('/test/fixtures/do/back.html')
       .open('/test/fixtures/do/forward.html')
       .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/forward.html'))
       .do.back()
       .do.wait()
-      .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'))
-      .run(done);
+      .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'));
   });
 
-  it('forward', function (done) {
-    browser
+  it('forward', function () {
+    return browser
       .open('/test/fixtures/do/forward.html')
       .open('/test/fixtures/do/back.html')
       .do.back()
@@ -122,43 +116,39 @@ describe('Navit.do.*', function () {
       .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/forward.html'))
       .do.forward()
       .do.wait()
-      .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'))
-      .run(done);
+      .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'));
   });
 
   describe('click', function () {
-    it('with selector', function (done) {
-      browser
+    it('with selector', function () {
+      return browser
         .open('/test/fixtures/do/click.html')
         .do.click('#click-test')
         .do.wait()
-        .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'))
-        .run(done);
+        .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'));
     });
 
-    it('with function', function (done) {
-      browser
+    it('with function', function () {
+      return browser
         .open('/test/fixtures/do/click.html')
         .do.click(function () { return '#click-test'; })
         .do.wait()
-        .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'))
-        .run(done);
+        .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'));
     });
 
     // This test case cover phantomjs issue: https://github.com/ariya/phantomjs/issues/14109
-    it('event.which should be equals to 1', function (done) {
-      browser
+    it('event.which should be equals to 1', function () {
+      return browser
         .open('/test/fixtures/do/click.html')
         .do.click('#click-test-2')
         .test.evaluate(function () {
           return window.__mouse_btn__ === 1;
-        })
-        .run(done);
+        });
     });
   });
 
-  it('select', function (done) {
-    browser
+  it('select', function () {
+    return browser
       .open('/test/fixtures/do/select.html')
       .test.evaluate(function () {
         return document.getElementById('select-change-monitor')
@@ -171,12 +161,11 @@ describe('Navit.do.*', function () {
       .test.evaluate(function () {
         return document.getElementById('select-change-monitor')
           .innerHTML === 'The value is: opt3';
-      })
-      .run(done);
+      });
   });
 
-  it('check', function (done) {
-    browser
+  it('check', function () {
+    return browser
       .open('/test/fixtures/do/check.html')
       .test.evaluate(function () {
         return document.getElementById('checkbox-change-monitor')
@@ -197,22 +186,20 @@ describe('Navit.do.*', function () {
       .test.evaluate(function () {
         return document.getElementById('checkbox-change-monitor')
           .innerHTML === 'not checked';
-      })
-      .run(done);
+      });
   });
 
-  it('scrollTo', function (done) {
-    browser
+  it('scrollTo', function () {
+    return browser
       .open('/test/fixtures/do/scroll_to.html')
       .do.scrollTo(0, 100)
       .test.evaluate(function () {
         return window.pageYOffset === 100;
-      })
-      .run(done);
+      });
   });
 
-  it('type', function (done) {
-    browser
+  it('type', function () {
+    return browser
       .open('/test/fixtures/do/type.html')
       .do.type('#type-test', 'test-TEST-test')
       .test.evaluate(function () {
@@ -221,12 +208,11 @@ describe('Navit.do.*', function () {
       .do.type('#contenteditable-test', 'test-TEST-test')
       .test.evaluate(function () {
         return document.getElementById('contenteditable-test').innerHTML.trim() === 'test-TEST-test';
-      })
-      .run(done);
+      });
   });
 
-  it('clear', function (done) {
-    browser
+  it('clear', function () {
+    return browser
       .open('/test/fixtures/do/clear.html')
       .do.clear('#clear-test')
       .test.evaluate(function () {
@@ -235,15 +221,14 @@ describe('Navit.do.*', function () {
       .do.clear('#contenteditable-test')
       .test.evaluate(function () {
         return document.getElementById('contenteditable-test').innerHTML.trim() === '';
-      })
-      .run(done);
+      });
   });
 
-  it.skip('upload', function (done) {
+  it.skip('upload', function () {
     // workaround for utf8 in dir names for SlimeerJS
     var file = helpers.toTmp(path.join(__dirname, 'fixtures', 'do', 'upload.txt'));
 
-    browser
+    return browser
       // Seems phantomjs has bug that cause crash on multiple open. Close tab to reset context.
       .tab.close()
       .open('/test/fixtures/do/upload.html')
@@ -264,42 +249,37 @@ describe('Navit.do.*', function () {
       .test.evaluate(function () {
         return window.__reader__.result.trim() === 'test-TEST-test';
       })
-      .run(err => {
-        helpers.unlink(file);
-        done(err);
-      });
+      .then(
+        () => { helpers.unlink(file); },
+        err => { helpers.unlink(file); throw err; }
+      );
   });
 
-  it.skip('screenshot', function (done) {
+  it.skip('screenshot', function () {
     var screenshotPath = helpers.tmp();
 
-    browser
+    return browser
       .open('/test/fixtures/do/screenshot.html')
       .do.screenshot(screenshotPath)
-      .run(err => {
-        if (err) return done(err);
-
+      .then(() => {
         assert.equal(fs.existsSync(screenshotPath), true);
 
         helpers.unlink(screenshotPath);
-        done();
       });
   });
 
-  it.skip('open with headers override', function (done) {
-    browser
+  it.skip('open with headers override', function () {
+    return browser
       .set.headers({ 'test-header': 'test-value', 'test-header-2': 'test-value' })
       .do.open('/test/fixtures/do/open.html', { headers: { 'test-header': 'test-open-value' } })
       .test.body(/test-open-value/)
-      .test.body(/test-value/)
-      .run(done);
+      .test.body(/test-value/);
   });
 
-  it.skip('post', function (done) {
-    browser
+  it.skip('post', function () {
+    return browser
       .do.post('/test/fixtures/do/post.html')
-      .test.body(/post-test/)
-      .run(done);
+      .test.body(/post-test/);
   });
 
   after(function (done) {
