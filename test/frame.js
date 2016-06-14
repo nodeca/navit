@@ -6,7 +6,7 @@ const path    = require('path');
 const navit   = require('../');
 
 
-describe.skip('Navit.frame.*', function () {
+describe('Navit.frame.*', function () {
   let server;
   let browser;
 
@@ -23,6 +23,8 @@ describe.skip('Navit.frame.*', function () {
   });
 
   it('enter', function () {
+    if (process.env.ENGINE === 'electron') return this.skip();
+
     return browser
       .open('/test/fixtures/frame/enter.html')
       .test.text('p', 'It is enter.html')
@@ -33,6 +35,8 @@ describe.skip('Navit.frame.*', function () {
   });
 
   it('exit', function () {
+    if (process.env.ENGINE === 'electron') return this.skip();
+
     return browser
       .open('/test/fixtures/frame/exit.html')
       .frame.enter('iframe')
@@ -44,6 +48,6 @@ describe.skip('Navit.frame.*', function () {
 
   after(function (done) {
     server.close();
-    browser.shutdown(done);
+    browser.exit(done);
   });
 });

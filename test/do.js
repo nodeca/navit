@@ -275,7 +275,9 @@ describe('Navit.do.*', function () {
       .test.body(/test-value/);
   });
 
-  it.skip('post', function () {
+  it('post', function () {
+    if (process.env.ENGINE === 'electron') return this.skip();
+
     return browser
       .do.post('/test/fixtures/do/post.html')
       .test.body(/post-test/);
