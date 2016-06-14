@@ -202,13 +202,13 @@ describe('Navit.do.*', function () {
     return browser
       .open('/test/fixtures/do/type.html')
       .do.type('#type-test', 'test-TEST-test')
-      .test.evaluate(function () {
-        return document.getElementById('type-test').value === 'test-TEST-test';
-      })
+      .get.evaluate(function () {
+        return document.getElementById('type-test').value;
+      }, data => assert.equal(data, 'test-TEST-test'))
       .do.type('#contenteditable-test', 'test-TEST-test')
-      .test.evaluate(function () {
-        return document.getElementById('contenteditable-test').innerHTML.trim() === 'test-TEST-test';
-      });
+      .get.evaluate(function () {
+        return document.getElementById('contenteditable-test').innerHTML.trim();
+      }, data => assert.equal(data, 'test-TEST-test'));
   });
 
   it('clear', function () {
