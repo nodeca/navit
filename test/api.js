@@ -219,6 +219,21 @@ describe('Navit api', function () {
       .close();
   });
 
+  describe('.run', function () {
+    // regression test: check that callback is called on teardown
+    it('teardown', function (callback) {
+      browser
+        .open('/test/fixtures/api/run.html')
+        .run(true, callback);
+    });
+
+    it('no teardown', function (callback) {
+      browser
+        .open('/test/fixtures/api/run.html')
+        .run(false, callback);
+    });
+  });
+
   after(function (done) {
     server.close();
     browser.exit(done);
