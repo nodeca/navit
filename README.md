@@ -185,7 +185,7 @@ Sugar:
 - \+ `.set.viewport(width, height)`
 - \+ `.set.zoom(scale)`
 - \+ `.set.cookie(obj)`
-- \+ `.set.cookie(name, value)`
+- \+ `.set.cookie(name, value)` *If value not passed, cookie will be deleted.
 
 
 ### Assertions: `.test.*()` & `test()`

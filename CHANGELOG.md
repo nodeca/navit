@@ -8,6 +8,7 @@
   - `.run()` returns `Promise` if invoked without callback.
   - Navit instance is thenable (`.run()` call can be skipped with promises).
 - `Electron` support added.
+- `.set.cookie(name)` (without value) will delete cookie.
 
 
 2.2.0 / 2016-03-17

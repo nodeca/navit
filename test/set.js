@@ -89,27 +89,61 @@ describe('Navit.set.*', function () {
       }, data => assert.deepEqual(data[0], 799));
   });
 
-  it('cookies', function () {
-    return browser
-      .open('/test/fixtures/set/cookies.html')
-      .set.cookie({
-        name: 'test',
-        value: 'cookie',
-        path: '/test'
-      })
-      .get.cookies(cookies => {
-        let cookie = _.find(cookies, cookie => cookie.name === 'test');
+  describe('cookies', function () {
+    it('set/get & remove by name', function () {
+      let count;
 
-        assert.equal(cookie.value, 'cookie');
-      })
-      // Remove cookie
-      .set.cookie({
-        name: 'test',
-        path: '/test',
-        value: 'cookie',
-        expires: Date.now() - 1000
-      })
-      .get.cookies(cookies => assert.equal(cookies.length, 0));
+      return browser
+        .open('/test/fixtures/set/cookies.html')
+        .set.cookie({
+          name: 'test',
+          value: 'cookie'
+        })
+        .get.cookies(cookies => {
+          count = cookies.length;
+
+          let cookie = _.find(cookies, cookie => cookie.name === 'test');
+          assert.equal(cookie.value, 'cookie');
+        })
+        // Remove cookie
+        .set.cookie('test')
+        .get.cookies(cookies => assert.equal(cookies.length, count - 1));
+    });
+
+    it('remove by expire', function () {
+      let count;
+
+      return browser
+        .open('/test/fixtures/set/cookies.html')
+        .set.cookie({
+          name: 'test',
+          value: 'cookie'
+        })
+        .get.cookies(cookies => { count = cookies.length; })
+        .set.cookie({
+          name: 'test',
+          value: 'cookie',
+          expires: 1 // Anything < Date.now() (0 fails in slimer)
+        })
+        .get.cookies(cookies => assert.equal(cookies.length, count - 1));
+    });
+
+    it.skip('set before open', function () {
+      return browser
+        .set.cookie({
+          name: 'test',
+          domain: 'localhost',
+          value: 'cookie'
+        })
+        .open('/test/fixtures/set/cookies.html')
+        .get.cookies(cookies => {
+          let cookie = _.find(cookies, cookie => cookie.name === 'test');
+          assert.equal(cookie.value, 'cookie');
+        })
+        // Remove cookie
+        .set.cookie('test')
+        .get.cookies(cookies => assert.equal(cookies.length, 0));
+    });
   });
 
   it('headers', function () {
