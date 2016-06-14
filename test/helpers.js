@@ -9,7 +9,7 @@ var fs   = require('fs');
 function tmp() {
   return path.join(
     require('os').tmpdir(),
-    require('crypto').randomBytes(8).toString('hex') + '.jpg'
+    require('crypto').randomBytes(8).toString('hex') + '.png'
   );
 }
 

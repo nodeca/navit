@@ -224,13 +224,13 @@ describe('Navit.do.*', function () {
       });
   });
 
-  it.skip('upload', function () {
+  it('upload', function () {
     // workaround for utf8 in dir names for SlimeerJS
     var file = helpers.toTmp(path.join(__dirname, 'fixtures', 'do', 'upload.txt'));
 
     return browser
       // Seems phantomjs has bug that cause crash on multiple open. Close tab to reset context.
-      .tab.close()
+      //.tab.close()
       .open('/test/fixtures/do/upload.html')
       .do.upload('#upload-file', file)
       .do.wait(function () {
@@ -255,7 +255,7 @@ describe('Navit.do.*', function () {
       );
   });
 
-  it.skip('screenshot', function () {
+  it('screenshot', function () {
     var screenshotPath = helpers.tmp();
 
     return browser
@@ -263,7 +263,6 @@ describe('Navit.do.*', function () {
       .do.screenshot(screenshotPath)
       .then(() => {
         assert.equal(fs.existsSync(screenshotPath), true);
-
         helpers.unlink(screenshotPath);
       });
   });
