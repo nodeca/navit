@@ -189,6 +189,21 @@ describe('Navit.do.*', function () {
       });
   });
 
+  it('fill', function () {
+    return browser
+      .open('/test/fixtures/do/fill.html')
+      .do.fill('#fill-test', {
+        foo: 'test',
+        bar: 'opt2'
+      })
+      .get.evaluate(function () {
+        return document.getElementById('field1').value;
+      }, data => assert.equal(data, 'test'))
+      .get.evaluate(function () {
+        return document.getElementById('field2').value;
+      }, data => assert.equal(data, 'opt2'));
+  });
+
   it('scrollTo', function () {
     return browser
       .open('/test/fixtures/do/scroll_to.html')

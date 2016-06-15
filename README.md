@@ -132,7 +132,7 @@ DOM:
 - \+ `.do.check(selector)` - toggles checkbox or radio
 - \+ `.do.select(selector, option)` - selects an `option` in dropdown
 - \+ `.do.upload(selector, path)` - selects a file in `input[type="file"]`
-- \+ `.do.fill(selector, obj [, submit])` - _not implemented yet_
+- \+ `.do.fill(selector, obj [, submit])` - fill out a form (same as `fill` in SlimerJS)
 - \+ `.do.scrollTo(top, left)` - executes `window.scrollTo(top, left)`
 - \+ `.do.inject([type, ] file)` - appends a script or stylesheets from external `file` to page, `type` can be one of `js` or `css` (default type is `js`).
 
