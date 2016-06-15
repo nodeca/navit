@@ -189,19 +189,55 @@ describe('Navit.do.*', function () {
       });
   });
 
-  it('fill', function () {
-    return browser
-      .open('/test/fixtures/do/fill.html')
-      .do.fill('#fill-test', {
-        foo: 'test',
-        bar: 'opt2'
-      })
-      .get.evaluate(function () {
-        return document.getElementById('field1').value;
-      }, data => assert.equal(data, 'test'))
-      .get.evaluate(function () {
-        return document.getElementById('field2').value;
-      }, data => assert.equal(data, 'opt2'));
+  describe('fill', function () {
+    it('all fields', function () {
+      return browser
+        .open('/test/fixtures/do/fill.html')
+        .do.fill('#fill-test', {
+          text:     'foo',
+          select:   'opt2',
+          radio:    true,
+          checkbox: true,
+          textarea: 'foo bar'
+        })
+        .get.evaluate(function () {
+          return document.getElementById('field_text').value;
+        }, data => assert.equal(data, 'foo'))
+        .get.evaluate(function () {
+          return document.getElementById('field_select').value;
+        }, data => assert.equal(data, 'opt2'))
+        .get.evaluate(function () {
+          return document.getElementById('field_radio').checked;
+        }, data => assert.equal(data, true))
+        .get.evaluate(function () {
+          return document.getElementById('field_checkbox').checked;
+        }, data => assert.equal(data, true))
+        .get.evaluate(function () {
+          return document.getElementById('field_textarea').value;
+        }, data => assert.equal(data, 'foo bar'));
+    });
+
+    it('select empty value', function () {
+      return browser
+        .open('/test/fixtures/do/fill.html')
+        .do.fill('#fill-test', {
+          select: ''
+        })
+        .get.evaluate(function () {
+          return document.getElementById('field_select').value;
+        }, data => assert.equal(data, ''));
+    });
+
+    it('select value by its text', function () {
+      return browser
+        .open('/test/fixtures/do/fill.html')
+        .do.fill('#fill-test', {
+          select: 'option2'
+        })
+        .get.evaluate(function () {
+          return document.getElementById('field_select').value;
+        }, data => assert.equal(data, 'opt2'));
+    });
   });
 
   it('scrollTo', function () {
