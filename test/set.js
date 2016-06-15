@@ -128,7 +128,7 @@ describe('Navit.set.*', function () {
         .get.cookies(cookies => assert.equal(cookies.length, count - 1));
     });
 
-    it.skip('set before open', function () {
+    it('set before open', function () {
       return browser
         .set.cookie({
           name: 'test',
