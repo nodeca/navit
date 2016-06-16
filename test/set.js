@@ -129,6 +129,8 @@ describe('Navit.set.*', function () {
     });
 
     it('set before open', function () {
+      let count;
+
       return browser
         .set.cookie({
           name: 'test',
@@ -137,12 +139,13 @@ describe('Navit.set.*', function () {
         })
         .open('/test/fixtures/set/cookies.html')
         .get.cookies(cookies => {
+          count = cookies.length;
           let cookie = _.find(cookies, cookie => cookie.name === 'test');
           assert.equal(cookie.value, 'cookie');
         })
         // Remove cookie
         .set.cookie('test')
-        .get.cookies(cookies => assert.equal(cookies.length, 0));
+        .get.cookies(cookies => assert.equal(cookies.length, count - 1));
     });
   });
 
