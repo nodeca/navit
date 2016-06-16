@@ -9,6 +9,7 @@
   - `.run()` returns `Promise` if invoked without callback.
   - Navit instance is thenable (`.run()` call can be skipped with promises).
 - `.set.cookie(name)` (without value) will delete cookie.
+- Increased default timeout to 10s.
 
 
 2.2.0 / 2016-03-17
