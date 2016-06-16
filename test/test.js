@@ -243,7 +243,7 @@ describe('Navit.test.*', function () {
           err => {
             assert.equal(
               err ? err.toString() : '',
-              'AssertionError: test.status() failed: expected 200 to equal 404'
+              'AssertionError: test.status(404) failed: expected 200 to equal 404'
             );
           }
         );
@@ -266,7 +266,7 @@ describe('Navit.test.*', function () {
           err => {
             assert.equal(
               err ? err.toString() : '',
-              'AssertionError: test.header(\'X-Powered-By\') failed: expected \'Express\' to equal \'foobar\''
+              "AssertionError: test.header('X-Powered-By', 'foobar') failed: expected 'Express' to equal 'foobar'"
             );
           }
         );
