@@ -271,7 +271,7 @@ describe('Navit.do.*', function () {
 
     return browser
       // Seems phantomjs has bug that cause crash on multiple open. Close tab to reset context.
-      //.tab.close()
+      .tab.close()
       .open('/test/fixtures/do/upload.html')
       .do.upload('#upload-file', file)
       .do.wait(function () {

@@ -219,6 +219,17 @@ describe('Navit api', function () {
       .close();
   });
 
+  it('.close', function () {
+    // check that server automatically restarts when you close it midway
+    browser
+      .close()
+      .open('/test/fixtures/api/close.html')
+      .test.evaluate(function () {
+        return document.querySelector('#test').value === 'foobar';
+      })
+      .run();
+  });
+
   describe('.run', function () {
     // regression test: check that callback is called on teardown
     it('teardown', function (callback) {
