@@ -11,8 +11,8 @@ to simplify browser tests scripting.
 Install
 -------
 
-Note, you need to install `phantomjs`, `slimerjs` or `electron` with this package, those are
-not included as dependencies.
+Note, you need to install `phantomjs`, `slimerjs` or `electron` with this
+package, those are not included as dependencies.
 
 ```bash
 # for phantomjs:
@@ -30,40 +30,36 @@ Examples
 --------
 
 ```js
-var Navit   = require('navit'),
-    browser = new Navit(); // Short call: `browser = require('navit')();`
+const browser = require('./')({ timeout: 30000, engine: 'electron' });
 
-var stack = []; // You can use lazy functions to pass data between stages,
-                // but arrays have more compact notation.
+const stack = []; // You can use lazy functions to pass data between stages,
+                  // but arrays have more compact notation.
 
-yield browser
-  .open('http://dev.nodeca.com')
-  .wait(function () {
-    if (window.NodecaLoader && window.NodecaLoader.booted) { return true; }
+browser
+  .open('https://dev.nodeca.com')
+  .wait(() => {
+    try { return window.NodecaLoader.booted; } catch (__) { return false; }
   })
-  .get.url(stack);
+  .get.url(stack)
   .click('forum-category__content:first forum-section__title-link')
-  .wait(function changed(data) {
-    if (location.url !== data[data.length - 1]) { return true; }
-  }, stack)
+  .wait(data => location.url !== data[data.length - 1], stack)
   .test.exists('.forum-topiclines')
   .close()
+  .then(() => console.log('Succeeded'), err => console.log(err));
 
 // Or with callback (old way)
 
 browser
-  .open('http://dev.nodeca.com')
-  .wait(function () {
-    if (window.NodecaLoader && window.NodecaLoader.booted) { return true; }
+  .open('https://dev.nodeca.com')
+  .wait(() => {
+    try { return window.NodecaLoader.booted; } catch (__) { return false; }
   })
-  .get.url(stack);
+  .get.url(stack)
   .click('forum-category__content:first forum-section__title-link')
-  .wait(function changed(data) {
-    if (location.url !== data[data.length - 1]) { return true; }
-  }, stack)
+  .wait(data => location.url !== data[data.length - 1], stack)
   .test.exists('.forum-topiclines')
   // first param `true` is equivalent to `.close()` call
-  .run(true, function(err) {
+  .run(true, function (err) {
     console.log(err || 'Succeeded');
   });
 ```
@@ -88,6 +84,12 @@ Some methods like `.get.evaluate()` allow to pass params to evaluated functions.
 because tailing callbacks are optional. That means, such functions must have
 explicit parameters list in definition, and you must pass exactly the same
 params count as defined. We decided, it's not a big price for nice API.
+
+* Electron: methods `.post`, `.frame.*` & `.zoom` are not implemented.
+* PhantomJS/SlimerJS: see [here](https://github.com/baudehlo/node-phantom-simple#known-issues). Also Electron is much more stable.
+
+Electron & SlimerJS are NOT headless. To run yous script in headless environment,
+you should [xvfb](https://github.com/electron/electron/blob/master/docs/tutorial/testing-on-headless-ci.md).
 
 
 ### new Navit(options, engineOpts)
