@@ -221,7 +221,7 @@ describe('Navit api', function () {
 
   it('.close', function () {
     // check that server automatically restarts when you close it midway
-    browser
+    return browser
       .close()
       .open('/test/fixtures/api/close.html')
       .test.evaluate(function () {
