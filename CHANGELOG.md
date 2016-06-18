@@ -1,4 +1,4 @@
-3.0.0 / WIP
+3.0.0 / 2016-06-18
 ------------------
 
 - (!!!) `Electron` support added. Much more stable engine.
