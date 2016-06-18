@@ -57,8 +57,6 @@ describe('Navit.set.*', function () {
   });
 
   it('zoom', function () {
-    if (process.env.ENGINE === 'electron') return this.skip();
-
     let size;
 
     return browser

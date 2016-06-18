@@ -85,7 +85,7 @@ because tailing callbacks are optional. That means, such functions must have
 explicit parameters list in definition, and you must pass exactly the same
 params count as defined. We decided, it's not a big price for nice API.
 
-* Electron: methods `.post`, `.frame.*` & `.zoom` are not implemented.
+* Electron: methods `.post` & `.frame.*` are not implemented.
 * PhantomJS/SlimerJS: see [here](https://github.com/baudehlo/node-phantom-simple#known-issues). Also Electron is much more stable.
 
 Electron & SlimerJS are NOT headless. To run yous script in headless environment,
