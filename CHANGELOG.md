@@ -1,3 +1,9 @@
+3.0.1 / 2016-09-27
+------------------
+
+- Fix freeze when trying to evaluate javascript during page load.
+
+
 3.0.0 / 2016-06-18
 ------------------
 
