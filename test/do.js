@@ -88,11 +88,9 @@ describe('Navit.do.*', function () {
           () => { throw new Error('Error should happen'); },
           err => { assert.equal(err ? err.name : '', 'NavitError'); }
         )
-        .then(() => {
-          // close browser, otherwise infinite reload
-          // will affect the next test
-          return browser.exit();
-        });
+        // close browser, otherwise infinite reload
+        // will affect the next test
+        .then(() => browser.exit());
     });
   });
 
