@@ -79,6 +79,21 @@ describe('Navit.do.*', function () {
           err => { assert.equal(err ? err.name : '', 'NavitError'); }
         );
     });
+
+    it('with selector fail when reloading', function () {
+      return browser
+        .open('/test/fixtures/do/reload-loop.html')
+        .do.wait('#unexisting-test-div', 100)
+        .then(
+          () => { throw new Error('Error should happen'); },
+          err => { assert.equal(err ? err.name : '', 'NavitError'); }
+        )
+        .then(() => {
+          // close browser, otherwise infinite reload
+          // will affect the next test
+          return browser.exit();
+        });
+    });
   });
 
   it('inject', function () {
