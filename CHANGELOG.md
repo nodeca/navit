@@ -1,3 +1,10 @@
+3.0.2 / 2016-10-16
+------------------
+
+- Update Electron package name to `electron`, with fallback to
+  legacy `electron-prebuilt`.
+
+
 3.0.1 / 2016-09-27
 ------------------
 
