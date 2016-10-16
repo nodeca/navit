@@ -22,7 +22,7 @@ npm install navit phantomjs-prebuilt --save
 npm install navit slimerjs --save
 
 # for electron:
-npm install navit electron-prebuilt --save
+npm install navit electron --save
 ```
 
 
