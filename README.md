@@ -100,8 +100,12 @@ __options__ (not mandatory):
   (`[ require.resolve('jquery/dist/jquery') ]`).
 - `timeout`: Page load and `.wait()` timeout, default `5000ms`.
 - `prefix`: url prefix for `.open()` and `.post()`, default empty string.
-- `engine`: `'phantomjs'` | `'slimerjs'`, default is `'phantomjs'`. Specify
-  engine to use. Make sure you installed `phantomjs` or `slimerjs` package.
+- `engine`: `'phantomjs'` | `'slimerjs'`, `'electron'`, default is
+  `'phantomjs'`. Specify engine driver to use. Make sure you installed
+  `phantomjs-prebuilt` or `slimerjs` or `electron` package.
+- `enginePath`: optional, direct path to browser engine. Don't use without
+   need, it should be autodetected via `phantomjs-prebuilt` / `slimerjs` /
+   `electron` packages. You still should specify `engine` option.
 
 __engineOpts__ (not mandatory, camelCase):
 

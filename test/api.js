@@ -219,6 +219,34 @@ describe('Navit api', function () {
       .close();
   });
 
+  it.only('enginePath', function () {
+    let enginePath;
+    let engine = ENGINE || 'phantomjs';
+
+    switch (engine) {
+      case 'phantomjs':
+        enginePath = require('phantomjs-prebuilt').path;
+        break;
+      case 'slimerjs':
+        enginePath = require('slimerjs').path;
+        break;
+      case 'electron':
+        enginePath = require('electron');
+        break;
+      default:
+        throw new Error('unknown engine name');
+    }
+
+    let browser = navit({ engine, enginePath });
+
+    return browser
+      .open('http://localhost:17345/test/fixtures/api/close.html')
+      .test.evaluate(function () {
+        return document.querySelector('#test').value === 'foobar';
+      })
+      .close();
+  });
+
   it('.close', function () {
     // check that server automatically restarts when you close it midway
     return browser

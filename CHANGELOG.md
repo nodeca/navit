@@ -1,7 +1,7 @@
 3.0.3 / WIP
 ------------------
 
-- add `option.enginePath`, #39.
+- Added `option.enginePath`, #39.
 - Replace makefile with npm scrips
 
 
