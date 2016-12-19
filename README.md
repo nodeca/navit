@@ -19,7 +19,7 @@ package, those are not included as dependencies.
 npm install navit phantomjs-prebuilt --save
 
 # for slimerjs:
-npm install navit slimerjs --save
+npm install navit slimerjs@0.9.6 --save
 
 # for electron:
 npm install navit electron --save

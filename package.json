@@ -27,6 +27,11 @@
     "phantomjs-prebuilt": "^2.1.5"
   },
   "scripts": {
-    "test": "make test"
+    "lint": "eslint .",
+    "test": "npm run lint && npm run test-phantomjs && npm run test-slimerjs && npm run test-electron",
+    "test-ci": "npm run lint && npm run test-phantomjs && npm run test-electron",
+    "test-phantomjs": "mocha",
+    "test-slimerjs": "ENGINE=slimerjs mocha",
+    "test-electron": "ENGINE=electron mocha"
   }
 }
