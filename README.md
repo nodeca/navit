@@ -1,6 +1,8 @@
 navit
 =====
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/nodeca/navit.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://img.shields.io/travis/nodeca/navit/master.svg?style=flat)](https://travis-ci.org/nodeca/navit)
 [![NPM version](https://img.shields.io/npm/v/navit.svg?style=flat)](https://www.npmjs.org/package/navit)
 
