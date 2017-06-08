@@ -219,7 +219,7 @@ describe('Navit api', function () {
       .close();
   });
 
-  it.only('enginePath', function () {
+  it('enginePath', function () {
     let enginePath;
     let engine = ENGINE || 'phantomjs';
 
