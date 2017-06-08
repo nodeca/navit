@@ -12,7 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^2.0.1",
-    "chai": "^3.0.0",
+    "chai": "^4.0.0",
     "debug": "^2.2.0",
     "lodash": "^4.0.0",
     "node-phantom-simple": "^2.0.0",
@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "basic-auth": "^1.0.4",
-    "electron": "^1.4.3",
+    "electron": "^1.7.2",
     "eslint": "^3.6.1",
     "express": "^4.14.0",
     "mocha": "^3.1.0",
