@@ -1,3 +1,9 @@
+3.1.0 / 2017-09-22
+------------------
+
+- .fn() function now can return Promise (and can be `async`).
+
+
 3.0.4 / 2017-06-08
 ------------------
 

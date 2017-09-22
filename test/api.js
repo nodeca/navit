@@ -123,7 +123,7 @@ describe('Navit api', function () {
   });
 
   describe('.fn', function () {
-    it('async', function () {
+    it('callback', function () {
       let results = [];
 
       return browser
@@ -147,6 +147,37 @@ describe('Navit api', function () {
         .open('/test/fixtures/api/fn.html')
         .get.text('body', results)
         .fn((a, b, c) => {
+          // Need trim because SlimerJS can add new line symbols at start and at end of body
+          assert.equal(_.trim(results[0], '\n'), 'test text');
+          assert.equal(a, 'a');
+          assert.equal(b, 'b');
+          assert.equal(c, 'c');
+        }, 'a', 'b', 'c');
+    });
+
+    it('promise', function () {
+      var results = [];
+
+      return browser
+        .open('/test/fixtures/api/fn.html')
+        .get.text('body', results)
+        .fn(function (a, b, c) {
+          // Need trim because SlimerJS can add new line symbols at start and at end of body
+          assert.equal(_.trim(results[0], '\n'), 'test text');
+          assert.equal(a, 'a');
+          assert.equal(b, 'b');
+          assert.equal(c, 'c');
+          return Promise.resolve();
+        }, 'a', 'b', 'c');
+    });
+
+    it('async', function () {
+      var results = [];
+
+      return browser
+        .open('/test/fixtures/api/fn.html')
+        .get.text('body', results)
+        .fn(async function (a, b, c) {
           // Need trim because SlimerJS can add new line symbols at start and at end of body
           assert.equal(_.trim(results[0], '\n'), 'test text');
           assert.equal(a, 'a');
