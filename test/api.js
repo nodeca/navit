@@ -252,7 +252,7 @@ describe('Navit api', function () {
 
   it('enginePath', function () {
     let enginePath;
-    let engine = ENGINE || 'phantomjs';
+    let engine = ENGINE || 'electron';
 
     switch (engine) {
       case 'phantomjs':

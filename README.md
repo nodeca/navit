@@ -4,25 +4,22 @@ navit
 [![Build Status](https://img.shields.io/travis/nodeca/navit/master.svg?style=flat)](https://travis-ci.org/nodeca/navit)
 [![NPM version](https://img.shields.io/npm/v/navit.svg?style=flat)](https://www.npmjs.org/package/navit)
 
-> Wrapper for [PhantomJS](http://phantomjs.org/) & [SlimerJS](http://slimerjs.org/)
+> Wrapper for [Electron](https://www.electronjs.org/) & [PhantomJS](https://phantomjs.org/)
 to simplify browser tests scripting.
 
 
 Install
 -------
 
-Note, you need to install `phantomjs`, `slimerjs` or `electron` with this
+Note, you need to install `electron` or `phantomjs` with this
 package, those are not included as dependencies.
 
 ```bash
-# for phantomjs:
-npm install navit phantomjs-prebuilt --save
-
-# for slimerjs:
-npm install navit slimerjs@0.906.2 --save
-
 # for electron:
 npm install navit electron --save
+
+# for phantomjs:
+npm install navit phantomjs-prebuilt --save
 ```
 
 
@@ -86,9 +83,9 @@ explicit parameters list in definition, and you must pass exactly the same
 params count as defined. We decided, it's not a big price for nice API.
 
 * Electron: methods `.post` & `.frame.*` are not implemented.
-* PhantomJS/SlimerJS: see [here](https://github.com/baudehlo/node-phantom-simple#known-issues). Also Electron is much more stable.
+* PhantomJS: see [here](https://github.com/baudehlo/node-phantom-simple#known-issues). Also Electron is much more stable.
 
-Electron & SlimerJS are NOT headless. To run yous script in headless environment,
+Electron is NOT headless. To run your script in headless environment,
 you should [xvfb](https://github.com/electron/electron/blob/master/docs/tutorial/testing-on-headless-ci.md).
 
 
@@ -100,17 +97,17 @@ __options__ (not mandatory):
   (`[ require.resolve('jquery/dist/jquery') ]`).
 - `timeout`: Page load and `.wait()` timeout, default `5000ms`.
 - `prefix`: url prefix for `.open()` and `.post()`, default empty string.
-- `engine`: `'phantomjs'` | `'slimerjs'`, `'electron'`, default is
-  `'phantomjs'`. Specify engine driver to use. Make sure you installed
-  `phantomjs-prebuilt` or `slimerjs` or `electron` package.
+- `engine`: `'electron'` | `'phantomjs'` | `'slimerjs'` *(deprecated)*, default is
+  `'electron'`. Specify engine driver to use. Make sure you installed
+  `electron`, `phantomjs-prebuilt` or `slimerjs` package.
 - `enginePath`: optional, direct path to browser engine. Don't use without
-   need, it should be autodetected via `phantomjs-prebuilt` / `slimerjs` /
-   `electron` packages. You still should specify `engine` option.
+   need, it should be autodetected via `electron` / `phantomjs-prebuilt`
+   packages. You still should specify `engine` option.
 
 __engineOpts__ (not mandatory, camelCase):
 
-See http://phantomjs.org/api/command-line.html and
-https://docs.slimerjs.org/current/configuration.html#command-line-options.
+See https://www.electronjs.org/docs/api/command-line-switches and
+https://phantomjs.org/api/command-line.html.
 You can pass any options, supported by browser engine. Option names should be
 in camelCase.
 

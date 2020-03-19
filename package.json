@@ -1,10 +1,10 @@
 {
   "name": "navit",
   "version": "3.1.0",
-  "description": "Wrapper for PhantomJS and SlimerJS to simplify browser tests scripting",
+  "description": "Wrapper for Electron and PhantomJS to simplify browser tests scripting",
   "keywords": [
+    "electron",
     "phantomjs",
-    "slimerjs",
     "testing",
     "browser"
   ],
@@ -28,10 +28,10 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "npm run lint && npm run test-phantomjs && npm run test-slimerjs && npm run test-electron",
+    "test": "npm run lint && npm run test-phantomjs && npm run test-electron",
     "test-ci": "npm run lint && npm run test-phantomjs && npm run test-electron",
-    "test-phantomjs": "mocha",
+    "test-phantomjs": "ENGINE=phantomjs mocha",
     "test-slimerjs": "ENGINE=slimerjs mocha",
-    "test-electron": "ENGINE=electron mocha"
+    "test-electron": "mocha"
   }
 }

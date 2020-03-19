@@ -23,7 +23,7 @@ describe('Navit.frame.*', function () {
   });
 
   it('enter', function () {
-    if (process.env.ENGINE === 'electron') return this.skip();
+    if ((process.env.ENGINE || 'electron') === 'electron') return this.skip();
 
     return browser
       .open('/test/fixtures/frame/enter.html')
@@ -35,7 +35,7 @@ describe('Navit.frame.*', function () {
   });
 
   it('exit', function () {
-    if (process.env.ENGINE === 'electron') return this.skip();
+    if ((process.env.ENGINE || 'electron') === 'electron') return this.skip();
 
     return browser
       .open('/test/fixtures/frame/exit.html')

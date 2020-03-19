@@ -1,3 +1,11 @@
+4.0.0 / WIP
+------------------
+
+- Updated Electron version from v2 to v8.
+- Default engine changed from `phantomjs` to `electron`.
+- `SlimerJS` is deprecated.
+
+
 3.1.0 / 2017-09-22
 ------------------
 

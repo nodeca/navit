@@ -328,7 +328,7 @@ describe('Navit.do.*', function () {
   });
 
   it('post', function () {
-    if (process.env.ENGINE === 'electron') return this.skip();
+    if ((process.env.ENGINE || 'electron') === 'electron') return this.skip();
 
     return browser
       .do.post('/test/fixtures/do/post.html')
