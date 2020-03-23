@@ -255,12 +255,6 @@ describe('Navit api', function () {
     let engine = ENGINE || 'electron';
 
     switch (engine) {
-      case 'phantomjs':
-        enginePath = require('phantomjs-prebuilt').path;
-        break;
-      case 'slimerjs':
-        enginePath = require('slimerjs').path;
-        break;
       case 'electron':
         enginePath = require('electron');
         break;

@@ -309,6 +309,24 @@ describe('Navit.test.*', function () {
         .open('/test/fixtures/test/body.html')
         .test(/test text/);
     });
+
+    it('status.not', function () {
+      return browser
+        .open('/test/fixtures/test/status.html')
+        .test.not(404);
+    });
+
+    it('header.not', function () {
+      return browser
+        .open('/test/fixtures/test/header.html')
+        .test.not('X-Powered-By', 'Not Express');
+    });
+
+    it('body.not', function () {
+      return browser
+        .open('/test/fixtures/test/body.html')
+        .test.not(/bla bla/);
+    });
   });
 
   describe('value', function () {

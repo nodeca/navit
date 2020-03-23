@@ -4,7 +4,6 @@
   "description": "Wrapper for Electron and PhantomJS to simplify browser tests scripting",
   "keywords": [
     "electron",
-    "phantomjs",
     "testing",
     "browser"
   ],
@@ -15,7 +14,6 @@
     "chai": "^4.0.0",
     "debug": "^4.1.1",
     "lodash": "^4.0.0",
-    "node-phantom-simple": "^2.0.0",
     "sliced": "^1.0.1"
   },
   "devDependencies": {
@@ -23,15 +21,12 @@
     "electron": "^8.1.1",
     "eslint": "^6.8.0",
     "express": "^4.14.0",
-    "mocha": "^7.1.1",
-    "phantomjs-prebuilt": "^2.1.5"
+    "mocha": "^7.1.1"
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "npm run lint && npm run test-phantomjs && npm run test-electron",
-    "test-ci": "npm run lint && npm run test-phantomjs && npm run test-electron",
-    "test-phantomjs": "ENGINE=phantomjs mocha",
-    "test-slimerjs": "ENGINE=slimerjs mocha",
+    "test": "npm run lint && npm run test-electron",
+    "test-ci": "npm run lint && npm run test-electron",
     "test-electron": "mocha"
   }
 }

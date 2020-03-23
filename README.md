@@ -4,22 +4,17 @@ navit
 [![Build Status](https://img.shields.io/travis/nodeca/navit/master.svg?style=flat)](https://travis-ci.org/nodeca/navit)
 [![NPM version](https://img.shields.io/npm/v/navit.svg?style=flat)](https://www.npmjs.org/package/navit)
 
-> Wrapper for [Electron](https://www.electronjs.org/) & [PhantomJS](https://phantomjs.org/)
-to simplify browser tests scripting.
+> Wrapper for [Electron](https://www.electronjs.org/) to simplify browser tests scripting.
 
 
 Install
 -------
 
-Note, you need to install `electron` or `phantomjs` with this
-package, those are not included as dependencies.
+Note, you need to install `electron` with this package, it is not included as
+a dependency.
 
 ```bash
-# for electron:
 npm install navit electron --save
-
-# for phantomjs:
-npm install navit phantomjs-prebuilt --save
 ```
 
 
@@ -83,7 +78,6 @@ explicit parameters list in definition, and you must pass exactly the same
 params count as defined. We decided, it's not a big price for nice API.
 
 * Electron: methods `.post` & `.frame.*` are not implemented.
-* PhantomJS: see [here](https://github.com/baudehlo/node-phantom-simple#known-issues). Also Electron is much more stable.
 
 Electron is NOT headless. To run your script in headless environment,
 you should [xvfb](https://github.com/electron/electron/blob/master/docs/tutorial/testing-on-headless-ci.md).
@@ -97,17 +91,13 @@ __options__ (not mandatory):
   (`[ require.resolve('jquery/dist/jquery') ]`).
 - `timeout`: Page load and `.wait()` timeout, default `5000ms`.
 - `prefix`: url prefix for `.open()` and `.post()`, default empty string.
-- `engine`: `'electron'` | `'phantomjs'` | `'slimerjs'` *(deprecated)*, default is
-  `'electron'`. Specify engine driver to use. Make sure you installed
-  `electron`, `phantomjs-prebuilt` or `slimerjs` package.
+- `engine`: optional, engine driver to use. Only `electron` is available for now.
 - `enginePath`: optional, direct path to browser engine. Don't use without
-   need, it should be autodetected via `electron` / `phantomjs-prebuilt`
-   packages. You still should specify `engine` option.
+   need, it should be autodetected via `electron` package.
 
 __engineOpts__ (not mandatory, camelCase):
 
-See https://www.electronjs.org/docs/api/command-line-switches and
-https://phantomjs.org/api/command-line.html.
+See https://www.electronjs.org/docs/api/command-line-switches.
 You can pass any options, supported by browser engine. Option names should be
 in camelCase.
 
