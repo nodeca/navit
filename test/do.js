@@ -92,6 +92,12 @@ describe('Navit.do.*', function () {
         // will affect the next test
         .then(() => browser.exit());
     });
+
+    it('with time in ms', function () {
+      return browser
+        .open('/test/fixtures/do/wait.html')
+        .do.wait(10);
+    });
   });
 
   it('inject', function () {
