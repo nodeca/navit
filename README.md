@@ -77,8 +77,6 @@ because tailing callbacks are optional. That means, such functions must have
 explicit parameters list in definition, and you must pass exactly the same
 params count as defined. We decided, it's not a big price for nice API.
 
-* Electron: methods `.post` & `.frame.*` are not implemented.
-
 Electron is NOT headless. To run your script in headless environment,
 you should [xvfb](https://github.com/electron/electron/blob/master/docs/tutorial/testing-on-headless-ci.md).
 
@@ -215,12 +213,6 @@ Special sugar:
 - `.tab.close([index])` - close tab by `index` or close current tab if `index` not specified
   - negative `index` address tab from the tail
   - after all tabs closed, new one will be created automatically
-
-
-### Frames: `.frame.*()`
-
-- `.frame.enter(selector)` - switch to frame by `selector`
-- `.frame.exit()` - exit to top window
 
 
 ### Other

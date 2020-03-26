@@ -1,8 +1,9 @@
 4.0.0 / WIP
 ------------------
 
+- __Breaking:__ Removed support for `PhantomJS` and `SlimerJS` (engines are outdated).
 - Updated Electron version from v2 to v8.
-- Removed support for `PhantomJS` and `SlimerJS` (engines are outdated).
+- `.do.post()` - implemented for electron.
 
 
 3.1.0 / 2017-09-22
