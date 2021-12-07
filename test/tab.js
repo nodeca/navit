@@ -1,7 +1,7 @@
 'use strict';
 
 
-const assert  = require('chai').assert;
+const assert  = require('assert');
 const express = require('express');
 const path    = require('path');
 const navit   = require('../');
