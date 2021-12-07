@@ -29,8 +29,8 @@ describe('Navit api', function () {
       });
   });
 
-  describe('.registerMethod', function () {
-    it('should register function in one namespace', function () {
+  describe('.registerMethod', () => {
+    it('should register function in one namespace', () => {
       var n = navit();
 
       n.registerMethod('test123', () => 'val');
@@ -38,7 +38,7 @@ describe('Navit api', function () {
       assert.equal(n.test123(), 'val');
     });
 
-    it('should remove function from one namespace', function () {
+    it('should remove function from one namespace', () => {
       var n = navit();
 
       n.registerMethod('test123', () => 'val');
@@ -49,7 +49,7 @@ describe('Navit api', function () {
       assert.throws(() => n.test123(), TypeError);
     });
 
-    it('should register function in multi namespace', function () {
+    it('should register function in multi namespace', () => {
       var n = navit();
 
       n.registerMethod([ 'my.test.namespace.one.test123', 'my.test.namespace.two.test123' ], function () {
@@ -60,7 +60,7 @@ describe('Navit api', function () {
       assert.equal(n.my.test.namespace.two.test123(), 'val');
     });
 
-    it('should remove function from multi namespace', function () {
+    it('should remove function from multi namespace', () => {
       let n = navit();
 
       n.registerMethod([ 'my.test.namespace.one.test123', 'my.test.namespace.two.test123' ], function () {
@@ -74,7 +74,7 @@ describe('Navit api', function () {
       assert.throws(() => n.my.test.namespace.two.test123(), TypeError);
     });
 
-    it('registered function should work in correct context', function () {
+    it('registered function should work in correct context', () => {
       let n = navit();
 
       n.testProperty = 'test value';
@@ -86,7 +86,7 @@ describe('Navit api', function () {
       assert.equal(n.test123(), 'test value');
     });
 
-    it('should register chain as function', function () {
+    it('should register chain as function', () => {
       var n = navit();
 
       n.registerMethod('test123',     () => '123');
@@ -96,7 +96,7 @@ describe('Navit api', function () {
       assert.equal(n.test123.not(), 'not123');
     });
 
-    it('should register remove function without', function () {
+    it('should register remove function without', () => {
       var n = navit();
 
       n.registerMethod('test123',     () => '123');
@@ -110,28 +110,28 @@ describe('Navit api', function () {
     });
   });
 
-  it('.batch', function () {
+  it('.batch', async () => {
     browser.batch.create('test_batch', function () {
       this
         .open('/test/fixtures/api/batch.html')
         .set.cookie('batch', 'cookies');
     });
 
-    return browser
+    await browser
       .batch('test_batch')
       .get.cookies(val => assert.equal(val[0].value, 'cookies'));
   });
 
-  describe('.fn', function () {
-    it('callback', function () {
+  describe('.fn', () => {
+    it('callback', async () => {
       let results = [];
 
-      return browser
+      await browser
         .open('/test/fixtures/api/fn.html')
         .get.text('body', results)
         .fn((a, b, c, next) => {
           // Need trim because SlimerJS can add new line symbols at start and at end of body
-          assert.equal(_.trim(results[0], '\n'), 'test text');
+          assert.equal(results[0].trim(), 'test text');
           assert.equal(a, 'a');
           assert.equal(b, 'b');
           assert.equal(c, 'c');
@@ -140,30 +140,30 @@ describe('Navit api', function () {
         }, 'a', 'b', 'c');
     });
 
-    it('sync', function () {
+    it('sync', async () => {
       var results = [];
 
-      return browser
+      await browser
         .open('/test/fixtures/api/fn.html')
         .get.text('body', results)
         .fn((a, b, c) => {
           // Need trim because SlimerJS can add new line symbols at start and at end of body
-          assert.equal(_.trim(results[0], '\n'), 'test text');
+          assert.equal(results[0].trim(), 'test text');
           assert.equal(a, 'a');
           assert.equal(b, 'b');
           assert.equal(c, 'c');
         }, 'a', 'b', 'c');
     });
 
-    it('promise', function () {
+    it('promise', async () => {
       var results = [];
 
-      return browser
+      await browser
         .open('/test/fixtures/api/fn.html')
         .get.text('body', results)
         .fn(function (a, b, c) {
           // Need trim because SlimerJS can add new line symbols at start and at end of body
-          assert.equal(_.trim(results[0], '\n'), 'test text');
+          assert.equal(results[0].trim(), 'test text');
           assert.equal(a, 'a');
           assert.equal(b, 'b');
           assert.equal(c, 'c');
@@ -171,15 +171,15 @@ describe('Navit api', function () {
         }, 'a', 'b', 'c');
     });
 
-    it('async', function () {
+    it('async', async () => {
       var results = [];
 
-      return browser
+      await browser
         .open('/test/fixtures/api/fn.html')
         .get.text('body', results)
         .fn(async function (a, b, c) {
           // Need trim because SlimerJS can add new line symbols at start and at end of body
-          assert.equal(_.trim(results[0], '\n'), 'test text');
+          assert.equal(results[0].trim(), 'test text');
           assert.equal(a, 'a');
           assert.equal(b, 'b');
           assert.equal(c, 'c');
@@ -196,14 +196,14 @@ describe('Navit api', function () {
     assert.equal(browser.use_test(), 'abc');
   });
 
-  it('afterOpen', function () {
+  it('afterOpen', async () => {
     browser.afterOpen = function () {
       this
         .set.cookie('ao', 'ao-test-cookies')
         .do.type('#ao-test', 'ao-test-type');
     };
 
-    return browser
+    await browser
       .open('/test/fixtures/api/after_open.html')
       .test.evaluate(function () {
         return document.querySelector('#ao-test').value === 'ao-test-type';
@@ -219,15 +219,13 @@ describe('Navit api', function () {
       );
   });
 
-  it('options.inject', function () {
+  it('options.inject', async () => {
     // workaround for utf8 in dir names for SlimeerJS
     let file = helpers.toTmp(path.join(__dirname, 'fixtures', 'api', 'inject.js'));
 
-    let browser = navit({ inject: [
-      file
-    ], engine: ENGINE });
+    let browser = navit({ inject: [ file ], engine: ENGINE });
 
-    return browser
+    await browser
       .open('http://localhost:17345/test/fixtures/api/inject.html')
       .test.text('#html-from-js', 'html from js')
       .do.reload()
@@ -239,10 +237,10 @@ describe('Navit api', function () {
       );
   });
 
-  it('engineOptions', function () {
+  it('engineOptions', async () => {
     let browser = navit({ engine: ENGINE }, { loadImages: false });
 
-    return browser
+    await browser
       .open('http://localhost:17345/test/fixtures/api/engine_options.html')
       .get.evaluate(function () {
         return [ document.querySelector('img').clientWidth, document.querySelector('img').clientHeight ];
@@ -250,7 +248,7 @@ describe('Navit api', function () {
       .close();
   });
 
-  it('enginePath', function () {
+  it('enginePath', async () => {
     let enginePath;
     let engine = ENGINE || 'electron';
 
@@ -264,7 +262,7 @@ describe('Navit api', function () {
 
     let browser = navit({ engine, enginePath });
 
-    return browser
+    await browser
       .open('http://localhost:17345/test/fixtures/api/close.html')
       .test.evaluate(function () {
         return document.querySelector('#test').value === 'foobar';
@@ -272,9 +270,9 @@ describe('Navit api', function () {
       .close();
   });
 
-  it('.close', function () {
+  it('.close', async () => {
     // check that server automatically restarts when you close it midway
-    return browser
+    await browser
       .close()
       .open('/test/fixtures/api/close.html')
       .test.evaluate(function () {
@@ -298,8 +296,8 @@ describe('Navit api', function () {
     });
   });
 
-  after(function (done) {
+  after(async () => {
     server.close();
-    browser.exit(done);
+    await browser.exit();
   });
 });

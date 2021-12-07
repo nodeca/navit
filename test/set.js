@@ -9,7 +9,7 @@ const navit   = require('../');
 const auth    = require('basic-auth');
 
 
-describe('Navit.set.*', function () {
+describe('Navit.set.*', () => {
   let server;
   let browser;
 
@@ -40,15 +40,15 @@ describe('Navit.set.*', function () {
       });
   });
 
-  it('authentication', function () {
-    return browser
+  it('authentication', async () => {
+    await browser
       .set.authentication('john', 'doe')
       .open('/test/fixtures/set/authentication.html')
       .test.exists('#test-div');
   });
 
-  it('useragent', function () {
-    return browser
+  it('useragent', async () => {
+    await browser
       .set.useragent('test-ua')
       .open('/test/fixtures/set/useragent.html')
       .test.evaluate(function () {
@@ -56,10 +56,10 @@ describe('Navit.set.*', function () {
       });
   });
 
-  it('zoom', function () {
+  it('zoom', async () => {
     let size;
 
-    return browser
+    await browser
       .open('/test/fixtures/set/zoom.html')
       .get.evaluate(function () {
         return [ window.innerWidth, window.innerHeight ];
@@ -67,12 +67,12 @@ describe('Navit.set.*', function () {
       .set.zoom(0.5)
       .get.evaluate(function () {
         return [ window.innerWidth, window.innerHeight ];
-      }, data => assert.deepEqual(data, [ size[0] * 2, size[1] * 2 ]))
+      }, data => assert.deepStrictEqual(data, [ size[0] * 2, size[1] * 2 ]))
       .set.zoom(1);
   });
 
-  it('viewport', function () {
-    return browser
+  it('viewport', async () => {
+    await browser
       // Check width only, because heght of electron in Travis-CI
       // is 25px less, for unknown reasons (local tests pass ok).
       .open('/test/fixtures/set/viewport.html')
@@ -99,11 +99,11 @@ describe('Navit.set.*', function () {
       });
   });
 
-  describe('cookies', function () {
-    it('set/get & remove by name', function () {
+  describe('cookies', () => {
+    it('set/get & remove by name', async () => {
       let count;
 
-      return browser
+      await browser
         .open('/test/fixtures/set/cookies.html')
         .set.cookie({
           name: 'test',
@@ -120,10 +120,10 @@ describe('Navit.set.*', function () {
         .get.cookies(cookies => assert.equal(cookies.length, count - 1));
     });
 
-    it('remove by expire', function () {
+    it('remove by expire', async () => {
       let count;
 
-      return browser
+      await browser
         .open('/test/fixtures/set/cookies.html')
         .set.cookie({
           name: 'test',
@@ -138,10 +138,10 @@ describe('Navit.set.*', function () {
         .get.cookies(cookies => assert.equal(cookies.length, count - 1));
     });
 
-    it('set before open', function () {
+    it('set before open', async () => {
       let count;
 
-      return browser
+      await browser
         .set.cookie({
           name: 'test',
           domain: 'localhost',
@@ -159,15 +159,15 @@ describe('Navit.set.*', function () {
     });
   });
 
-  it('headers', function () {
-    return browser
+  it('headers', async () => {
+    await browser
       .set.headers({ 'test-header': 'test-value' })
       .open('/test/fixtures/set/headers.html')
       .test.body(/test-value/);
   });
 
-  after(function (done) {
+  after(async () => {
     server.close();
-    browser.exit(done);
+    await browser.exit();
   });
 });

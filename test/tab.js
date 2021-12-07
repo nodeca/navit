@@ -7,11 +7,11 @@ const path    = require('path');
 const navit   = require('../');
 
 
-describe('Navit.tab.*', function () {
+describe('Navit.tab.*', () => {
   let server;
   let browser;
 
-  before(function (done) {
+  before(done => {
     browser = navit({ prefix: 'http://localhost:17345', engine: process.env.ENGINE });
 
     server = express()
@@ -23,30 +23,31 @@ describe('Navit.tab.*', function () {
       });
   });
 
-  it('open', function () {
-    return browser
+  it('open', async () => {
+    await browser
       .tab.open()
       .tab.open('/test/fixtures/tab/open.html')
       .test.url('http://localhost:17345/test/fixtures/tab/open.html')
       .close();
   });
 
-  it('count', function () {
-    var stack = [];
+  it('count', async () => {
+    const stack = [];
 
-    return browser
+    await browser
       .open('/test/fixtures/tab/count.html')
       .tab.count(stack)
       .tab.open('/test/fixtures/tab/count.html')
       .tab.open()
       .tab.open()
       .tab.count(stack)
-      .close()
-      .then(() => assert.strictEqual(stack[0] + 3, stack[1]));
+      .close();
+
+    assert.strictEqual(stack[0] + 3, stack[1]);
   });
 
-  it('switch', function () {
-    return browser
+  it('switch', async () => {
+    await browser
       .open('/test/fixtures/tab/open.html')
       .tab.open('/test/fixtures/tab/switch.html')
       .test.url('http://localhost:17345/test/fixtures/tab/switch.html')
@@ -55,8 +56,8 @@ describe('Navit.tab.*', function () {
       .close();
   });
 
-  it('close', function () {
-    return browser
+  it('close', async () => {
+    await browser
       .tab.switch(-1)
       .open('/test/fixtures/tab/open.html')
       .tab.open('/test/fixtures/tab/close.html')
@@ -66,8 +67,8 @@ describe('Navit.tab.*', function () {
       .close();
   });
 
-  after(function (done) {
+  after(async () => {
     server.close();
-    browser.exit(done);
+    await browser.exit();
   });
 });

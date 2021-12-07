@@ -6,7 +6,7 @@ const path    = require('path');
 const navit   = require('../');
 
 
-describe('Navit.frame.*', function () {
+describe('Navit.frame.*', () => {
   let server;
   let browser;
 
@@ -22,10 +22,10 @@ describe('Navit.frame.*', function () {
       });
   });
 
-  it('enter', function () {
+  it('enter', async function () {
     if ((process.env.ENGINE || 'electron') === 'electron') return this.skip();
 
-    return browser
+    await browser
       .open('/test/fixtures/frame/enter.html')
       .test.text('p', 'It is enter.html')
       .frame.enter('#test-frame')
@@ -34,10 +34,10 @@ describe('Navit.frame.*', function () {
       .close();
   });
 
-  it('exit', function () {
+  it('exit', async function () {
     if ((process.env.ENGINE || 'electron') === 'electron') return this.skip();
 
-    return browser
+    await browser
       .open('/test/fixtures/frame/exit.html')
       .frame.enter('iframe')
       .test.text('p', 'It is iframe.html')
@@ -46,8 +46,8 @@ describe('Navit.frame.*', function () {
       .close();
   });
 
-  after(function (done) {
+  after(async () => {
     server.close();
-    browser.exit(done);
+    await browser.exit();
   });
 });
