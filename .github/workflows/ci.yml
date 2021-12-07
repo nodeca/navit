@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * 3'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+
+    - run: npm install
+
+    - name: Test
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        run: npm test
