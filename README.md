@@ -1,7 +1,7 @@
 navit
 =====
 
-[![Build Status](https://img.shields.io/travis/nodeca/navit/master.svg?style=flat)](https://travis-ci.org/nodeca/navit)
+[![CI](https://github.com/nodeca/navit/actions/workflows/ci.yml/badge.svg)](https://github.com/nodeca/navit/actions/workflows/ci.yml)
 [![NPM version](https://img.shields.io/npm/v/navit.svg?style=flat)](https://www.npmjs.org/package/navit)
 
 > Wrapper for [Electron](https://www.electronjs.org/) to simplify browser tests scripting.
