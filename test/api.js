@@ -25,7 +25,7 @@ describe('Navit api', function () {
       .listen(17345, err => {
         if (err) return done(err);
         // Init engine before execute first test
-        browser.run(done);
+        browser.then(done);
       });
   });
 
@@ -277,23 +277,7 @@ describe('Navit api', function () {
       .open('/test/fixtures/api/close.html')
       .test.evaluate(function () {
         return document.querySelector('#test').value === 'foobar';
-      })
-      .run();
-  });
-
-  describe('.run', function () {
-    // regression test: check that callback is called on teardown
-    it('teardown', function (callback) {
-      browser
-        .open('/test/fixtures/api/run.html')
-        .run(true, callback);
-    });
-
-    it('no teardown', function (callback) {
-      browser
-        .open('/test/fixtures/api/run.html')
-        .run(false, callback);
-    });
+      });
   });
 
   after(async () => {

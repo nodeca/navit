@@ -28,7 +28,7 @@ describe('Navit.do.*', function () {
       .listen(17345, err => {
         if (err) return done(err);
         // Init engine before execute first test
-        browser.run(done);
+        browser.then(done);
       });
   });
 

@@ -2,6 +2,8 @@
 ------------------
 
 - node.js v14+ required.
+- Removed `.run()` method. Use async/await.
+- `.exit()`: removed callback support. Use async/await.
 
 
 

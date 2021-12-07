@@ -27,33 +27,22 @@ const browser = require('./')({ timeout: 30000, engine: 'electron' });
 const stack = []; // You can use lazy functions to pass data between stages,
                   // but arrays have more compact notation.
 
-browser
-  .open('https://dev.nodeca.com')
-  .wait(() => {
-    try { return window.NodecaLoader.booted; } catch (__) { return false; }
-  })
-  .get.url(stack)
-  .click('forum-category__content:first forum-section__title-link')
-  .wait(data => location.url !== data[data.length - 1], stack)
-  .test.exists('.forum-topiclines')
-  .close()
-  .then(() => console.log('Succeeded'), err => console.log(err));
+try {
+  await browser
+    .open('https://dev.nodeca.com')
+    .wait(() => {
+      try { return window.NodecaLoader.booted; } catch (__) { return false; }
+    })
+    .get.url(stack)
+    .click('forum-category__content:first forum-section__title-link')
+    .wait(data => location.url !== data[data.length - 1], stack)
+    .test.exists('.forum-topiclines')
+    .close();
 
-// Or with callback (old way)
-
-browser
-  .open('https://dev.nodeca.com')
-  .wait(() => {
-    try { return window.NodecaLoader.booted; } catch (__) { return false; }
-  })
-  .get.url(stack)
-  .click('forum-category__content:first forum-section__title-link')
-  .wait(data => location.url !== data[data.length - 1], stack)
-  .test.exists('.forum-topiclines')
-  // first param `true` is equivalent to `.close()` call
-  .run(true, function (err) {
-    console.log(err || 'Succeeded');
-  });
+  console.log('Succeeded');
+} catch (err) {
+  console.log(err));
+}
 ```
 
 Also look files in [test folder](https://github.com/nodeca/navit/tree/master/test).
@@ -65,7 +54,7 @@ API
 
 1. All methods are chainable.
 2. Methods, marked with `+` have direct aliases without namespace.
-3. Chain should be finished with terminator `.run([teardown,] callback)` call.
+3. Chain is then-able. You can apply `await` anytime, to execute stacked commands.
 4. Almost everywhere `String` & `Number` params can be defined as functions for
    lazy evaluation.
 
@@ -220,16 +209,11 @@ Special sugar:
 - `.fn(function, params)` - local function execute. Function can be with callback
   or sync or async or return Promise. Params count should match function signature
   for sync functions (and be 1 less for function with callback).
-- `.exit()` - tear down browser process. Note, browser will NOT be closed until
-  you do it explicit via this method or `.run(true, ...)`.
+- `.exit()` => `Promise` - tear down browser process. Note, browser will NOT be
+  closed until you do it explicit via this method or `.close()`.
 - `.close()` - similar to `.exit()` but stackable (will be executed in order
   with other chained commends).
-- `.run([teardown,] done)` - terminate sequence of commands (execute and do
-  callback).
-  - If `teardown` is `true`, then close the browser after the sequence
-    finishes.
-  - If callback not passed, return result as `Promise`.
-- `.then(onSuccess, onFail)` - executes `.run(false)` under the hood.
+- `.then(onSuccess, onFail)` - executes stacked commands.
 - `.screenshot([ selector|bounding_rect, type,] path)` - do screenshot
 - `.registerMethod(names, fn)` - add new method with given name(s) (`names`
   can be string or array).

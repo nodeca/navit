@@ -36,7 +36,7 @@ describe('Navit.set.*', () => {
       .listen(17345, err => {
         if (err) return done(err);
         // Init phantom before execute first test
-        browser.run(done);
+        browser.then(done);
       });
   });
 
