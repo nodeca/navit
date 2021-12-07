@@ -36,9 +36,9 @@ describe('Navit.get.*', () => {
       await assert.rejects(async () => {
         await browser
           .open('/test/fixtures/get/title.html')
-          .get.title((title, next) => {
+          .get.title(async title => {
             assert.strictEqual(title, 'test title');
-            next('test-err');
+            throw new Error('test-err');
           });
       }, /test-err/);
     });

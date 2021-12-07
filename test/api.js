@@ -123,23 +123,6 @@ describe('Navit api', function () {
   });
 
   describe('.fn', () => {
-    it('callback', async () => {
-      let results = [];
-
-      await browser
-        .open('/test/fixtures/api/fn.html')
-        .get.text('body', results)
-        .fn((a, b, c, next) => {
-          // Need trim because SlimerJS can add new line symbols at start and at end of body
-          assert.equal(results[0].trim(), 'test text');
-          assert.equal(a, 'a');
-          assert.equal(b, 'b');
-          assert.equal(c, 'c');
-
-          next();
-        }, 'a', 'b', 'c');
-    });
-
     it('sync', async () => {
       var results = [];
 

@@ -206,9 +206,8 @@ Special sugar:
 
 ### Other
 
-- `.fn(function, params)` - local function execute. Function can be with callback
-  or sync or async or return Promise. Params count should match function signature
-  for sync functions (and be 1 less for function with callback).
+- `.fn(function, params)` - local function execute. Function can be sync or
+  async (or return Promise). Params count should match function signature.
 - `.exit()` => `Promise` - tear down browser process. Note, browser will NOT be
   closed until you do it explicit via this method or `.close()`.
 - `.close()` - similar to `.exit()` but stackable (will be executed in order
