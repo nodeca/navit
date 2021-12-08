@@ -24,5 +24,11 @@
   "scripts": {
     "lint": "eslint .",
     "test": "npm run lint && mocha"
+  },
+  "mocha": {
+    "timeout": 10000
+  },
+  "engines": {
+    "node": ">=14"
   }
 }
