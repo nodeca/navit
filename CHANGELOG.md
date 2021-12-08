@@ -4,8 +4,7 @@
 - node.js v14+ required.
 - Removed `.run()` method. Use async/await.
 - `.exit()`: removed callback support. Use async/await.
-- Removed callback support in `.fn()` and all other functions, pass-able to
-  params. Use async/await.
+- Removed callback support in `.fn()` and lazy-evaluated params. Use async/await.
 
 
 
