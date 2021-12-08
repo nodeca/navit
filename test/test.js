@@ -95,7 +95,7 @@ describe('Navit.test.*', () => {
         await browser
           .open('/test/fixtures/test/count.html')
           .test.count.not('ul:first-child li', 7, 'li count wrong');
-      }, /AssertionError: li count wrong: expected 7 to not equal 7/);
+      }, /li count wrong/);
     });
   });
 
@@ -199,7 +199,7 @@ describe('Navit.test.*', () => {
           .test.evaluate(function (a, b, c) {
             return a + b + c === 7;
           }, 1, 2, 3, 'test msg');
-      }, /AssertionError: test msg: expected false to equal true/);
+      }, /test msg/);
     });
   });
 
@@ -215,7 +215,7 @@ describe('Navit.test.*', () => {
         await browser
           .open('/test/fixtures/test/status.html')
           .test.status(404);
-      }, /expected 200 to equal 404/);
+      }, /test\.status\(404\) failed \(got 200\)/);
     });
   });
 
@@ -231,7 +231,7 @@ describe('Navit.test.*', () => {
         await browser
           .open('/test/fixtures/test/header.html')
           .test.header('X-Powered-By', 'foobar');
-      }, /expected 'Express' to equal 'foobar'/);
+      }, /got 'Express'/);
     });
   });
 
