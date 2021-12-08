@@ -313,6 +313,9 @@ describe('Navit.do.*', function () {
     var screenshotPath = helpers.tmp();
 
     await browser
+      // Force new window until electron bug fixed
+      // https://github.com/electron/electron/issues/30666
+      .close()
       .open('/test/fixtures/do/screenshot.html')
       .do.screenshot(screenshotPath)
       .then(() => {

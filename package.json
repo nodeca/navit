@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "basic-auth": "^2.0.1",
-    "electron": "^11.5.0",
+    "electron": "^16.0.4",
     "eslint": "^8.4.1",
     "express": "^4.14.0",
     "mocha": "^9.1.3"

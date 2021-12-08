@@ -5,7 +5,7 @@
 - Removed `.run()` method. Use async/await.
 - `.exit()`: removed callback support. Use async/await.
 - Removed callback support in `.fn()` and lazy-evaluated params. Use async/await.
-
+- Fixed electron v12+ compatibility.
 
 
 4.0.0 / 2020-07-07
