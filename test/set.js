@@ -4,7 +4,6 @@
 const assert  = require('assert');
 const express = require('express');
 const path    = require('path');
-const _       = require('lodash');
 const navit   = require('../');
 const auth    = require('basic-auth');
 
@@ -112,7 +111,7 @@ describe('Navit.set.*', () => {
         .get.cookies(cookies => {
           count = cookies.length;
 
-          let cookie = _.find(cookies, cookie => cookie.name === 'test');
+          let cookie = (cookies || []).find(cookie => cookie.name === 'test');
           assert.equal(cookie.value, 'cookie');
         })
         // Remove cookie
@@ -150,7 +149,7 @@ describe('Navit.set.*', () => {
         .open('/test/fixtures/set/cookies.html')
         .get.cookies(cookies => {
           count = cookies.length;
-          let cookie = _.find(cookies, cookie => cookie.name === 'test');
+          let cookie = (cookies || []).find(cookie => cookie.name === 'test');
           assert.equal(cookie.value, 'cookie');
         })
         // Remove cookie

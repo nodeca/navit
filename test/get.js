@@ -4,7 +4,6 @@
 const assert  = require('assert');
 const express = require('express');
 const path    = require('path');
-const _       = require('lodash');
 const fs      = require('fs');
 const navit   = require('../');
 
@@ -212,7 +211,7 @@ describe('Navit.get.*', () => {
       .open('/test/fixtures/get/cookies.html')
       .set.cookie('a', 'b')
       .get.cookies(cookies => {
-        let cookie = _.find(cookies, cookie => cookie.name === 'a');
+        let cookie = (cookies || []).find(cookie => cookie.name === 'a');
 
         assert.strictEqual(cookie.value, 'b');
       });

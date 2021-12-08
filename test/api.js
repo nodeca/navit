@@ -4,7 +4,6 @@
 const assert  = require('assert');
 const express = require('express');
 const path    = require('path');
-const _       = require('lodash');
 const navit   = require('../');
 const helpers = require('./helpers');
 
@@ -192,7 +191,7 @@ describe('Navit api', function () {
         return document.querySelector('#ao-test').value === 'ao-test-type';
       })
       .get.cookies(cookies => {
-        let cookie = _.find(cookies, cookie => cookie.name === 'ao');
+        let cookie = (cookies || []).find(cookie => cookie.name === 'ao');
 
         assert.equal(cookie.value, 'ao-test-cookies');
       })
