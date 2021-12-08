@@ -1,6 +1,6 @@
 {
   "name": "navit",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Wrapper for Electron and PhantomJS to simplify browser tests scripting",
   "keywords": [
     "electron",
