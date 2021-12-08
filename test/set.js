@@ -112,11 +112,11 @@ describe('Navit.set.*', () => {
           count = cookies.length;
 
           let cookie = (cookies || []).find(cookie => cookie.name === 'test');
-          assert.equal(cookie.value, 'cookie');
+          assert.strictEqual(cookie.value, 'cookie');
         })
         // Remove cookie
         .set.cookie('test')
-        .get.cookies(cookies => assert.equal(cookies.length, count - 1));
+        .get.cookies(cookies => assert.strictEqual(cookies.length, count - 1));
     });
 
     it('remove by expire', async () => {
@@ -134,7 +134,7 @@ describe('Navit.set.*', () => {
           value: 'cookie',
           expires: 1 // Anything < Date.now() (0 fails in slimer)
         })
-        .get.cookies(cookies => assert.equal(cookies.length, count - 1));
+        .get.cookies(cookies => assert.strictEqual(cookies.length, count - 1));
     });
 
     it('set before open', async () => {
@@ -150,11 +150,11 @@ describe('Navit.set.*', () => {
         .get.cookies(cookies => {
           count = cookies.length;
           let cookie = (cookies || []).find(cookie => cookie.name === 'test');
-          assert.equal(cookie.value, 'cookie');
+          assert.strictEqual(cookie.value, 'cookie');
         })
         // Remove cookie
         .set.cookie('test')
-        .get.cookies(cookies => assert.equal(cookies.length, count - 1));
+        .get.cookies(cookies => assert.strictEqual(cookies.length, count - 1));
     });
   });
 

@@ -34,7 +34,7 @@ describe('Navit api', function () {
 
       n.registerMethod('test123', () => 'val');
 
-      assert.equal(n.test123(), 'val');
+      assert.strictEqual(n.test123(), 'val');
     });
 
     it('should remove function from one namespace', () => {
@@ -55,8 +55,8 @@ describe('Navit api', function () {
         return 'val';
       });
 
-      assert.equal(n.my.test.namespace.one.test123(), 'val');
-      assert.equal(n.my.test.namespace.two.test123(), 'val');
+      assert.strictEqual(n.my.test.namespace.one.test123(), 'val');
+      assert.strictEqual(n.my.test.namespace.two.test123(), 'val');
     });
 
     it('should remove function from multi namespace', () => {
@@ -82,7 +82,7 @@ describe('Navit api', function () {
         return this.testProperty;
       });
 
-      assert.equal(n.test123(), 'test value');
+      assert.strictEqual(n.test123(), 'test value');
     });
 
     it('should register chain as function', () => {
@@ -91,8 +91,8 @@ describe('Navit api', function () {
       n.registerMethod('test123',     () => '123');
       n.registerMethod('test123.not', () => 'not123');
 
-      assert.equal(n.test123(), '123');
-      assert.equal(n.test123.not(), 'not123');
+      assert.strictEqual(n.test123(), '123');
+      assert.strictEqual(n.test123.not(), 'not123');
     });
 
     it('should register remove function without', () => {
@@ -105,7 +105,7 @@ describe('Navit api', function () {
       n.registerMethod('test123');
 
       assert.throws(() => n.test123(), TypeError);
-      assert.equal(n.test123.not(), 'not123');
+      assert.strictEqual(n.test123.not(), 'not123');
     });
   });
 
@@ -118,7 +118,7 @@ describe('Navit api', function () {
 
     await browser
       .batch('test_batch')
-      .get.cookies(val => assert.equal(val[0].value, 'cookies'));
+      .get.cookies(val => assert.strictEqual(val[0].value, 'cookies'));
   });
 
   describe('.fn', () => {
@@ -130,10 +130,10 @@ describe('Navit api', function () {
         .get.text('body', results)
         .fn((a, b, c) => {
           // Need trim because SlimerJS can add new line symbols at start and at end of body
-          assert.equal(results[0].trim(), 'test text');
-          assert.equal(a, 'a');
-          assert.equal(b, 'b');
-          assert.equal(c, 'c');
+          assert.strictEqual(results[0].trim(), 'test text');
+          assert.strictEqual(a, 'a');
+          assert.strictEqual(b, 'b');
+          assert.strictEqual(c, 'c');
         }, 'a', 'b', 'c');
     });
 
@@ -145,10 +145,10 @@ describe('Navit api', function () {
         .get.text('body', results)
         .fn(function (a, b, c) {
           // Need trim because SlimerJS can add new line symbols at start and at end of body
-          assert.equal(results[0].trim(), 'test text');
-          assert.equal(a, 'a');
-          assert.equal(b, 'b');
-          assert.equal(c, 'c');
+          assert.strictEqual(results[0].trim(), 'test text');
+          assert.strictEqual(a, 'a');
+          assert.strictEqual(b, 'b');
+          assert.strictEqual(c, 'c');
           return Promise.resolve();
         }, 'a', 'b', 'c');
     });
@@ -161,10 +161,10 @@ describe('Navit api', function () {
         .get.text('body', results)
         .fn(async function (a, b, c) {
           // Need trim because SlimerJS can add new line symbols at start and at end of body
-          assert.equal(results[0].trim(), 'test text');
-          assert.equal(a, 'a');
-          assert.equal(b, 'b');
-          assert.equal(c, 'c');
+          assert.strictEqual(results[0].trim(), 'test text');
+          assert.strictEqual(a, 'a');
+          assert.strictEqual(b, 'b');
+          assert.strictEqual(c, 'c');
         }, 'a', 'b', 'c');
     });
   });
@@ -175,7 +175,7 @@ describe('Navit api', function () {
         navit.registerMethod('use_test', () => a + b + c);
       }, 'a', 'b', 'c');
 
-    assert.equal(browser.use_test(), 'abc');
+    assert.strictEqual(browser.use_test(), 'abc');
   });
 
   it('afterOpen', async () => {
@@ -193,7 +193,7 @@ describe('Navit api', function () {
       .get.cookies(cookies => {
         let cookie = (cookies || []).find(cookie => cookie.name === 'ao');
 
-        assert.equal(cookie.value, 'ao-test-cookies');
+        assert.strictEqual(cookie.value, 'ao-test-cookies');
       })
       .then(
         () => { browser.afterOpen = null; },

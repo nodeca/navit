@@ -116,10 +116,10 @@ describe('Navit.do.*', function () {
     await browser
       .open('/test/fixtures/do/back.html')
       .open('/test/fixtures/do/forward.html')
-      .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/forward.html'))
+      .get.url(url => assert.strictEqual(url, 'http://localhost:17345/test/fixtures/do/forward.html'))
       .do.back()
       .do.wait()
-      .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'));
+      .get.url(url => assert.strictEqual(url, 'http://localhost:17345/test/fixtures/do/back.html'));
   });
 
   it('forward', async () => {
@@ -128,10 +128,10 @@ describe('Navit.do.*', function () {
       .open('/test/fixtures/do/back.html')
       .do.back()
       .do.wait()
-      .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/forward.html'))
+      .get.url(url => assert.strictEqual(url, 'http://localhost:17345/test/fixtures/do/forward.html'))
       .do.forward()
       .do.wait()
-      .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'));
+      .get.url(url => assert.strictEqual(url, 'http://localhost:17345/test/fixtures/do/back.html'));
   });
 
   describe('click', () => {
@@ -140,7 +140,7 @@ describe('Navit.do.*', function () {
         .open('/test/fixtures/do/click.html')
         .do.click('#click-test')
         .do.wait()
-        .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'));
+        .get.url(url => assert.strictEqual(url, 'http://localhost:17345/test/fixtures/do/back.html'));
     });
 
     it('with function', async () => {
@@ -148,7 +148,7 @@ describe('Navit.do.*', function () {
         .open('/test/fixtures/do/click.html')
         .do.click(function () { return '#click-test'; })
         .do.wait()
-        .get.url(url => assert.equal(url, 'http://localhost:17345/test/fixtures/do/back.html'));
+        .get.url(url => assert.strictEqual(url, 'http://localhost:17345/test/fixtures/do/back.html'));
     });
 
     // This test case cover phantomjs issue: https://github.com/ariya/phantomjs/issues/14109
@@ -219,10 +219,10 @@ describe('Navit.do.*', function () {
         .test.value('#field_select', 'opt2')
         .get.evaluate(function () {
           return document.getElementById('field_radio').checked;
-        }, data => assert.equal(data, true))
+        }, data => assert.strictEqual(data, true))
         .get.evaluate(function () {
           return document.getElementById('field_checkbox').checked;
-        }, data => assert.equal(data, true))
+        }, data => assert.strictEqual(data, true))
         .test.value('#field_textarea', 'foo bar');
     });
 
@@ -260,11 +260,11 @@ describe('Navit.do.*', function () {
       .do.type('#type-test', 'test-TEST-test')
       .get.evaluate(function () {
         return document.getElementById('type-test').value;
-      }, data => assert.equal(data, 'test-TEST-test'))
+      }, data => assert.strictEqual(data, 'test-TEST-test'))
       .do.type('#contenteditable-test', 'test-TEST-test')
       .get.evaluate(function () {
         return document.getElementById('contenteditable-test').innerHTML.trim();
-      }, data => assert.equal(data, 'test-TEST-test'));
+      }, data => assert.strictEqual(data, 'test-TEST-test'));
   });
 
   it('clear', async () => {
@@ -316,7 +316,7 @@ describe('Navit.do.*', function () {
       .open('/test/fixtures/do/screenshot.html')
       .do.screenshot(screenshotPath)
       .then(() => {
-        assert.equal(fs.existsSync(screenshotPath), true);
+        assert.strictEqual(fs.existsSync(screenshotPath), true);
         helpers.unlink(screenshotPath);
       });
   });

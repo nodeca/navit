@@ -122,7 +122,7 @@ describe('Navit.get.*', () => {
         .open('/test/fixtures/get/text.html')
         .get.text(
           () => '#test-div',
-          val => assert.equal(val, 'Here is HTML!')
+          val => assert.strictEqual(val, 'Here is HTML!')
         );
     });
   });
@@ -241,7 +241,7 @@ describe('Navit.get.*', () => {
   it('status', async () => {
     await browser
       .open('/test/fixtures/get/status.html')
-      .get.status(st => assert.equal(st, 200));
+      .get.status(st => assert.strictEqual(st, 200));
   });
 
   it('headers', async () => {
